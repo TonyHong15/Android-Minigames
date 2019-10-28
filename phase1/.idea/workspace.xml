@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04601c12-766b-427a-ad85-71269a93f522" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/UnlimitedAlienGames/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UnlimitedAlienGames/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/.idea/google-java-format.xml" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/.idea/google-java-format.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/build.gradle" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,6 +37,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -53,13 +54,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
             <path>
               <item name="phase1" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="H:\CSC207\group_0568\phase1" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="~/StudioProjects/liuziqi7/group_0568/phase1" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
           </expand>
           <select />
@@ -68,6 +68,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../PersonalMarkusRepository" />
   </component>
@@ -97,11 +98,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32980832" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.3295082" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
