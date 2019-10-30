@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.example.unlimitedaliengames.R;
 
-public class AlienGuesser extends AppCompatActivity {
+public class AlienGuesser extends AppCompatActivity implements GuesserView{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,5 +15,10 @@ public class AlienGuesser extends AppCompatActivity {
         setContentView(R.layout.activity_alien_guesser);
 
         Intent intent = getIntent();  //Leaving this here in case we need to send something through the intent in the future
+    }
+
+    @Override
+    public void handOutProblem(){
+
     }
 }
