@@ -2,9 +2,13 @@ package com.example.unlimitedaliengames;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.View;
+
+import com.example.unlimitedaliengames.alienguesser.AlienGuesser;
+import com.example.unlimitedaliengames.alienpainter.AlienPainter;
+import com.example.unlimitedaliengames.alienshooter.AlienShooter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,4 +17,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    public void goToAlienGuesser(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, AlienGuesser.class);
+        startActivity(intent);
+    }
+
+    public void goToAlienPainter(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, AlienPainter.class);
+        startActivity(intent);
+    }
+
+    public void goToAlienShooter(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, AlienShooter.class);
+        startActivity(intent);
+    }
+
 }
