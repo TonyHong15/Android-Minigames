@@ -3,4 +3,5 @@
     <string name="alien_guesser">Go To Alien Guesser</string>
     <string name="alien_shooter">Go To Alien Shooter</string>
     <string name="alien_painter">Go To Alien Painter</string>
+    <string name="alien_background">Alien Background</string>
 </resources>
