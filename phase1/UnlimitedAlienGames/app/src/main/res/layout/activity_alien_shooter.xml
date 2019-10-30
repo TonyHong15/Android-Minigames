@@ -4,14 +4,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".alienshooter.AlienShooter">
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="122dp"
-        android:layout_height="108dp"
-        android:layout_marginEnd="40dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="135dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".alienshooter.AlienShooter"/>
