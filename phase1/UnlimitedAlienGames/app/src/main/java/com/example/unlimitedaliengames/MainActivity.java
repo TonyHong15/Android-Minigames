@@ -21,19 +21,16 @@ public class MainActivity extends AppCompatActivity {
     public void goToAlienGuesser(View view) {
         // Do something in response to button
         startActivity(new Intent(this, AlienGuesser.class));
-        finish();
     }
 
     public void goToAlienPainter(View view) {
         // Do something in response to button
         startActivity(new Intent(this, AlienPainter.class));
-        finish();
     }
 
     public void goToAlienShooter(View view) {
         // Do something in response to button
         startActivity(new Intent(this, AlienShooter.class));
-        finish();
     }
 
 }
