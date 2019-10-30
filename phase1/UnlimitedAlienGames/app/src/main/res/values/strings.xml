@@ -9,4 +9,6 @@
     <string name="alien_shooter_points">Alien Point</string>
     <string name="alien_shooter_save">Alien Shooter Save</string>
     <string name="alien_shooter_exit">Alien Shooter Exit</string>
+    <string name="alien_guesser_input">Enter a Guess</string>
+    <string name="alien_guesser_guess_button">Guess</string>
 </resources>
