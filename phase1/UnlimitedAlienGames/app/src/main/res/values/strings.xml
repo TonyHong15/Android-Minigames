@@ -4,4 +4,9 @@
     <string name="alien_shooter">Go To Alien Shooter</string>
     <string name="alien_painter">Go To Alien Painter</string>
     <string name="alien_background">Alien Background</string>
+    <string name="alien_shooter_image">Alien</string>
+    <string name="alien_shooter_timer">Alien Timer</string>
+    <string name="alien_shooter_points">Alien Point</string>
+    <string name="alien_shooter_save">Alien Shooter Save</string>
+    <string name="alien_shooter_exit">Alien Shooter Exit</string>
 </resources>
