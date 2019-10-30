@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/problemView" />
 
     <Button
-        android:id="@+id/nextProblem"
+        android:id="@+id/nextButton"
         android:layout_width="96dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
