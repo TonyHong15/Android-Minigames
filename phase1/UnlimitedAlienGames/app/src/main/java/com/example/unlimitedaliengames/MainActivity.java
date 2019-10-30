@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.example.unlimitedaliengames.alienguesser.AlienGuesser;
 import com.example.unlimitedaliengames.alienpainter.AlienPainter;
-import com.example.unlimitedaliengames.alienshooter.AlienShooterView;
+import com.example.unlimitedaliengames.alienshooter.AlienShooter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToAlienShooter(View view) {
         // Do something in response to button
-        startActivity(new Intent(this, AlienShooterView.class));
+        startActivity(new Intent(this, AlienShooter.class));
     }
 
 }

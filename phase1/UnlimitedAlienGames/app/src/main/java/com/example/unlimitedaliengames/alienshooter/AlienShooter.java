@@ -9,7 +9,7 @@ import com.example.unlimitedaliengames.R;
 
 import java.util.List;
 
-public class AlienShooterView extends AppCompatActivity {
+public class AlienShooter extends AppCompatActivity {
 
     private List<ImageButton> aliens;
     private AlienShooterPresenter presenter;
