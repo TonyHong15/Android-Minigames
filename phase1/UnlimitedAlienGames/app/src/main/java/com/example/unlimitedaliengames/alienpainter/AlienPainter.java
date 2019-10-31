@@ -7,11 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.unlimitedaliengames.R;
 
 
-public class AlienPainter extends AppCompatActivity implements View.OnClickListener {
+public class AlienPainter extends AppCompatActivity implements View.OnClickListener, AlienPainterView {
 
     private ImageButton[][] grid = new ImageButton[3][3];
 
@@ -30,6 +31,11 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      */
     private TextView painterTextViewTime;
 
+    /**
+     * Holds the instance of AlienPainterTimer for the...timer
+     */
+    private AlienPainterTimer painterTimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +46,10 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         painterTextViewMoves = findViewById(R.id.painterTextView1);
         painterTextViewTime = findViewById(R.id.painterTextView2);
 
-        //Constructs the 2D array for the
+        //Initialize the Timer
+        painterTimer = new AlienPainterTimer(this);
+
+        //Constructs the 2D array for the imageButtons
         String imageButtonID;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -65,26 +74,56 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+        //Make sure the grid isn't entirely black at the beginning
+        grid[1][1].setImageResource(R.drawable.white_circle);
+        grid[1][1].setContentDescription("white");
+
+        //Start the Timer
+        startTimer();
+
     }
 
     /**
      * The event in which any of the imageButtons are pressed
      *
-     * @param v
+     * @param v The view
      */
     @Override
     public void onClick(View v) {
-        if (v.getContentDescription().equals("white")) {
-            v.setContentDescription(getString(R.string.alien_painter_black_clicked));
-        } else {
-            v.setContentDescription(getString(R.string.alien_painter_white_clicked));
+        //Checks whether the time is still active and whether the win condition has been met
+        if (painterTimer.getIsActive() && !checkWinCondition()) {
+            if (v.getContentDescription().equals("white")) {
+                v.setContentDescription(getString(R.string.alien_painter_black_clicked));
+            } else {
+                v.setContentDescription(getString(R.string.alien_painter_white_clicked));
+            }
+            moveCount++;
+            painterTextViewMoves.setText("Number of Moves: " + moveCount);
+
+            flipButton();
+
+            if (checkWinCondition()) {
+                Toast.makeText(this, "You have won!", Toast.LENGTH_SHORT).show();
+            }
         }
-        moveCount++;
-        painterTextViewMoves.setText("Number of Moves: " + moveCount);
 
-        flipButton();
+    }
 
-
+    /**
+     * Checks whether all the player has completed the task. In this case, all the buttons should
+     * be displaying a black circle.
+     *
+     * @return Whether the player has won or not
+     */
+    private boolean checkWinCondition() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (!grid[i][j].getContentDescription().equals("black")) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -136,56 +175,61 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
 
         //For rows
         if (i == 0) {
-            if (grid[i + 1][j].getContentDescription().equals(getString(R.string.alien_painter_black))) {
-                flip(i + 1, j, "black");
-            } else {
-                flip(i + 1, j, "white");
-            }
+            flip(i + 1, j, grid[i + 1][j].getContentDescription().toString());
         } else if (i == 2) {
-            if (grid[i - 1][j].getContentDescription().equals(getString(R.string.alien_painter_black))) {
-                flip(i - 1, j, "black");
-            } else {
-                flip(i - 1, j, "white");
-            }
+            flip(i - 1, j, grid[i - 1][j].getContentDescription().toString());
         } else {
-            if (grid[i + 1][j].getContentDescription().equals(getString(R.string.alien_painter_black))) {
-                flip(i + 1, j, "black");
-            } else {
-                flip(i + 1, j, "white");
-            }
+            flip(i + 1, j, grid[i + 1][j].getContentDescription().toString());
 
-            if (grid[i - 1][j].getContentDescription().equals(getString(R.string.alien_painter_black))) {
-                flip(i - 1, j, "black");
-            } else {
-                flip(i - 1, j, "white");
-            }
+            flip(i - 1, j, grid[i - 1][j].getContentDescription().toString());
         }
 
         //For columns
         if (j == 0) {
-            if (grid[i][j + 1].getContentDescription().equals(getString(R.string.alien_painter_black))) {
-                flip(i, j + 1, "black");
-            } else {
-                flip(i, j + 1, "white");
-            }
+            flip(i, j + 1, grid[i][j + 1].getContentDescription().toString());
         } else if (j == 2) {
-            if (grid[i][j - 1].getContentDescription().equals(getString(R.string.alien_painter_black))) {
-                flip(i, j - 1, "black");
-            } else {
-                flip(i, j - 1, "white");
-            }
+            flip(i, j - 1, grid[i][j - 1].getContentDescription().toString());
         } else {
-            if (grid[i][j + 1].getContentDescription().equals(getString(R.string.alien_painter_black))) {
-                flip(i, j + 1, "black");
-            } else {
-                flip(i, j + 1, "white");
-            }
+            flip(i, j + 1, grid[i][j + 1].getContentDescription().toString());
 
-            if (grid[i][j - 1].getContentDescription().equals(getString(R.string.alien_painter_black))) {
-                flip(i, j - 1, "black");
-            } else {
-                flip(i, j - 1, "white");
-            }
+            flip(i, j - 1, grid[i][j - 1].getContentDescription().toString());
         }
+    }
+
+    /**
+     * Starts the timer.
+     */
+    @Override
+    public void startTimer() {
+        painterTimer.setActive(true);
+        painterTimer.start();
+    }
+
+    /**
+     * When asking the player whether to play again and they answer yes, this is called.
+     */
+    @Override
+    public void resetTimer() {
+
+    }
+
+    /**
+     * Updates the time displayed on screen.
+     *
+     * @param text the text to update painterTextViewTime with.
+     */
+    @Override
+    public void updateTimer(String text) {
+        painterTextViewTime.setText("Time Remaining: " + text);
+    }
+
+    /**
+     * Calls this when the timer is done.
+     */
+    @Override
+    public void TimerExpired() {
+        //Inform the player they have failed
+        Toast.makeText(this, "You have lost!", Toast.LENGTH_SHORT).show();
+        //Ask whether the player wants to try again
     }
 }
