@@ -3,33 +3,33 @@ package com.example.unlimitedaliengames.alienshooter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.unlimitedaliengames.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AlienShooter extends AppCompatActivity implements AlienShooterView {
-    //private static final int numOfAliens = 9;
-    private List<View> aliens;
+public class AlienShooter extends AppCompatActivity implements AlienShooterView,
+        View.OnClickListener {
     private AlienShooterPresenter presenter;
-
+    private static final int numOfAliens = 9;
     //timer
     private Timer timer;
     private TextView timer_text;
     private Button timer_button;
+    private List<View> aliens;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_shooter);
-        //presenter = new AlienShooterPresenter( );
-        //initializeAliens();
 
+        aliens = new ArrayList<>();
+        generateAliens();
+        generateOnClickListener();
         timer_text = findViewById(R.id.alienTimer);
         timer = new Timer(this);
         timer_button = findViewById(R.id.timer_button);
@@ -41,16 +41,25 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
             }
         });
 
-
+        presenter = new AlienShooterPresenter(this, new AlienShooterManager(), timer);
     }
 
-//    private void initializeAliens() {
-//        for (int i = 0; i < numOfAliens; i++) {
-//            aliens.add(findViewById(R.id.imageButton0));
-//        }
-//    }
+    private void generateAliens() {
+        for (int i = 1; i <= numOfAliens; i++) {
+            String temp = "imageButton" + i;
+            int tempID = getResources().getIdentifier(temp, "id", getPackageName());
+            aliens.add(findViewById(tempID));
+        }
+    }
 
-    public void startTimer() {
+    private void generateOnClickListener() {
+        for (int i = 0; i < numOfAliens; i++) {
+            aliens.get(i).setOnClickListener(this);
+        }
+    }
+
+
+    private void startTimer() {
         String temp = "Game in Progress";
         timer_button.setText(temp);
         timer.setActive(true);
@@ -67,5 +76,21 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
     @Override
     public void updateTimer(String text) {
         timer_text.setText(text);
+    }
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+        if (timer.getIsActive()) {
+            presenter.clickedAlien(v);
+        }
+    }
+
+    public void updateAliens(View v) {
+        v.setVisibility(View.INVISIBLE);
     }
 }

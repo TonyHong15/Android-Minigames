@@ -7,7 +7,7 @@
     tools:context=".alienshooter.AlienShooter">
 
     <ImageButton
-        android:id="@+id/imageButton0"
+        android:id="@+id/imageButton1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toTopOf="@+id/imageButton5"
         app:layout_constraintEnd_toStartOf="@+id/imageButton3"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton0"
+        app:layout_constraintStart_toEndOf="@+id/imageButton1"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/alien_shooter_image" />
 
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageButton5"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton0"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton1"
         app:srcCompat="@drawable/alien_shooter_image" />
 
     <ImageButton
