@@ -92,14 +92,17 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     private void submitGuessResult(){
         //For testing purpose, to be changed.
         handler.takeInAnswer(answer.getText().toString());
-        swapGameState();
     }
 
     private void requestProblem(){
         //For testing purpose, to be changed.
         TypedArray problems = getResources().obtainTypedArray(R.array.problem_bank);
-        int i = handler.handOutProblem(problems.length());
-        updateProblemView("problem_" + i);
-        swapGameState();
+        int i = (int) (Math.random() * problems.length()) + 1;
+        problems.recycle();
+
+        String name = "problem_" + i;
+        String answer_name = name + "_ans";
+        int id = getResources().getIdentifier(answer_name, "string", pack);
+        handler.handOutProblem(name, getString(id));
     }
 }

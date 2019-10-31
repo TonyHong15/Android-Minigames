@@ -1,12 +1,7 @@
 package com.example.unlimitedaliengames.alienguesser;
 
-import android.content.res.TypedArray;
-
-import java.lang.Math;
-
 public class ProblemHandler {
     private GuesserView guesserView;
-    private String givenProblem;
     private String correctAnswer;
     private String userAnswer;
 
@@ -33,6 +28,7 @@ public class ProblemHandler {
             guesserView.updateProblemView("wrong_guess_message");
             guesserView.updateProblemView("next_problem_message");
         }
+        guesserView.swapGameState();
     }
 
     private boolean checkAnswer(){
@@ -43,8 +39,11 @@ public class ProblemHandler {
         }
     }
 
-    public int handOutProblem(int length){
+    public void handOutProblem(String id, String answer){
+        correctAnswer = answer;
+
         guesserView.clearProblemView();
-        return (int) (Math.random() * length) + 1;
+        guesserView.updateProblemView(id);
+        guesserView.swapGameState();
     }
 }
