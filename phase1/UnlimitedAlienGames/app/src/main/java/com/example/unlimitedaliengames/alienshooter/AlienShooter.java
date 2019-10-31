@@ -13,29 +13,27 @@ import com.example.unlimitedaliengames.R;
 
 import java.util.List;
 
-public class AlienShooter extends AppCompatActivity {
+public class AlienShooter extends AppCompatActivity implements AlienShooterView {
 
     private List<ImageButton> aliens;
     private AlienShooterPresenter presenter;
 
     //timer
-    private long time_left = 30000;
+    private Timer timer;
     private TextView timer_text;
     private Button timer_button;
-    private boolean use_timer = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_shooter);
-
         timer_text = findViewById(R.id.alienTimer);
+        timer = new Timer(timer_text, this);
         timer_button = findViewById(R.id.timer_button);
-
         timer_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (use_timer)
+                if (!timer.getIsActive())
                     startTimer();
             }
         });
@@ -43,23 +41,19 @@ public class AlienShooter extends AppCompatActivity {
     }
 
     public void startTimer() {
-        use_timer = false;
         timer_button.setVisibility(View.INVISIBLE);
-        new CountDownTimer(time_left, 1000) {
-
-            public void onTick(long seconds) {
-                String text = "Time: " + seconds / 1000;
-                timer_text.setText(text);
-            }
-
-            public void onFinish() {
-            }
-        }.start();
-
+        timer.setActive(true);
+        timer.start();
     }
 
-    void changeAlien() {
-
+    @Override
+    public void resetTimer() {
+        timer_button.setVisibility(View.VISIBLE);
+        timer.setActive(false);
     }
 
+    @Override
+    public void updateTimer(String text) {
+        timer_text.setText(text);
+    }
 }
