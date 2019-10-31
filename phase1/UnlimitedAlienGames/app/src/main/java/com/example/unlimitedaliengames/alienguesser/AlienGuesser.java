@@ -89,6 +89,11 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
 
     }
 
+    @Override
+    public void finishGuess(){
+
+    }
+
     private void submitGuessResult(){
         //For testing purpose, to be changed.
         handler.takeInAnswer(answer.getText().toString());
@@ -105,4 +110,5 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         int id = getResources().getIdentifier(answer_name, "string", pack);
         handler.handOutProblem(name, getString(id));
     }
+
 }
