@@ -2,6 +2,8 @@ package com.example.unlimitedaliengames.alienshooter;
 
 import android.view.View;
 
+import java.util.List;
+
 class AlienShooterPresenter {
     private AlienShooterView view;
     private AlienShooterManager rules;
@@ -14,7 +16,7 @@ class AlienShooterPresenter {
         this.timer = timer;
     }
 
-    void clickedAlien(View v) {
+    void clickedAlien(View v, List aliens) {
         view.updateAliens(v);
 
     }

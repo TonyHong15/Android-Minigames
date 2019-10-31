@@ -86,11 +86,11 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     @Override
     public void onClick(View v) {
         if (timer.getIsActive()) {
-            presenter.clickedAlien(v);
+            presenter.clickedAlien(v, aliens);
         }
     }
 
-    public void updateAliens(View v) {
+    public void updateAliens(View v ) {
         v.setVisibility(View.INVISIBLE);
     }
 }

@@ -1,8 +1,11 @@
 package com.example.unlimitedaliengames.alienshooter;
 
-class AlienShooterManager {
+import android.widget.ImageButton;
 
-    AlienShooterManager(){
+class AlienShooterManager {
+    private int points;
+    private ImageButton redAlien;
+    AlienShooterManager() {
 
     }
 }
