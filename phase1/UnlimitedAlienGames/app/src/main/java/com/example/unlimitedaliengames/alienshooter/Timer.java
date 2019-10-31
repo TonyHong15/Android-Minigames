@@ -27,7 +27,7 @@ class Timer extends CountDownTimer {
 
     public void onFinish() {
         isActive = false;
-        cancel();
         view.resetTimer();
+        cancel();
     }
 }

@@ -14,8 +14,8 @@ import com.example.unlimitedaliengames.R;
 import java.util.List;
 
 public class AlienShooter extends AppCompatActivity implements AlienShooterView {
-
-    private List<ImageButton> aliens;
+    //private static final int numOfAliens = 9;
+    private List<View> aliens;
     private AlienShooterPresenter presenter;
 
     //timer
@@ -27,6 +27,9 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_shooter);
+        //presenter = new AlienShooterPresenter( );
+        //initializeAliens();
+
         timer_text = findViewById(R.id.alienTimer);
         timer = new Timer(this);
         timer_button = findViewById(R.id.timer_button);
@@ -38,17 +41,26 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
             }
         });
 
+
     }
 
+//    private void initializeAliens() {
+//        for (int i = 0; i < numOfAliens; i++) {
+//            aliens.add(findViewById(R.id.imageButton0));
+//        }
+//    }
+
     public void startTimer() {
-        timer_button.setVisibility(View.INVISIBLE);
+        String temp = "Game in Progress";
+        timer_button.setText(temp);
         timer.setActive(true);
         timer.start();
     }
 
     @Override
     public void resetTimer() {
-        timer_button.setVisibility(View.VISIBLE);
+        String temp = "Retry Game";
+        timer_button.setText(temp);
         timer.setActive(false);
     }
 
