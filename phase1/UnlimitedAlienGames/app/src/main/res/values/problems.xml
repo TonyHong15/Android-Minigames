@@ -9,4 +9,10 @@
     <string name="problem_3">
         An natural less than 1000 whose sum of digit is a 26.
     </string>
+
+    <array name="problem_bank">
+        <item>@string/problem_1</item>
+        <item>@string/problem_2</item>
+        <item>@string/problem_3</item>
+    </array>
 </resources>

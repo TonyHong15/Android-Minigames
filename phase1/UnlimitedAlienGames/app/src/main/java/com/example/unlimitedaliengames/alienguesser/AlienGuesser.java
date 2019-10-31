@@ -3,6 +3,7 @@ package com.example.unlimitedaliengames.alienguesser;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -96,7 +97,9 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
 
     private void requestProblem(){
         //For testing purpose, to be changed.
-        handler.handOutProblem();
+        TypedArray problems = getResources().obtainTypedArray(R.array.problem_bank);
+        int i = handler.handOutProblem(problems.length());
+        updateProblemView("problem_" + i);
         swapGameState();
     }
 }
