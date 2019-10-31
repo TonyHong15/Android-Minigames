@@ -5,4 +5,5 @@ public interface GuesserView {
     void updateProblemView(String message);
     void clearProblemView();
     void updateScoreView(String message);
+    void finishGuess();
 }

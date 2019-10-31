@@ -4,9 +4,11 @@ public class ProblemHandler {
     private GuesserView guesserView;
     private String correctAnswer;
     private String userAnswer;
+    private int problemAnswered;
 
     ProblemHandler(GuesserView view){
         guesserView = view;
+        problemAnswered = 0;
     }
 
     void onDestroy(){
@@ -28,7 +30,11 @@ public class ProblemHandler {
             guesserView.updateProblemView("wrong_guess_message");
             guesserView.updateProblemView("next_problem_message");
         }
-        guesserView.swapGameState();
+        if(problemAnswered <= 10){
+            guesserView.swapGameState();
+        }else{
+            guesserView.finishGuess();
+        }
     }
 
     private boolean checkAnswer(){
@@ -41,8 +47,10 @@ public class ProblemHandler {
 
     public void handOutProblem(String id, String answer){
         correctAnswer = answer;
+        problemAnswered += 1;
 
         guesserView.clearProblemView();
+        guesserView.updateProblemView("problem_" + problemAnswered + "_text");
         guesserView.updateProblemView(id);
         guesserView.swapGameState();
     }

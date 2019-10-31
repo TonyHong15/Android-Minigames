@@ -13,11 +13,6 @@
     <string name="submit">Submit</string>
     <string name="answer_hint">Please enter your guess</string>
     <string name="next">Next</string>
-    <string name="problem_1_text">Problem 1</string>
-    <string name="problem_2_text">Problem 2</string>
-    <string name="problem_3_text">Problem 3</string>
-    <string name="problem_4_text">Problem 4</string>
-    <string name="problem_5_text">Problem 5</string>
     <string name="next_problem_message">Click "Next" button for the next problem.</string>
     <string name="alien_painter_moves">Number of Moves: 0</string>
     <string name="alien_painter_timer">Time Passed: </string>
