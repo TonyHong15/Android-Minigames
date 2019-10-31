@@ -1,12 +1,14 @@
 package com.example.unlimitedaliengames.alienguesser;
 
-public class ProblemHandler {
+class ProblemHandler {
     private GuesserView guesserView;
     private String correctAnswer;
     private String userAnswer;
+    private int problemAnswered;
 
     ProblemHandler(GuesserView view){
         guesserView = view;
+        problemAnswered = 0;
     }
 
     void onDestroy(){
@@ -23,12 +25,17 @@ public class ProblemHandler {
 
         if(checkAnswer()){
             guesserView.updateProblemView("correct_guess_message");
-            guesserView.updateProblemView("next_problem_message");
         }else{
             guesserView.updateProblemView("wrong_guess_message");
-            guesserView.updateProblemView("next_problem_message");
         }
-        guesserView.swapGameState();
+
+        if(problemAnswered < 10){
+            guesserView.updateProblemView("next_problem_message");
+            guesserView.swapGameState();
+        }else{
+            guesserView.updateProblemView("game_finish_message");
+            guesserView.finishGuess();
+        }
     }
 
     private boolean checkAnswer(){
@@ -39,10 +46,12 @@ public class ProblemHandler {
         }
     }
 
-    public void handOutProblem(String id, String answer){
+    void handOutProblem(String id, String answer){
         correctAnswer = answer;
+        problemAnswered += 1;
 
         guesserView.clearProblemView();
+        guesserView.updateProblemView("problem_" + problemAnswered + "_text");
         guesserView.updateProblemView(id);
         guesserView.swapGameState();
     }

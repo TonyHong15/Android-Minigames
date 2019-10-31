@@ -220,7 +220,9 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      */
     @Override
     public void updateTimer(String text) {
-        painterTextViewTime.setText("Time Remaining: " + text);
+        if (!checkWinCondition()) {
+            painterTextViewTime.setText(R.string.alien_painter_timer + text);
+        }
     }
 
     /**
