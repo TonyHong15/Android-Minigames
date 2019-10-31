@@ -6,12 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.unlimitedaliengames.R;
 
 public class AlienGuesser extends AppCompatActivity implements GuesserView{
 
+    String pack;
     ProblemHandler handler;
+    private TextView problem;
+    private EditText answer;
     private Button submit;
     private Button next;
 
@@ -19,19 +24,24 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_guesser);
+        Intent intent = getIntent();
 
-        handler = new ProblemHandler();
+        pack = getPackageName();
+        handler = new ProblemHandler(this);
         submit = findViewById(R.id.submitButton);
         next = findViewById(R.id.nextButton);
-//        Intent intent = getIntent();
+        problem = findViewById(R.id.problemView);
+        answer = findViewById(R.id.answerText);
 
+        //Handling clicking event for submit button.
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getGuessResult();
+                submitGuessResult();
             }
         });
 
+        //handling clicking event for next button.
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,10 +51,10 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     }
 
     @Override
-    public void updateProblem(){
-
+    protected void onDestroy(){
+        handler.onDestroy();
+        super.onDestroy();
     }
-
     @Override
     public void swapGameState(){
         //Swap the visibility of submit button
@@ -61,11 +71,25 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         }
     }
 
-    private void getGuessResult(){
+    @Override
+    public void updateProblemView(String message){
+        int id = getResources().getIdentifier(message, "string", pack);
+        problem.setText(getString(id));
+    }
+
+    @Override
+    public void updateScoreView(String message){
+
+    }
+
+    private void submitGuessResult(){
+        //For testing purpose, to be changed.
+//        handler.takeInAnswer(answer.getText().toString());
         swapGameState();
     }
 
     private void requestProblem(){
+        //For testing purpose, to be changed.
         swapGameState();
     }
 }
