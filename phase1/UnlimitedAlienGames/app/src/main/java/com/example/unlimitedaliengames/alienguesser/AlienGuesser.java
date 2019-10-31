@@ -84,14 +84,10 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     }
 
     @Override
-    public void updateProblemView(String message, boolean direct){
-        if(direct){
-            problem.setText(message);
-        }else{
-            int id = getResources().getIdentifier(message, "string", pack);
-            String toView = problem.getText() + "\n" + getString(id);
-            problem.setText(toView);
-        }
+    public void updateProblemView(String message){
+        int id = getResources().getIdentifier(message, "string", pack);
+        String toView = problem.getText() + "\n" + getString(id);
+        problem.setText(toView);
     }
 
     @Override
