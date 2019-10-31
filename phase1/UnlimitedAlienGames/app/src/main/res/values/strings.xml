@@ -18,5 +18,11 @@
     <string name="problem_4">Problem 4</string>
     <string name="problem_5">Problem 5</string>
     <string name="next_problem_message">Click "Next" button for the next problem.</string>
+    <string name="alien_painter_moves">Number of Moves: 0</string>
+    <string name="alien_painter_timer">Time Passed: 0:00</string>
+    <string name="alien_painter_white">white</string>
+    <string name="alien_painter_black">black</string>
+    <string name="alien_painter_black_clicked">blackclicked</string>
+    <string name="alien_painter_white_clicked">whiteclicked</string>
 <!--    <string name=""></string>-->
 </resources>
