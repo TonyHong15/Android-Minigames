@@ -24,4 +24,5 @@
     <string name="alien_painter_white_clicked">whiteclicked</string>
     <string name="correct_guess_message">Congratulations, you have made the correct guess!</string>
     <string name="wrong_guess_message">Unfortunate, you have made an incorrect guess.</string>
+    <string name="alien_guesser_score">Score: </string>
 </resources>
