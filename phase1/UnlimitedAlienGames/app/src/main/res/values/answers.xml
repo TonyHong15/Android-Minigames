@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="problem_1">
+    <integer name="problem_1_ans">
         0
     </integer>
-    <integer name="problem_2">
+    <integer name="problem_2_ans">
         18
     </integer>
-    <string name="problem_3">
+    <string name="problem_3_ans">
         989
     </string>
 </resources>
