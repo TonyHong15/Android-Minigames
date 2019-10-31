@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="problem_1">
+        An natural less or equal to 10 that is a multiple of 4.
+    </string>
+    <string name="problem_2">
+        An natural between 10 and 20 whose sum of digits is a factor of itself.
+    </string>
+    <string name="problem_3">
+        An natural less than 1000 whose sum of digit is a 26.
+    </string>
+</resources>

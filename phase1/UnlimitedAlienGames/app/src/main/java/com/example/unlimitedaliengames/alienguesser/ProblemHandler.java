@@ -13,15 +13,20 @@ public class ProblemHandler {
     void onDestroy(){
         guesserView = null;
     }
-    public void takeInAnswer(String answer){
+
+    void takeInAnswer(String answer){
         userAnswer = answer;
         processAnswer();
     }
 
     private void processAnswer(){
+        guesserView.clearProblemView();
+
         if(checkAnswer()){
+            guesserView.updateProblemView("correct_guess_message");
             guesserView.updateProblemView("next_problem_message");
         }else{
+            guesserView.updateProblemView("wrong_guess_message");
             guesserView.updateProblemView("next_problem_message");
         }
         guesserView.swapGameState();
@@ -33,5 +38,9 @@ public class ProblemHandler {
         }else{
             return false;
         }
+    }
+
+    public int handOutProblem(){
+        return 1;
     }
 }

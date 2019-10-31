@@ -74,7 +74,13 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     @Override
     public void updateProblemView(String message){
         int id = getResources().getIdentifier(message, "string", pack);
-        problem.setText(getString(id));
+        String toView = problem.getText() + "\n" + getString(id);
+        problem.setText(toView);
+    }
+
+    @Override
+    public void clearProblemView(){
+        problem.setText("");
     }
 
     @Override
@@ -84,8 +90,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
 
     private void submitGuessResult(){
         //For testing purpose, to be changed.
-//        handler.takeInAnswer(answer.getText().toString());
-        swapGameState();
+        handler.takeInAnswer(answer.getText().toString());
     }
 
     private void requestProblem(){
