@@ -29,7 +29,6 @@ public class ProblemHandler {
             guesserView.updateProblemView("wrong_guess_message");
             guesserView.updateProblemView("next_problem_message");
         }
-        guesserView.swapGameState();
     }
 
     private boolean checkAnswer(){

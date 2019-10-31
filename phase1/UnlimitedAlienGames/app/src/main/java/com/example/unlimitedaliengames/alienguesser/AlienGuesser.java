@@ -91,10 +91,12 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     private void submitGuessResult(){
         //For testing purpose, to be changed.
         handler.takeInAnswer(answer.getText().toString());
+        swapGameState();
     }
 
     private void requestProblem(){
         //For testing purpose, to be changed.
+        handler.handOutProblem();
         swapGameState();
     }
 }
