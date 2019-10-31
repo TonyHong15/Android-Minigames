@@ -28,7 +28,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_shooter);
         timer_text = findViewById(R.id.alienTimer);
-        timer = new Timer(timer_text, this);
+        timer = new Timer(this);
         timer_button = findViewById(R.id.timer_button);
         timer_button.setOnClickListener(new View.OnClickListener() {
             @Override
