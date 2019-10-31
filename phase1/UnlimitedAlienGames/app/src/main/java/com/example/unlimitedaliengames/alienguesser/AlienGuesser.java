@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 
 public class AlienGuesser extends AppCompatActivity implements GuesserView{
@@ -20,6 +21,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     private EditText answer;
     private Button submit;
     private Button next;
+    private Button ret;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,10 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         handler = new ProblemHandler(this);
         submit = findViewById(R.id.submitButton);
         next = findViewById(R.id.nextButton);
+        ret = findViewById(R.id.returnButton);
         problem = findViewById(R.id.problemView);
         answer = findViewById(R.id.answerText);
+
 
         //Handling clicking event for submit button.
         submit.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +51,13 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
             @Override
             public void onClick(View v) {
                 requestProblem();
+            }
+        });
+
+        ret.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnToMain();
             }
         });
     }
@@ -91,7 +102,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
 
     @Override
     public void finishGuess(){
-
+        ret.setVisibility(View.VISIBLE);
     }
 
     private void submitGuessResult(){
@@ -111,4 +122,8 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         handler.handOutProblem(name, getString(id));
     }
 
+    private void returnToMain(){
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 }
