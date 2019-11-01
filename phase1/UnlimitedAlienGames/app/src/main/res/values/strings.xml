@@ -2,6 +2,15 @@
     <string name="app_name">Unlimited Alien Games</string>
     <string name="alien_guesser">Go To Alien Guesser</string>
     <string name="alien_shooter">Go To Alien Shooter</string>
+    <string name="alien_shooter_instruction_title">How to Play Alien Shooter?</string>
+    <string name="alien_shooter_instructions">In this game, you will be shooting evil aliens that
+    happen to see. \n\nA normal alien is a blue alien that you should not shoot. \n\nAn evil alien
+        is a red and yellow devil alien. \n\nThe purpose of this game is to click as many
+    evil aliens that you see as possible.\n\nEach successful hit on a evil alien gets you
+        one point while an
+    accidental hit to a normal alien loses you 2 points.\n\nYou will have 30 seconds to shoot as
+        many
+    evil aliens as you can and score as high as possible.\n\n Good Luck!! </string>
     <string name="alien_painter">Go To Alien Painter</string>
     <string name="alien_background">Alien Background</string>
     <string name="alien_shooter_image">Alien</string>
@@ -16,7 +25,7 @@
     <string name="ret_button">Return</string>
     <string name="next_problem_message">Click "Next" for the next problem.</string>
     <string name="game_finish_message">The game has finished, click "Return" to go to the main menu.</string>
-    <string name="guesser_welcom">
+    <string name="guesser_welcome">
         Welcome to AlienGuesser, in this game you will be presented various problems.
         Your goal is to make deduction based on the problem and guess the correct answer
         from a few possible answer. Each correct guess will award you two points, each incorrect

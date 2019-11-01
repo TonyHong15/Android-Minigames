@@ -14,9 +14,17 @@ import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 
 public class AlienGuesser extends AppCompatActivity implements GuesserView{
-
+    /*
+    The name of the package.
+     */
     String pack;
+    /*
+    Problem handler for the guesser.
+     */
     ProblemHandler handler;
+    /*
+    Components in the layout.
+     */
     private TextView problem;
     private EditText answer;
     private Button submit;
@@ -105,10 +113,16 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         ret.setVisibility(View.VISIBLE);
     }
 
+    /*
+    Send the user guess to the problem handler.
+     */
     private void submitGuessResult(){
         handler.takeInAnswer(answer.getText().toString());
     }
 
+    /*
+    Request from problem handler a random problem from the problem bank.
+     */
     private void requestProblem(){
         TypedArray problems = getResources().obtainTypedArray(R.array.problem_bank);
         int i = (int) (Math.random() * problems.length()) + 1;
@@ -120,6 +134,9 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         handler.handOutProblem(name, getString(id));
     }
 
+    /*
+    Return the the main menu.
+     */
     private void returnToMain(){
         startActivity(new Intent(this, MainActivity.class));
         finish();
