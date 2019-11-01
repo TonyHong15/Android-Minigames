@@ -3,8 +3,6 @@ package com.example.unlimitedaliengames.alienpainter;
 import android.content.Context;
 import android.widget.ImageButton;
 
-import com.example.unlimitedaliengames.R;
-
 /**
  * This class serves as the middle man between AlienPainter and AlienPainterFunctions
  */
@@ -30,15 +28,21 @@ class AlienPainterPresenter {
      */
     private AlienPainterFunctions buttonFunctions;
 
+    /**
+     * Holds the information of the user
+     */
+    //private User user;
+
     private Context mContext;
 
     /**
      * Creates an AlienPainterPresenter
-     * @param view The view
-     * @param painterTimer  The timer displayed
-     * @param grid  The 2D Array of imageButtons
+     *
+     * @param view            The view
+     * @param painterTimer    The timer displayed
+     * @param grid            The 2D Array of imageButtons
      * @param buttonFunctions The object referencing the class containing the rules
-     * @param mContext The Context
+     * @param mContext        The Context
      */
     AlienPainterPresenter(AlienPainterView view, AlienPainterTimer painterTimer, ImageButton[][] grid, AlienPainterFunctions buttonFunctions, Context mContext) {
         this.view = view;
@@ -59,6 +63,7 @@ class AlienPainterPresenter {
 
     /**
      * Updates the timeLeft variable used to track the time left
+     *
      * @param timeLeft the amount of time left until the end of the game
      */
     void setTimeLeft(int timeLeft) {
@@ -74,9 +79,14 @@ class AlienPainterPresenter {
 
     /**
      * Returns the number of moves the user has made
+     *
      * @return the number of moves the user has made
      */
     int getNumMoves() {
         return buttonFunctions.getNumMoves();
+    }
+
+    void resetBoard() {
+        buttonFunctions.resetGame();
     }
 }

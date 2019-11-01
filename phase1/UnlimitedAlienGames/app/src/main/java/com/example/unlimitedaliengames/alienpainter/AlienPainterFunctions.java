@@ -40,6 +40,7 @@ class AlienPainterFunctions {
 
     /**
      * Updates the timeLeft variable used to track the time left
+     *
      * @param timeLeft the amount of time left until the end of the game
      */
     void setTimeLeft(int timeLeft) {
@@ -49,12 +50,23 @@ class AlienPainterFunctions {
     /**
      * Updates the number of moves the user has made
      */
-    public void updateNumMoves() {
+    void updateNumMoves() {
         this.numMoves++;
     }
 
     /**
+     * Updates the number of moves the user has made, an overloaded version with an int
+     * parameter given
+     *
+     * @param num the number to update numMoves with
+     */
+    private void updateNumMoves(int num) {
+        this.numMoves = num;
+    }
+
+    /**
      * Returns the number of moves the user has made
+     *
      * @return the number of moves the user has made
      */
     int getNumMoves() {
@@ -65,7 +77,7 @@ class AlienPainterFunctions {
      * Flips the imageButtons around the imageButton the user clicked,
      * including the one the user clicked.
      */
-     void flipButton() {
+    void flipButton() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (grid[i][j].getContentDescription().equals(mContext.getString
@@ -128,6 +140,23 @@ class AlienPainterFunctions {
 
             flip(i, j - 1, grid[i][j - 1].getContentDescription().toString());
         }
+    }
+
+    void resetGame() {
+        for (int i = 0; i<3; i++){
+            for (int j = 0; j<3; j++){
+                double x = Math.random() * 2;
+                if (x < 1) {
+                    grid[i][j].setImageResource(R.drawable.black_circle);
+                    grid[i][j].setContentDescription(mContext.getString(R.string.alien_painter_black));
+                } else if (x < 2) {
+                    grid[i][j].setImageResource(R.drawable.white_circle);
+                    grid[i][j].setContentDescription(mContext.getString(R.string.alien_painter_white));
+                }
+            }
+        }
+
+        this.updateNumMoves(0);
     }
 
 }
