@@ -8,8 +8,6 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.unlimitedaliengames.alienguesser.AlienGuesser;
-
 public class LoginActivity extends AppCompatActivity {
 
     private EditText userName;
