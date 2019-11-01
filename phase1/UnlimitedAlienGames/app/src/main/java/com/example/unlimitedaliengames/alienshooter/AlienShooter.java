@@ -20,13 +20,17 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     private Timer timer;
     private TextView timer_text;
     private Button timer_button;
+
     private List<View> aliens;
+    private TextView instructionTitle;
+    private TextView instructions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_shooter);
-
+        instructions = findViewById(R.id.instructions);
+        instructionTitle = findViewById(R.id.instructionTitle);
         aliens = new ArrayList<>();
         generateAliens();
         generateOnClickListener();
@@ -38,6 +42,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
             public void onClick(View v) {
                 if (!timer.getIsActive()) {
                     startTimer();
+                    setVisibility();
                     presenter.randomizeAliens(aliens);
                 }
             }
@@ -60,6 +65,13 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         }
     }
 
+    private void setVisibility() {
+        instructionTitle.setVisibility(View.INVISIBLE);
+        instructions.setVisibility(View.INVISIBLE);
+        for (View alien : aliens) {
+            alien.setVisibility(View.VISIBLE);
+        }
+    }
 
     private void startTimer() {
         String temp = "Game in Progress";
