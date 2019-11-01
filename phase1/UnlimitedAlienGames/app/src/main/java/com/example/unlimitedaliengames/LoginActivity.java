@@ -3,10 +3,11 @@ package com.example.unlimitedaliengames;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.unlimitedaliengames.userdata.UserDatabase;
 
 /*
 An Login menu for the game.
@@ -18,8 +19,11 @@ public class LoginActivity extends AppCompatActivity {
      */
     private EditText userName;
     private EditText password;
-    private Button login;
-    private Button register;
+
+    /*
+    Array of users, currently only support 16 users.
+     */
+    private UserDatabase users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +32,24 @@ public class LoginActivity extends AppCompatActivity {
 
         userName = findViewById(R.id.userName);
         password = findViewById(R.id.password);
-        login = findViewById(R.id.loginButton);
-        register = findViewById(R.id.registerButton);
 
-        login.setOnClickListener(new View.OnClickListener() {
+        users = new UserDatabase();
+
+        //handling clicking for login
+        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onSuccess();
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+        //handling clicking for register.
+        findViewById(R.id.registerButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attemptRegister();
+                String user = userName.getText().toString();
+                String pass = password.getText().toString();
+                users.attemptRegister(user, pass);
             }
         });
     }
@@ -54,10 +62,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /*
-    Attempt to register.
+    Attempt to login based on given user name and password.
      */
-    void attemptRegister(){
-        String user = userName.getText().toString();
-        String pass = password.getText().toString();
+    void attemptLogin(String user, String pass){
+
     }
 }
