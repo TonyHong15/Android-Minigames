@@ -24,4 +24,8 @@ public interface GuesserView {
     Finishes game and prepare to return.
      */
     void finishGuess();
+    /*
+    Return the String from resources with given name.
+     */
+    String fetchFromRes(String name);
 }

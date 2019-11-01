@@ -1,5 +1,6 @@
 package com.example.unlimitedaliengames.alienguesser;
 
+import com.example.unlimitedaliengames.userdata.*;
 /*
 The controls for guesser game.
  */
@@ -8,12 +9,16 @@ class ProblemHandler {
     The interface.
      */
     private GuesserView guesserView;
-
+    /*
+    The current user
+     */
+    private User currUser;
     /*
     Game logic variables.
      */
     private static final int correctScore = 2;
     private static final int incorrectScore = -1;
+    private int bankSize;
 
     /*
     Globals representing the current game state.
@@ -25,7 +30,9 @@ class ProblemHandler {
     private int totalScore;
 
 
-    ProblemHandler(GuesserView view){
+    ProblemHandler(GuesserView view, User currUser, int bankSize){
+        this.bankSize = bankSize;
+        this.currUser = currUser;
         guesserView = view;
         givenProblem = null;
         correctAnswer = null;
@@ -49,6 +56,7 @@ class ProblemHandler {
     Process answer and display message.
      */
     private void processAnswer(){
+        problemAnswered += 1;
         guesserView.clearProblemView();
 
         if(checkAnswer()){
@@ -87,14 +95,17 @@ class ProblemHandler {
     /*
     Update view, display the problem based on rng, and save info about the problem.
      */
-    void handOutProblem(String id, String answer){
-        givenProblem = id;
-        correctAnswer = answer;
-        problemAnswered += 1;
+    void handOutProblem(){
+        int i = (int) (Math.random() * bankSize) + 1;
+        String name = "problem_" + i;
+        String answer_name = name + "_ans";
+
+        givenProblem = name;
+        correctAnswer = guesserView.fetchFromRes(answer_name);
 
         guesserView.clearProblemView();
-        guesserView.updateProblemView("problem_" + problemAnswered + "_text");
-        guesserView.updateProblemView(id);
+        guesserView.updateProblemView("problem_" + (problemAnswered+1) + "_text");
+        guesserView.updateProblemView(name);
         guesserView.swapGameState();
     }
 

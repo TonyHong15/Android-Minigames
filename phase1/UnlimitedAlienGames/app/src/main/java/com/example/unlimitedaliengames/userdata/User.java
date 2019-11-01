@@ -15,12 +15,12 @@ public class User implements Serializable {
     /*
     Stats for the guesser game.
      */
-    public GuesserData guesserData;
+    private GuesserData guesserData;
 
     /*
     Initialize a user with not game info.
      */
-    public User(String name, String password){
+    User(String name, String password){
         this.name = name;
         this.password = password;
     }
@@ -31,5 +31,13 @@ public class User implements Serializable {
 
     boolean matchPassword(String pass){
         return password.equals(pass);
+    }
+
+    void saveGuesser(GuesserData data){
+        this.guesserData = data;
+    }
+
+    void eraseGuesser(){
+        this.guesserData = null;
     }
 }

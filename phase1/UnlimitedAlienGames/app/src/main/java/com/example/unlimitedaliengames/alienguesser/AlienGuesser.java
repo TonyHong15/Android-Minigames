@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.unlimitedaliengames.LoginActivity;
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.userdata.*;
 
 public class AlienGuesser extends AppCompatActivity implements GuesserView{
     /*
@@ -37,8 +39,20 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         setContentView(R.layout.activity_alien_guesser);
         Intent intent = getIntent();
 
-        handler = new ProblemHandler(this);
+        TypedArray problems = getResources().obtainTypedArray(R.array.problem_bank);
 
+        handler = new ProblemHandler(this,
+                (User)intent.getParcelableExtra(LoginActivity.PASS_USER),
+                problems.length());
+
+        problems.recycle();
+        setUpInterface();
+    }
+
+    /*
+    Set up the globals and listeners.
+     */
+    private void setUpInterface() {
         pack = getPackageName();
         submit = findViewById(R.id.submitButton);
         next = findViewById(R.id.nextButton);
@@ -134,14 +148,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     Request from problem handler a random problem from the problem bank.
      */
     private void requestProblem(){
-        TypedArray problems = getResources().obtainTypedArray(R.array.problem_bank);
-        int i = (int) (Math.random() * problems.length()) + 1;
-        problems.recycle();
-
-        String name = "problem_" + i;
-        String answer_name = name + "_ans";
-        int id = getResources().getIdentifier(answer_name, "string", pack);
-        handler.handOutProblem(name, getString(id));
+        handler.handOutProblem();
     }
 
     /*
@@ -156,5 +163,11 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     private void returnToMain(){
         startActivity(new Intent(this, MainActivity.class));
         finish();
+    }
+
+    @Override
+    public String fetchFromRes(String name){
+        int id = getResources().getIdentifier(name, "string", pack);
+        return getString(id);
     }
 }
