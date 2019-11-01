@@ -5,13 +5,6 @@ import android.widget.ImageButton;
 
 import com.example.unlimitedaliengames.userdata.User;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 /**
  * This class serves as the middle man between AlienPainter and AlienPainterFunctions
  */
@@ -110,10 +103,10 @@ class AlienPainterPresenter {
     }
 
     /**
-     * Records the statistics of the player
+     * Records the statistics of the player by parsing the data into an xml file
      */
     void playerWon() {
-        //writeXML();
+
     }
 
 }
