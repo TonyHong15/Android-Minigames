@@ -5,7 +5,9 @@ interface AlienPainterView {
 
     void resetTimer();
 
-    void updateTimer(String text);
+    void updateTimer(int time);
 
     void TimerExpired();
+
+    void flipButton();
 }
