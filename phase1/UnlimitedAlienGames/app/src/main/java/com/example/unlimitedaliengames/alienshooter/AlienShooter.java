@@ -56,10 +56,18 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         exit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-              finish();
+                endGame();
             }
         });
         presenter = new AlienShooterPresenter(this, new AlienShooterManager());
+    }
+
+    /*
+    End the current instance of game and return to Main menu.
+     */
+    private void endGame(){
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void generateAliens() {
@@ -72,7 +80,6 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
 
     @Override
     protected void onDestroy() {
-        startActivity(new Intent(this, MainActivity.class));
         super.onDestroy();
         presenter.destroy();
     }

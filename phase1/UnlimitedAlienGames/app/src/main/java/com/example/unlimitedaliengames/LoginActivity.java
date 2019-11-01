@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onSuccess(new User("a", "a"));
             }
         });
 
