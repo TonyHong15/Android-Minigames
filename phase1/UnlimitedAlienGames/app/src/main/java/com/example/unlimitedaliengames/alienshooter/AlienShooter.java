@@ -2,12 +2,15 @@ package com.example.unlimitedaliengames.alienshooter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.alienpainter.AlienPainter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
 
     private TextView instructionTitle;
     private TextView instructions;
-
+    private View exit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +52,14 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
                 }
             }
         });
-
-        presenter = new AlienShooterPresenter(this, new AlienShooterManager(), timer);
+        exit = findViewById(R.id.exit_button);
+        exit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+              finish();
+            }
+        });
+        presenter = new AlienShooterPresenter(this, new AlienShooterManager());
     }
 
     private void generateAliens() {
@@ -59,6 +68,13 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
             int tempID = getResources().getIdentifier(temp, "id", getPackageName());
             aliens.add(findViewById(tempID));
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        startActivity(new Intent(this, MainActivity.class));
+        super.onDestroy();
+        presenter.destroy();
     }
 
     private void generateOnClickListener() {
