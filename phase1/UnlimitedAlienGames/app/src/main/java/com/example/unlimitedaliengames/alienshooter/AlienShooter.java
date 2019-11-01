@@ -65,13 +65,14 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         }
     }
 
-    private void setVisibility(){
+    private void setVisibility() {
         instructionTitle.setVisibility(View.INVISIBLE);
         instructions.setVisibility(View.INVISIBLE);
-        for (View alien: aliens){
+        for (View alien : aliens) {
             alien.setVisibility(View.VISIBLE);
         }
     }
+
     private void startTimer() {
         String temp = "Game in Progress";
         timer_button.setText(temp);
