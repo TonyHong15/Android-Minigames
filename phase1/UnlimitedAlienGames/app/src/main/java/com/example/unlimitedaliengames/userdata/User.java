@@ -33,11 +33,11 @@ public class User implements Serializable {
         return password.equals(pass);
     }
 
-    void saveGuesser(GuesserData data){
+    public void saveGuesser(GuesserData data){
         this.guesserData = data;
     }
 
-    void eraseGuesser(){
+    public void eraseGuesser(){
         this.guesserData = null;
     }
 }

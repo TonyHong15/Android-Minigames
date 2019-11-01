@@ -66,6 +66,7 @@ class ProblemHandler {
             guesserView.updateProblemView("wrong_guess_message");
             totalScore += incorrectScore;
         }
+
         guesserView.updateScoreView("Score: " + totalScore);
 
         if(problemAnswered < 10){
@@ -73,12 +74,12 @@ class ProblemHandler {
             guesserView.swapGameState();
         }else{
             guesserView.updateProblemView("game_finish_message");
-            givenProblem = null;
-            correctAnswer = null;
             problemAnswered = 0;
-            saveGame();
             guesserView.finishGuess();
         }
+        //So that the user will be getting different problem when saved after submit.
+        givenProblem = null;
+        correctAnswer = null;
     }
 
     /*
@@ -113,6 +114,7 @@ class ProblemHandler {
     Save the current game state.
      */
     void saveGame(){
-        String currProblem = givenProblem;
+        GuesserData d = new GuesserData(problemAnswered, totalScore, givenProblem, correctAnswer);
+        currUser.saveGuesser(d);
     }
 }

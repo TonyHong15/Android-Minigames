@@ -80,6 +80,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         ret.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                requestSave();
                 returnToMain();
             }
         });
