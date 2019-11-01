@@ -34,4 +34,8 @@
     <string name="correct_guess_message">Congratulations, you have made the correct guess!</string>
     <string name="wrong_guess_message">Unfortunate, you have made an incorrect guess.</string>
     <string name="alien_guesser_score">Score: </string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
 </resources>
