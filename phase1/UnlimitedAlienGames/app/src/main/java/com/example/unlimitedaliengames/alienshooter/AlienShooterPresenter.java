@@ -1,6 +1,7 @@
 package com.example.unlimitedaliengames.alienshooter;
 
 import android.view.View;
+import android.widget.ImageButton;
 
 import java.util.List;
 
@@ -16,9 +17,13 @@ class AlienShooterPresenter {
         this.timer = timer;
     }
 
-    void clickedAlien(View v, List aliens) {
+    void clickedAlien(View v, List<View> aliens) {
         view.updateAliens(v);
 
+    }
+
+    void randomizeAliens(List<View> aliens) {
+        rules.randomize(aliens);
     }
 
 

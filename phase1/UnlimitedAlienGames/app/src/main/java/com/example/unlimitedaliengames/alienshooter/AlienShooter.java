@@ -36,8 +36,10 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         timer_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!timer.getIsActive())
+                if (!timer.getIsActive()) {
                     startTimer();
+                    presenter.randomizeAliens(aliens);
+                }
             }
         });
 
@@ -90,7 +92,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         }
     }
 
-    public void updateAliens(View v ) {
+    public void updateAliens(View v) {
         v.setVisibility(View.INVISIBLE);
     }
 }
