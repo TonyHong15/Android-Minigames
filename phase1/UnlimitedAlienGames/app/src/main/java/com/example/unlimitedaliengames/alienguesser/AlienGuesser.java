@@ -37,15 +37,16 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_guesser);
-        Intent intent = getIntent();
 
         TypedArray problems = getResources().obtainTypedArray(R.array.problem_bank);
-
-        handler = new ProblemHandler(this,
-                (User)intent.getParcelableExtra(LoginActivity.PASS_USER),
-                problems.length());
-
+        int bankSize = problems.length();
         problems.recycle();
+
+        Intent intent = getIntent();
+        User curr = (User)intent.getSerializableExtra(LoginActivity.PASS_USER);
+        System.out.println(curr==null);
+        handler = new ProblemHandler(this, curr, bankSize);
+
         setUpInterface();
     }
 

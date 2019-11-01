@@ -15,7 +15,7 @@ public class User implements Serializable {
     /*
     Stats for the guesser game.
      */
-    private GuesserData guesserData;
+    public GuesserData guesserData;
 
     /*
     Initialize a user with not game info.
