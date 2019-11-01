@@ -6,8 +6,8 @@ class ProblemHandler {
     private String userAnswer;
     private int problemAnswered;
     private int totalScore = 0;
-    private int correctScore = 2;
-    private int incorrectScore = -1;
+    private static final int correctScore = 2;
+    private static final int incorrectScore = -1;
 
     ProblemHandler(GuesserView view){
         guesserView = view;
@@ -33,7 +33,7 @@ class ProblemHandler {
             guesserView.updateProblemView("wrong_guess_message");
             totalScore += incorrectScore;
         }
-        guesserView.updateScoreView("alien_guesser_score" + totalScore);
+        guesserView.updateScoreView("Score: " + totalScore);
 
         if(problemAnswered < 10){
             guesserView.updateProblemView("next_problem_message");

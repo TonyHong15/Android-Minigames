@@ -97,7 +97,8 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
 
     @Override
     public void updateScoreView(String message){
-
+        String toView = problem.getText() + "\n\n" + message + "\n";
+        problem.setText(toView);
     }
 
     @Override
