@@ -30,16 +30,6 @@ class AlienPainterPresenter {
      */
     private AlienPainterFunctions buttonFunctions;
 
-    /**
-     * Used to record the amount of time left when the player has won
-     */
-    private int timeLeft;
-
-    /**
-     * Used to record the number of moves the player has made
-     */
-    private int numMoves;
-
     private Context mContext;
 
     /**
@@ -72,14 +62,14 @@ class AlienPainterPresenter {
      * @param timeLeft the amount of time left until the end of the game
      */
     void setTimeLeft(int timeLeft) {
-        this.timeLeft = timeLeft;
+        buttonFunctions.setTimeLeft(timeLeft);
     }
 
     /**
      * Updates the number of moves the user has made
      */
     void updateNumMoves() {
-        this.numMoves++;
+        buttonFunctions.updateNumMoves();
     }
 
     /**
@@ -87,6 +77,6 @@ class AlienPainterPresenter {
      * @return the number of moves the user has made
      */
     int getNumMoves() {
-        return this.numMoves;
+        return buttonFunctions.getNumMoves();
     }
 }

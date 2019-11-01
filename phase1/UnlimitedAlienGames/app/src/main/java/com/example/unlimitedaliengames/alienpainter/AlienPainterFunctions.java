@@ -11,6 +11,16 @@ import com.example.unlimitedaliengames.R;
 class AlienPainterFunctions {
 
     /**
+     * Used to record the amount of time left when the player has won
+     */
+    private int timeLeft;
+
+    /**
+     * Used to record the number of moves the player has made
+     */
+    private int numMoves;
+
+    /**
      * Holds the view of the user
      */
     private AlienPainterView view;
@@ -26,6 +36,29 @@ class AlienPainterFunctions {
         this.view = view;
         this.grid = grid;
         this.mContext = mContext;
+    }
+
+    /**
+     * Updates the timeLeft variable used to track the time left
+     * @param timeLeft the amount of time left until the end of the game
+     */
+    void setTimeLeft(int timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+
+    /**
+     * Updates the number of moves the user has made
+     */
+    public void updateNumMoves() {
+        this.numMoves++;
+    }
+
+    /**
+     * Returns the number of moves the user has made
+     * @return the number of moves the user has made
+     */
+    int getNumMoves() {
+        return this.numMoves;
     }
 
     /**
@@ -96,4 +129,5 @@ class AlienPainterFunctions {
             flip(i, j - 1, grid[i][j - 1].getContentDescription().toString());
         }
     }
+
 }
