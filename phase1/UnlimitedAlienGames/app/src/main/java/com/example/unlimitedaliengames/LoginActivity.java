@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.unlimitedaliengames.userdata.UserDatabase;
+import com.example.unlimitedaliengames.userdata.*;
 
 /*
 An Login menu for the game.
@@ -17,8 +18,9 @@ public class LoginActivity extends AppCompatActivity {
     /*
     Components in the layout.
      */
-    private EditText userName;
+    private EditText username;
     private EditText password;
+    private TextView display;
 
     /*
     Array of users, currently only support 16 users.
@@ -30,8 +32,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        userName = findViewById(R.id.userName);
+        username = findViewById(R.id.userName);
         password = findViewById(R.id.password);
+        display = findViewById(R.id.messageDisplay);
 
         users = new UserDatabase();
 
@@ -39,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSuccess();
+
             }
         });
 
@@ -47,19 +50,22 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.registerButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user = userName.getText().toString();
-                String pass = password.getText().toString();
-                users.attemptRegister(user, pass);
+                attemptRegister();
             }
         });
     }
 
     /*
-    Go to main menu if successfully logged in.
+    Attempt to put a user into this database, if duplicated, change the password.
      */
-    void onSuccess(){
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+    private void attemptRegister() {
+        String user = username.getText().toString();
+        String pass = password.getText().toString();
+        if(users.attemptRegister(user, pass)){
+            display.setText(getString(R.string.register_ok));
+        }else{
+            display.setText(getString(R.string.register_fail));
+        }
     }
 
     /*
@@ -68,4 +74,13 @@ public class LoginActivity extends AppCompatActivity {
     void attemptLogin(String user, String pass){
 
     }
+
+    /*
+    Go to main menu if successfully logged in.
+    */
+    void onSuccess(User currUser){
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
 }

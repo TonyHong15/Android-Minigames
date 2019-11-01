@@ -1,7 +1,5 @@
 package com.example.unlimitedaliengames.userdata;
 
-import com.example.unlimitedaliengames.userdata.User;
-
 /*
 User database class, stores an array of users.
  */
@@ -18,17 +16,22 @@ public class UserDatabase {
         slot = 0;
     }
 
-    public void attemptRegister(String name, String pass){
+    /*
+    Attempt to put a user into this database, if duplicated, change the password.
+     */
+    public boolean attemptRegister(String name, String pass){
         for (int i = 0; i < 15; i++){
-            if ((users[i]).name.equals(name)){
+            if (users[i] != null && users[i].name.equals(name)){
                 users[i].setPassword(pass);
-            }else{
-                addUser(name, pass);
+                return false;
             }
         }
+        addUser(name, pass);
+        return true;
     }
 
     private void addUser(String name, String pass){
         users[slot] = new User(name, pass);
+        slot += 1;
     }
 }
