@@ -2,6 +2,7 @@ package com.example.unlimitedaliengames.alienguesser;
 
 class ProblemHandler {
     private GuesserView guesserView;
+    private String givenProblem;
     private String correctAnswer;
     private String userAnswer;
     private int problemAnswered;
@@ -53,6 +54,7 @@ class ProblemHandler {
     }
 
     void handOutProblem(String id, String answer){
+        givenProblem = id;
         correctAnswer = answer;
         problemAnswered += 1;
 

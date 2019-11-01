@@ -25,6 +25,15 @@
     <string name="ret_button">Return</string>
     <string name="next_problem_message">Click "Next" for the next problem.</string>
     <string name="game_finish_message">The game has finished, click "Return" to go to the main menu.</string>
+    <string name="guesser_welcom">
+        Welcome to AlienGuesser, in this game you will be presented various problems.
+        Your goal is to make deduction based on the problem and guess the correct answer
+        from a few possible answer. Each correct guess will award you two points, each incorrect
+        guess will deduct one point. Good Luck!
+        \n
+        \n
+        Click "Next" to begin guessing.
+    </string>
     <string name="alien_painter_moves">Number of Moves: 0</string>
     <string name="alien_painter_timer">Time Passed: </string>
     <string name="alien_painter_white">white</string>

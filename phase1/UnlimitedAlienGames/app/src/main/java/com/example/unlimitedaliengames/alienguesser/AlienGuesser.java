@@ -22,7 +22,6 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     private Button submit;
     private Button next;
     private Button ret;
-    private boolean start = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +36,6 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         ret = findViewById(R.id.returnButton);
         problem = findViewById(R.id.problemView);
         answer = findViewById(R.id.answerText);
-
-        if (!start){
-            start = true;
-            next.setText("Start!");
-            problem.setText("Questions will appear here");
-        }
 
         //Handling clicking event for submit button.
         submit.setOnClickListener(new View.OnClickListener() {
@@ -113,15 +106,10 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     }
 
     private void submitGuessResult(){
-        //For testing purpose, to be changed.
         handler.takeInAnswer(answer.getText().toString());
     }
 
     private void requestProblem(){
-        next.setText(getString(getResources().getIdentifier("next",
-                "string", pack)));
-
-        //For testing purpose, to be changed.
         TypedArray problems = getResources().obtainTypedArray(R.array.problem_bank);
         int i = (int) (Math.random() * problems.length()) + 1;
         problems.recycle();
