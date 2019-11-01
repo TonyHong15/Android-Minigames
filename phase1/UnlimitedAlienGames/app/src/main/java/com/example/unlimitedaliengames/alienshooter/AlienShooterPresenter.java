@@ -17,9 +17,9 @@ class AlienShooterPresenter {
 
     void clickedAlien(List<View> aliens, View v) {
         if (rules.checkAlien(v))
-            rules.changePoint(1);
+            rules.setPoints(1);
         else
-            rules.changePoint(-1);
+            rules.setPoints(-2);
         rules.randomize(aliens);
         view.updatePoints(rules.get_point());
     }

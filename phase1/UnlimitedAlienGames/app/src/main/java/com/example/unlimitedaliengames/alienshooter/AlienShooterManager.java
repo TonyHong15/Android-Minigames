@@ -9,18 +9,12 @@ import java.util.Random;
 
 class AlienShooterManager {
     private int points;
-    private View redAlien;
 
-    AlienShooterManager() {
-
+    AlienShooterManager(){
+        points = 0;
     }
-
     int get_point(){
         return points;
-    }
-
-    void setPoints(int p){
-        points = p;
     }
 
     void randomize(List<View> aliens) {
@@ -61,7 +55,7 @@ class AlienShooterManager {
         return v.getContentDescription().equals("red alien");
     }
 
-    void changePoint(int p) {
+    void setPoints(int p) {
         points += p;
     }
 }
