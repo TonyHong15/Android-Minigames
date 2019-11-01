@@ -16,7 +16,7 @@
     <string name="ret_button">Return</string>
     <string name="next_problem_message">Click "Next" for the next problem.</string>
     <string name="game_finish_message">The game has finished, click "Return" to go to the main menu.</string>
-    <string name="guesser_welcom">
+    <string name="guesser_welcome">
         Welcome to AlienGuesser, in this game you will be presented various problems.
         Your goal is to make deduction based on the problem and guess the correct answer
         from a few possible answer. Each correct guess will award you two points, each incorrect
