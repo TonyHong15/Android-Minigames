@@ -113,59 +113,7 @@ class AlienPainterPresenter {
      * Records the statistics of the player
      */
     void playerWon() {
-
+        //writeXML();
     }
 
-    /**
-     * Used to read the user data in painter_user_data
-     */
-    private void readXML() {
-        String username = "";
-        String password = "";
-        FileInputStream fis = null;
-
-        try {
-            fis = mContext.openFileInput(DATA_FILE_NAME);
-            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-            StringBuilder sb = new StringBuilder();
-
-            while ((username = br.readLine()) != null) {
-
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * This class is used to write to the xml file that holds the data of players for alien painter
-     */
-    public void writeXML() {
-        String username = currUser.getName();
-        String password = currUser.getPassword();
-        FileOutputStream fos = null;
-
-        try {
-            fos = mContext.openFileOutput(DATA_FILE_NAME, mContext.MODE_PRIVATE);
-            fos.write(username.getBytes());
-            fos.write(password.getBytes());
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                //close the FileOutputStream;
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 }
