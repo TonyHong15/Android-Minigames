@@ -93,4 +93,8 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="alien_painter_language_english">切换到英语</string>
+    <string name="alien_painter_language_chinese">Switch to Chinese</string>
+    <string name="alien_painter_exit_chinese">退出</string>
+    <string name="alien_painter_retry_chinese">重来</string>
 </resources>

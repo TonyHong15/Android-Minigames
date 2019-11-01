@@ -18,6 +18,34 @@ import com.example.unlimitedaliengames.userdata.User;
 
 public class AlienPainter extends AppCompatActivity implements View.OnClickListener, AlienPainterView {
 
+    /**
+     * The English Constants for what to display on the screen
+     */
+    private static final String NUM_MOVES = "Number of Moves: ";
+    private static final String TIME_LEFT = "Time Remaining: ";
+    private static final String WIN = "You Have Won!";
+    private static final String LOSS = "You Have Lost!";
+    private static final String INSTRUCTIONS_ENGLISH = "Clicking a button changes its and all " +
+            "nearby buttons' colour. Click on each button to try to get all of them to turn black";
+
+    /**
+     * The Chinese Constants for what to display on the screen
+     */
+    private static final String NUM_MOVES_CHINESE = "步数: ";
+    private static final String TIME_LEFT_CHINESE = "剩余时间: ";
+    private static final String WIN_CHINESE = "你赢了！";
+    private static final String LOSS_CHINESE = "你输了！";
+    private static final String INSTRUCTIONS_CHINESE = "点击一个按钮时会转变它和它周围的按钮的颜色，" +
+            "通过点击按钮来把它们全部变成黑色";
+
+    /**
+     * THhe boolean variable used to check whether the player has turned on Chinese Language
+     */
+    private boolean isEnglish;
+
+    /**
+     * The 2D Array of imageButtons
+     */
     private ImageButton[][] grid = new ImageButton[3][3];
 
     /**
@@ -51,6 +79,11 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     private Button retryButton;
 
     /**
+     * Refers to the button in alien painter layout that switches the language of the game
+     */
+    private Button languageButton;
+
+    /**
      * Holds the current user of this game
      */
     private User currUser;
@@ -65,21 +98,24 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
 
         painterTextViewMoves = findViewById(R.id.painterTextView1);
         painterTextViewTime = findViewById(R.id.painterTextView2);
-        exitButton = findViewById(R.id.exitButton);
-        retryButton = findViewById(R.id.retryButton);
+
+        isEnglish = true;
 
         //Initialize the Timer
         painterTimer = new AlienPainterTimer(this);
 
-        //Setup the exitButton and retryButton
+        //Setup the exitButton, languageButton and retryButton
         buttonSetup();
 
         //Construct the 2D imageButton array
         gridCreation();
 
         //Game Instructions
-        Toast.makeText(this, "Click on each button to try to get all of them to turn black", Toast.LENGTH_LONG).show();
-
+        if (isEnglish) {
+            Toast.makeText(this, INSTRUCTIONS_ENGLISH, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, INSTRUCTIONS_CHINESE, Toast.LENGTH_LONG).show();
+        }
         //Start the Timer
         startTimer();
 
@@ -91,9 +127,14 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     /**
      * Setup for the exitButton and retryButton.
      * When exitButton is clicked, the game goes back to MainActivity.
-     * When retryButton is called, the game resets its timer and generates a new board.
+     * When retryButton is clicked, the game resets its timer and generates a new board.
+     * When languageButton is clicked, the game changes its UI language to Chinese.
      */
     private void buttonSetup() {
+        exitButton = findViewById(R.id.exitButton);
+        retryButton = findViewById(R.id.retryButton);
+        languageButton = findViewById(R.id.languageButton);
+
         //Setup the exitButton
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +151,20 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 presenter.resetBoard();
                 painterTimer.reset();
-                painterTextViewMoves.setText("Number of Moves: " + presenter.getNumMoves());
+                if (isEnglish) {
+                    painterTextViewMoves.setText(NUM_MOVES + presenter.getNumMoves());
+                } else {
+                    painterTextViewMoves.setText(NUM_MOVES_CHINESE + presenter.getNumMoves());
+                }
+            }
+        });
+
+        //Setuo the languageButton
+        languageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isEnglish = !isEnglish;
+                updateLanguage();
             }
         });
     }
@@ -167,12 +221,21 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
                 v.setContentDescription(getString(R.string.alien_painter_white_clicked));
             }
             presenter.updateNumMoves();
-            painterTextViewMoves.setText("Number of Moves: " + presenter.getNumMoves());
+
+            if (isEnglish) {
+                painterTextViewMoves.setText(NUM_MOVES + presenter.getNumMoves());
+            } else {
+                painterTextViewMoves.setText(NUM_MOVES_CHINESE + presenter.getNumMoves());
+            }
 
             flipButton();
 
             if (checkWinCondition()) {
-                Toast.makeText(this, "You have won!", Toast.LENGTH_SHORT).show();
+                if (isEnglish) {
+                    Toast.makeText(this, WIN, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, WIN_CHINESE, Toast.LENGTH_SHORT).show();
+                }
                 presenter.playerWon();
             }
         }
@@ -232,7 +295,11 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     @Override
     public void updateTimer(int time) {
         if (!checkWinCondition()) {
-            painterTextViewTime.setText("Time Remaining: " + time);
+            if (isEnglish) {
+                painterTextViewTime.setText(TIME_LEFT + time);
+            } else {
+                painterTextViewTime.setText(TIME_LEFT_CHINESE + time);
+            }
             presenter.setTimeLeft(time);
         }
     }
@@ -243,7 +310,28 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     @Override
     public void TimerExpired() {
         //Inform the player they have failed
-        Toast.makeText(this, "You have lost!", Toast.LENGTH_SHORT).show();
+        if (isEnglish) {
+            Toast.makeText(this, LOSS, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, LOSS_CHINESE, Toast.LENGTH_SHORT).show();
+        }
+
         //Ask whether the player wants to try again
+    }
+
+    /**
+     * A helper function used to update the language displayed on the map when the use
+     * switches the language.
+     */
+    private void updateLanguage() {
+        if (isEnglish) {
+            languageButton.setText(R.string.alien_painter_language_chinese);
+            exitButton.setText(R.string.alien_painter_exit);
+            retryButton.setText(R.string.alien_painter_retry);
+        } else {
+            languageButton.setText(R.string.alien_painter_language_english);
+            exitButton.setText(R.string.alien_painter_exit_chinese);
+            retryButton.setText(R.string.alien_painter_retry_chinese);
+        }
     }
 }
