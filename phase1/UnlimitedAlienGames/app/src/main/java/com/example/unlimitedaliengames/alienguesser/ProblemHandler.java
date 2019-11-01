@@ -1,6 +1,9 @@
 package com.example.unlimitedaliengames.alienguesser;
 
 import com.example.unlimitedaliengames.userdata.*;
+
+import java.io.Serializable;
+
 /*
 The controls for guesser game.
  */
@@ -30,9 +33,9 @@ class ProblemHandler {
     private int totalScore;
 
 
-    ProblemHandler(GuesserView view, User currUser, int bankSize){
-        this.bankSize = bankSize;
-        this.currUser = currUser;
+    ProblemHandler(GuesserView view, User curr, int Size){
+        bankSize = Size;
+        currUser = curr;
         guesserView = view;
         givenProblem = null;
         correctAnswer = null;
@@ -116,5 +119,9 @@ class ProblemHandler {
     void saveGame(){
         GuesserData d = new GuesserData(problemAnswered, totalScore, givenProblem, correctAnswer);
         currUser.saveGuesser(d);
+    }
+
+    User getCurrUser(){
+        return currUser;
     }
 }

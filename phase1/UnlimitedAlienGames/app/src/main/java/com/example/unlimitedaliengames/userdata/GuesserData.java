@@ -1,9 +1,11 @@
 package com.example.unlimitedaliengames.userdata;
 
+import java.io.Serializable;
+
 /*
 Data packet for saving data of guesser game.
  */
-public class GuesserData {
+public class GuesserData implements Serializable {
 
     public int numProblem;
     public int guesserScore;

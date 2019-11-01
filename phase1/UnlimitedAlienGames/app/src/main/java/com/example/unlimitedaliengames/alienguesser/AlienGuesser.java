@@ -15,6 +15,8 @@ import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.userdata.*;
 
+import java.io.Serializable;
+
 public class AlienGuesser extends AppCompatActivity implements GuesserView{
     /*
     The name of the package.
@@ -44,7 +46,6 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
 
         Intent intent = getIntent();
         User curr = (User)intent.getSerializableExtra(LoginActivity.PASS_USER);
-        System.out.println(curr==null);
         handler = new ProblemHandler(this, curr, bankSize);
 
         setUpInterface();
@@ -91,6 +92,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
             @Override
             public void onClick(View v) {
                 requestSave();
+                returnToMain();
             }
         });
     }
@@ -158,12 +160,21 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
      */
     private void requestSave(){
         handler.saveGame();
+        User curr = handler.getCurrUser();
+        System.out.println("\n\n========= User Data =============");
+        System.out.println(curr.guesserData.correctAns);
+        System.out.println(curr.guesserData.currProblem);
+        System.out.println(curr.guesserData.guesserScore);
+        System.out.println(curr.guesserData.numProblem);
+        System.out.println("\n\n");
     }
     /*
     Return the the main menu.
      */
     private void returnToMain(){
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(LoginActivity.PASS_USER, handler.getCurrUser());
+        startActivity(intent);
         finish();
     }
 
