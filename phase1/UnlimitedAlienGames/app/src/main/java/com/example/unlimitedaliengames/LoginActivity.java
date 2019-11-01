@@ -8,8 +8,14 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/*
+An Login menu for the game.
+ */
 public class LoginActivity extends AppCompatActivity {
 
+    /*
+    Components in the layout.
+     */
     private EditText userName;
     private EditText password;
     private Button login;
@@ -40,10 +46,16 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    Go to main menu if successfully logged in.
+     */
     void onSuccess(){
         startActivity(new Intent(this, MainActivity.class));
     }
 
+    /*
+    Attempt to register.
+     */
     void attemptRegister(){
         String user = userName.getText().toString();
         String pass = password.getText().toString();
