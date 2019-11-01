@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     void onSuccess(){
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     /*
