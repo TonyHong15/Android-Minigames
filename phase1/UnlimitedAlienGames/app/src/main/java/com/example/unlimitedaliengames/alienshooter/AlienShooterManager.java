@@ -10,9 +10,11 @@ import java.util.Random;
 class AlienShooterManager {
 
     private int points;
+    private AlienShooterPresenterInterface presenter;
 
-    AlienShooterManager() {
+    AlienShooterManager(AlienShooterPresenterInterface presenter) {
         points = 0;
+        this.presenter = presenter;
     }
 
     int get_point() {
@@ -22,7 +24,7 @@ class AlienShooterManager {
     void randomize(List<View> aliens) {
         int random = randomNum();
         randomizeContentDescription(random, aliens);
-        changeAlienImage(aliens);
+        presenter.changeAlienImage();
     }
 
     private void randomizeContentDescription(int random, List<View> aliens) {
@@ -33,17 +35,6 @@ class AlienShooterManager {
             } else {
                 String text = "normal alien";
                 aliens.get(i).setContentDescription(text);
-            }
-        }
-    }
-
-    private void changeAlienImage(List<View> aliens) {
-        String redAlien = "red alien";
-        for (int i = 0; i < 9; i++) {
-            if (aliens.get(i).getContentDescription().equals(redAlien)) {
-                aliens.get(i).setBackgroundResource(R.drawable.red_alien);
-            } else {
-                aliens.get(i).setBackgroundResource(R.drawable.alien_shooter_image);
             }
         }
     }

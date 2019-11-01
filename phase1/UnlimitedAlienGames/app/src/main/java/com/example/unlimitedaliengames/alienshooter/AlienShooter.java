@@ -31,12 +31,13 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_alien_shooter);
 
         Intent intent = getIntent();
         time = intent.getStringExtra(CustomizeActivity.PASS_TIME);
         friendly = intent.getStringExtra(CustomizeActivity.PASS_FRIENDLY);
         evil = intent.getStringExtra(CustomizeActivity.PASS_EVIL);
-        setContentView(R.layout.activity_alien_shooter);
+
         aliens = new ArrayList<>();
         generateAliens();
         generateOnClickListener();
@@ -50,7 +51,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         exit = findViewById(R.id.exit_button);
         setExitListener();
 
-        presenter = new AlienShooterPresenter(this, new AlienShooterManager());
+        presenter = new AlienShooterPresenter(this);
     }
 
     private long determineTime() {
@@ -93,6 +94,34 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         finish();
     }
 
+    public void changeAlienImage() {
+        String redAlien = "red alien";
+        for (int i = 0; i < 9; i++) {
+            if (aliens.get(i).getContentDescription().equals(redAlien)) {
+                setRedAlien(i);
+            } else {
+                setNormalAlien(i);
+            }
+        }
+    }
+
+    private void setRedAlien(int i) {
+        if (evil.equals("Red")) {
+           // timer_button.setText(evil);
+            aliens.get(i).setBackgroundResource(R.drawable.red_alien);
+        } else {
+            aliens.get(i).setBackgroundResource(R.drawable.black_alien);
+        }
+    }
+
+    private void setNormalAlien(int i) {
+        if (friendly.equals("Blue")) {
+            //timer_button.setText(friendly);
+            aliens.get(i).setBackgroundResource(R.drawable.blue_alien);
+        } else {
+            aliens.get(i).setBackgroundResource(R.drawable.yellow_alien);
+        }
+    }
 
     private void generateAliens() {
         for (int i = 1; i <= numOfAliens; i++) {
@@ -121,7 +150,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     }
 
     private void startTimer() {
-        String temp = time;
+        String temp = "Game in progress";
         timer_button.setText(temp);
         timer.setActive(true);
         timer.start();

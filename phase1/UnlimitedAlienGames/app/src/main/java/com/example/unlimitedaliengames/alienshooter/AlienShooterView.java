@@ -6,5 +6,7 @@ interface AlienShooterView {
 
     void updateTimer(String text);
 
+    void changeAlienImage();
+
     void updatePoints(int p);
 }

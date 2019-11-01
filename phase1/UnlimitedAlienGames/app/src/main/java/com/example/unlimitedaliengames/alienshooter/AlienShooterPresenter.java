@@ -5,14 +5,14 @@ import android.view.View;
 
 import java.util.List;
 
-class AlienShooterPresenter {
+class AlienShooterPresenter implements AlienShooterPresenterInterface{
     private AlienShooterView view;
     private AlienShooterManager rules;
 
 
-    AlienShooterPresenter(AlienShooterView view, AlienShooterManager rules) {
+    AlienShooterPresenter(AlienShooterView view) {
         this.view = view;
-        this.rules = rules;
+        this.rules = new AlienShooterManager(this);
     }
 
     void clickedAlien(List<View> aliens, View v) {
@@ -28,6 +28,9 @@ class AlienShooterPresenter {
         view = null;
     }
 
+    public void changeAlienImage(){
+        view.changeAlienImage();
+    }
     void randomizeAliens(List<View> aliens) {
         rules.randomize(aliens);
     }
