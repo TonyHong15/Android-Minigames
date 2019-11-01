@@ -23,13 +23,7 @@ class AlienShooterPresenter {
         rules.randomize(aliens);
         view.updatePoints(rules.get_point());
     }
-    boolean customized(){
-        return rules.isCustomized();
-    }
 
-    void setCustomized(){
-        rules.setCustomized(true);
-    }
     void destroy() {
         view = null;
     }

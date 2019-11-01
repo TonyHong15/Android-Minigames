@@ -25,19 +25,13 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     private List<View> aliens;
     private TextView point_text;
 
-    private TextView instructionTitle;
-    private TextView instructions;
     private View exit;
-
-    private View customize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_alien_shooter);
-        instructions = findViewById(R.id.instructions);
-        instructionTitle = findViewById(R.id.instructionTitle);
         aliens = new ArrayList<>();
         generateAliens();
         generateOnClickListener();
@@ -46,14 +40,9 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         timer = new Timer(this);
 
         timer_button = findViewById(R.id.timer_button);
-        timer_button.setVisibility(View.INVISIBLE);
         setTimerListener();
-        customize = findViewById(R.id.customize);
-        setCustomizeListener();
         exit = findViewById(R.id.exit_button);
         setExitListener();
-
-
 
         presenter = new AlienShooterPresenter(this, new AlienShooterManager());
     }
@@ -66,36 +55,20 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
             }
         });
     }
-    private void setCustomizeListener(){
-        customize.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!presenter.customized()) {
-                    customize.setVisibility(View.INVISIBLE);
-                    timer_button.setVisibility(View.VISIBLE);
-                    presenter.setCustomized();
-                    goToCustomizeActivity();
-                }
-            }
-        });
-    }
 
     private void setTimerListener(){
         timer_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!timer.getIsActive() && presenter.customized()) {
+                if (!timer.getIsActive()) {
                     startTimer();
-                    setVisibility();
                     presenter.randomizeAliens(aliens);
+                    setVisibility();
                 }
             }
         });
     }
 
-    private void goToCustomizeActivity(){
-        startActivity(new Intent(this, CustomizeActivity.class));
-    }
     /*
     End the current instance of game and return to Main menu.
      */

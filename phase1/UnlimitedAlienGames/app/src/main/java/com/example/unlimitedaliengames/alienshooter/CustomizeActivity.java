@@ -8,7 +8,9 @@ import android.view.View;
 import com.example.unlimitedaliengames.R;
 
 public class CustomizeActivity extends AppCompatActivity {
-
+    public final static String PASS_TIME = "pass time";
+    public final static String PASS_FRIENDLY = "pass friendly";
+    public final static String PASS_EVIL = "pass evil";
     private View fifteen, thirty, red, black, blue, yellow, proceed;
     private View time, friendly, evil;
     private boolean choseEvil, choseFriendly, choseTime;
@@ -30,17 +32,28 @@ public class CustomizeActivity extends AppCompatActivity {
         yellow = findViewById(R.id.YELLOW);
         setListenerYellow();
         proceed = findViewById(R.id.proceed);
-
+//        setListenerProceed();
         choseEvil = false;
         choseFriendly = false;
         choseTime = false;
-
-        time = null;
-        friendly = null;
-        evil = null;
     }
 
-    private void setListenerFifteen(){
+//    private void setListenerProceed() {
+//        proceed.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (choseEvil && choseFriendly && choseTime) {
+//                    proceedToGame();
+//                }
+//            }
+//        });
+//    }
+//
+//    private void proceedToGame() {
+//
+//    }
+
+    private void setListenerFifteen() {
         fifteen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +65,8 @@ public class CustomizeActivity extends AppCompatActivity {
             }
         });
     }
-    private void setListenerThirty(){
+
+    private void setListenerThirty() {
         thirty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +78,8 @@ public class CustomizeActivity extends AppCompatActivity {
             }
         });
     }
-    private void setListenerBlue(){
+
+    private void setListenerBlue() {
         blue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +91,8 @@ public class CustomizeActivity extends AppCompatActivity {
             }
         });
     }
-    private void setListenerYellow(){
+
+    private void setListenerYellow() {
         yellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +104,8 @@ public class CustomizeActivity extends AppCompatActivity {
             }
         });
     }
-    private void setListenerRed(){
+
+    private void setListenerRed() {
         red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +117,8 @@ public class CustomizeActivity extends AppCompatActivity {
             }
         });
     }
-    private void setListenerBlack(){
+
+    private void setListenerBlack() {
         black.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,4 +130,5 @@ public class CustomizeActivity extends AppCompatActivity {
             }
         });
     }
+
 }

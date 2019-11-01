@@ -8,35 +8,11 @@ import java.util.List;
 import java.util.Random;
 
 class AlienShooterManager {
-    public enum time {
-        FIFTEEN,
-        THIRTY
-    }
-
-    public enum colour {
-        RED,
-        BLACK
-    }
-
-    public enum Difficulty {
-        Blue,
-        YELLOW
-    }
 
     private int points;
-    private boolean customized;
 
     AlienShooterManager() {
         points = 0;
-        customized = false;
-    }
-
-    boolean isCustomized() {
-        return customized;
-    }
-
-    void setCustomized(boolean customized) {
-        this.customized = customized;
     }
 
     int get_point() {
