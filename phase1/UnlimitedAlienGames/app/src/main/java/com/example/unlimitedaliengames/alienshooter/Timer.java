@@ -3,12 +3,11 @@ package com.example.unlimitedaliengames.alienshooter;
 import android.os.CountDownTimer;
 
 class Timer extends CountDownTimer {
-    private static final long TIMELEFT = 30000;
     private boolean isActive = false;
     private AlienShooterView view;
 
-    Timer(AlienShooterView view) {
-        super(TIMELEFT, 1000);
+    Timer(AlienShooterView view, long time) {
+        super(time, 1000);
         this.view = view;
     }
 

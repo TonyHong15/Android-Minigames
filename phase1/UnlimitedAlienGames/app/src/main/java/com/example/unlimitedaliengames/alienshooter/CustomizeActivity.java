@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.content.Intent;
 
 import com.example.unlimitedaliengames.R;
 
@@ -12,7 +13,7 @@ public class CustomizeActivity extends AppCompatActivity {
     public final static String PASS_FRIENDLY = "pass friendly";
     public final static String PASS_EVIL = "pass evil";
     private View fifteen, thirty, red, black, blue, yellow, proceed;
-    private View time, friendly, evil;
+    private String time, friendly, evil;
     private boolean choseEvil, choseFriendly, choseTime;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,33 +33,38 @@ public class CustomizeActivity extends AppCompatActivity {
         yellow = findViewById(R.id.YELLOW);
         setListenerYellow();
         proceed = findViewById(R.id.proceed);
-//        setListenerProceed();
+        setListenerProceed();
         choseEvil = false;
         choseFriendly = false;
         choseTime = false;
     }
 
-//    private void setListenerProceed() {
-//        proceed.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (choseEvil && choseFriendly && choseTime) {
-//                    proceedToGame();
-//                }
-//            }
-//        });
-//    }
-//
-//    private void proceedToGame() {
-//
-//    }
+    private void setListenerProceed() {
+        proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (choseEvil && choseFriendly && choseTime) {
+                    proceedToGame();
+                }
+            }
+        });
+    }
+
+    private void proceedToGame() {
+        Intent intent = new Intent(this, AlienShooter.class);
+        intent.putExtra(PASS_TIME, time);
+        intent.putExtra(PASS_FRIENDLY, friendly);
+        intent.putExtra(PASS_EVIL, evil);
+        startActivity(intent);
+        finish();
+    }
 
     private void setListenerFifteen() {
         fifteen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!choseTime) {
-                    time = fifteen;
+                    time = fifteen.getContentDescription().toString();
                     thirty.setVisibility(View.INVISIBLE);
                     choseTime = true;
                 }
@@ -71,7 +77,7 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!choseTime) {
-                    time = thirty;
+                    time = thirty.getContentDescription().toString();
                     fifteen.setVisibility(View.INVISIBLE);
                     choseTime = true;
                 }
@@ -84,7 +90,7 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!choseFriendly) {
-                    friendly = blue;
+                    friendly = blue.getContentDescription().toString();
                     yellow.setVisibility(View.INVISIBLE);
                     choseFriendly = true;
                 }
@@ -97,7 +103,7 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!choseFriendly) {
-                    friendly = yellow;
+                    friendly = yellow.getContentDescription().toString();
                     blue.setVisibility(View.INVISIBLE);
                     choseFriendly = true;
                 }
@@ -110,7 +116,7 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!choseEvil) {
-                    evil = red;
+                    evil = red.getContentDescription().toString();
                     black.setVisibility(View.INVISIBLE);
                     choseEvil = true;
                 }
@@ -123,7 +129,7 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!choseEvil) {
-                    evil = black;
+                    evil = black.getContentDescription().toString();
                     red.setVisibility(View.INVISIBLE);
                     choseEvil = true;
                 }

@@ -9,6 +9,7 @@ import android.view.View;
 import com.example.unlimitedaliengames.alienguesser.AlienGuesser;
 import com.example.unlimitedaliengames.alienpainter.AlienPainter;
 import com.example.unlimitedaliengames.alienshooter.AlienShooter;
+import com.example.unlimitedaliengames.alienshooter.ShooterInstructionsActivity;
 import com.example.unlimitedaliengames.userdata.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToAlienShooter(View view) {
         // Do something in response to button
-        startActivity(new Intent(this, AlienShooter.class));
+        startActivity(new Intent(this, ShooterInstructionsActivity.class));
         finish();
     }
 

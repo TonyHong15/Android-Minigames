@@ -25,19 +25,25 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     private List<View> aliens;
     private TextView point_text;
 
+    private String time, friendly, evil;
     private View exit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intent = getIntent();
+        time = intent.getStringExtra(CustomizeActivity.PASS_TIME);
+        friendly = intent.getStringExtra(CustomizeActivity.PASS_FRIENDLY);
+        evil = intent.getStringExtra(CustomizeActivity.PASS_EVIL);
         setContentView(R.layout.activity_alien_shooter);
         aliens = new ArrayList<>();
         generateAliens();
         generateOnClickListener();
         timer_text = findViewById(R.id.alienTimer);
         point_text = findViewById(R.id.alienPoint);
-        timer = new Timer(this);
+
+        timer = new Timer(this, determineTime());
 
         timer_button = findViewById(R.id.timer_button);
         setTimerListener();
@@ -47,7 +53,17 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         presenter = new AlienShooterPresenter(this, new AlienShooterManager());
     }
 
-    private void setExitListener(){
+    private long determineTime() {
+        long targetTime;
+        if (time.equals("15 seconds")) {
+            targetTime = 15000;
+        } else {
+            targetTime = 30000;
+        }
+        return targetTime;
+    }
+
+    private void setExitListener() {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +72,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         });
     }
 
-    private void setTimerListener(){
+    private void setTimerListener() {
         timer_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +92,6 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
-
 
 
     private void generateAliens() {
@@ -106,7 +121,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     }
 
     private void startTimer() {
-        String temp = "Game in Progress";
+        String temp = time;
         timer_button.setText(temp);
         timer.setActive(true);
         timer.start();
