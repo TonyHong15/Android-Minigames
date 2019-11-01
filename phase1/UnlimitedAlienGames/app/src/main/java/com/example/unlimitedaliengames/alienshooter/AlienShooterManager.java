@@ -15,6 +15,14 @@ class AlienShooterManager {
 
     }
 
+    int get_point(){
+        return points;
+    }
+
+    void setPoints(int p){
+        points = p;
+    }
+
     void randomize(List<View> aliens) {
         int random = randomNum();
         randomizeContentDescription(random, aliens);
@@ -47,5 +55,13 @@ class AlienShooterManager {
     private int randomNum() {
         Random random = new Random();
         return random.nextInt(9);
+    }
+
+    boolean checkAlien(View v) {
+        return v.getContentDescription().equals("red alien");
+    }
+
+    void changePoint(int p) {
+        points += p;
     }
 }

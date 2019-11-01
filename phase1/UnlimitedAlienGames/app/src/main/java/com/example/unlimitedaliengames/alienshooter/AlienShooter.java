@@ -21,6 +21,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     private TextView timer_text;
     private Button timer_button;
     private List<View> aliens;
+    private TextView point_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         generateAliens();
         generateOnClickListener();
         timer_text = findViewById(R.id.alienTimer);
+        point_text = findViewById(R.id.alienPoint);
         timer = new Timer(this);
         timer_button = findViewById(R.id.timer_button);
         timer_button.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +82,12 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         timer_text.setText(text);
     }
 
+    @Override
+    public void updatePoints(int p) {
+        String text = "Points: " + p;
+        point_text.setText(text);
+    }
+
     /**
      * Called when a view has been clicked.
      *
@@ -88,7 +96,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     @Override
     public void onClick(View v) {
         if (timer.getIsActive()) {
-            presenter.clickedAlien(aliens);
+            presenter.clickedAlien(aliens, v);
         }
     }
 }
