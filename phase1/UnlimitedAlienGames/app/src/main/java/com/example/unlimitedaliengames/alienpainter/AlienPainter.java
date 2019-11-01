@@ -2,7 +2,6 @@ package com.example.unlimitedaliengames.alienpainter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.unlimitedaliengames.LoginActivity;
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.userdata.User;
@@ -61,7 +61,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_alien_painter);
 
         Intent intent = getIntent();
-        currUser = (User) intent.getParcelableExtra("parcel_data");
+        currUser = (User) intent.getSerializableExtra(LoginActivity.PASS_USER);
 
         painterTextViewMoves = findViewById(R.id.painterTextView1);
         painterTextViewTime = findViewById(R.id.painterTextView2);
@@ -84,7 +84,8 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         startTimer();
 
         //Initialize the Presenter
-        presenter = new AlienPainterPresenter(this, painterTimer, grid, new AlienPainterFunctions(this, grid, this), this);
+        presenter = new AlienPainterPresenter(this, painterTimer, grid,
+                new AlienPainterFunctions(this, grid, this), this, currUser);
     }
 
     /**
@@ -148,7 +149,11 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * The event in which any of the imageButtons are pressed
+     * The event in which any of the imageButtons are pressed.
+     * This method will call the presenter to update the number of moves the player has made.
+     * This method will flip the buttons according to whichever one the player has pressed.
+     * This method wil check whether the player has won the game and call the playerWon
+     * method in the presenter if so.
      *
      * @param v The view
      */

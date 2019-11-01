@@ -1,13 +1,13 @@
 package com.example.unlimitedaliengames;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.net.http.SslCertificate;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.unlimitedaliengames.userdata.*;
 

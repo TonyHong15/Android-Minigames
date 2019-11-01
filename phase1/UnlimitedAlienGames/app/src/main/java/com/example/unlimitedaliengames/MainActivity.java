@@ -34,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToAlienPainter(View view) {
         // Do something in response to button
-        startActivity(new Intent(this, AlienPainter.class));
+        Intent intent = new Intent(this, AlienPainter.class);
+        intent.putExtra(LoginActivity.PASS_USER, currUser);
+        startActivity(intent);
         finish();
     }
 

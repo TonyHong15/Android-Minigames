@@ -111,8 +111,8 @@ class AlienPainterFunctions {
      * Resets the 2D imageButton array and numMoves
      */
     void resetGame() {
-        for (int i = 0; i<3; i++){
-            for (int j = 0; j<3; j++){
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 double x = Math.random() * 2;
                 if (x < 1) {
                     grid[i][j].setImageResource(R.drawable.black_circle);
@@ -138,6 +138,7 @@ class AlienPainterFunctions {
 
     /**
      * Returns the amount of time left when the game ended
+     *
      * @return timeLeft the amount of time left
      */
     int getTimeLeft() {

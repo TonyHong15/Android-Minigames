@@ -40,4 +40,12 @@ public class User implements Serializable {
     public void eraseGuesser(){
         this.guesserData = null;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
