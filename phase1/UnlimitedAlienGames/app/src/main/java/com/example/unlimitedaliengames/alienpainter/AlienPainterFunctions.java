@@ -39,41 +39,6 @@ class AlienPainterFunctions {
     }
 
     /**
-     * Updates the timeLeft variable used to track the time left
-     *
-     * @param timeLeft the amount of time left until the end of the game
-     */
-    void setTimeLeft(int timeLeft) {
-        this.timeLeft = timeLeft;
-    }
-
-    /**
-     * Updates the number of moves the user has made
-     */
-    void updateNumMoves() {
-        this.numMoves++;
-    }
-
-    /**
-     * Updates the number of moves the user has made, an overloaded version with an int
-     * parameter given
-     *
-     * @param num the number to update numMoves with
-     */
-    private void updateNumMoves(int num) {
-        this.numMoves = num;
-    }
-
-    /**
-     * Returns the number of moves the user has made
-     *
-     * @return the number of moves the user has made
-     */
-    int getNumMoves() {
-        return this.numMoves;
-    }
-
-    /**
      * Flips the imageButtons around the imageButton the user clicked,
      * including the one the user clicked.
      */
@@ -142,6 +107,9 @@ class AlienPainterFunctions {
         }
     }
 
+    /**
+     * Resets the 2D imageButton array and numMoves
+     */
     void resetGame() {
         for (int i = 0; i<3; i++){
             for (int j = 0; j<3; j++){
@@ -157,6 +125,49 @@ class AlienPainterFunctions {
         }
 
         this.updateNumMoves(0);
+    }
+
+    /**
+     * Updates the timeLeft variable used to track the time left
+     *
+     * @param timeLeft the amount of time left until the end of the game
+     */
+    void setTimeLeft(int timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+
+    /**
+     * Returns the amount of time left when the game ended
+     * @return timeLeft the amount of time left
+     */
+    int getTimeLeft() {
+        return this.timeLeft;
+    }
+
+    /**
+     * Updates the number of moves the user has made
+     */
+    void updateNumMoves() {
+        this.numMoves++;
+    }
+
+    /**
+     * Updates the number of moves the user has made, an overloaded version with an int
+     * parameter given
+     *
+     * @param num the number to update numMoves with
+     */
+    private void updateNumMoves(int num) {
+        this.numMoves = num;
+    }
+
+    /**
+     * Returns the number of moves the user has made
+     *
+     * @return the number of moves the user has made
+     */
+    int getNumMoves() {
+        return this.numMoves;
     }
 
 }

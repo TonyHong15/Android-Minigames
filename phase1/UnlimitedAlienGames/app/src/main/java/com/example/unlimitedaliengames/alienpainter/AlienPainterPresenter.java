@@ -86,7 +86,17 @@ class AlienPainterPresenter {
         return buttonFunctions.getNumMoves();
     }
 
+    /**
+     * Resets the board
+     */
     void resetBoard() {
         buttonFunctions.resetGame();
+    }
+
+    /**
+     * Records the statistics of the player
+     */
+    void playerWon() {
+
     }
 }

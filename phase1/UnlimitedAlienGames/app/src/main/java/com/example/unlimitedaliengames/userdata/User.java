@@ -1,9 +1,11 @@
 package com.example.unlimitedaliengames.userdata;
 
+import java.io.Serializable;
+
 /*
 An User object.
  */
-public class User {
+public class User implements Serializable {
     /*
     User's information.
      */

@@ -10,10 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.unlimitedaliengames.userdata.*;
 
+import java.io.Serializable;
+
 /*
 An Login menu for the game.
  */
 public class LoginActivity extends AppCompatActivity {
+
+    //Used to pass current user
+    public static final String PASS_USER = "passUser";
 
     /*
     Components in the layout.
@@ -84,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
     */
     void onSuccess(User currUser){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(PASS_USER, currUser);
         startActivity(intent);
         finish();
     }

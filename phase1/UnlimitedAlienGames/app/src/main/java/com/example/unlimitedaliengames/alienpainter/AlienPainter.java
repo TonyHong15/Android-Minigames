@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.userdata.User;
 
 
 public class AlienPainter extends AppCompatActivity implements View.OnClickListener, AlienPainterView {
@@ -49,12 +50,18 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      */
     private Button retryButton;
 
+    /**
+     * Holds the current user of this game
+     */
+    private User currUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_painter);
 
-        final Intent intent = getIntent();
+        Intent intent = getIntent();
+        currUser = (User) intent.getParcelableExtra("parcel_data");
 
         painterTextViewMoves = findViewById(R.id.painterTextView1);
         painterTextViewTime = findViewById(R.id.painterTextView2);
@@ -64,6 +71,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         //Initialize the Timer
         painterTimer = new AlienPainterTimer(this);
 
+        //Setup the exitButton and retryButton
         buttonSetup();
 
         //Construct the 2D imageButton array
@@ -160,6 +168,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
 
             if (checkWinCondition()) {
                 Toast.makeText(this, "You have won!", Toast.LENGTH_SHORT).show();
+                presenter.playerWon();
             }
         }
 
