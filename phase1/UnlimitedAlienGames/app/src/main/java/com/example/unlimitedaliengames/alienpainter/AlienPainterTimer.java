@@ -13,8 +13,7 @@ public class AlienPainterTimer extends CountDownTimer {
     }
 
     public void onTick(long seconds) {
-        String text = "Time: " + seconds / 1000;
-        view.updateTimer(text);
+        view.updateTimer(Math.toIntExact(seconds / 1000));
     }
 
     void setActive(boolean active) {
