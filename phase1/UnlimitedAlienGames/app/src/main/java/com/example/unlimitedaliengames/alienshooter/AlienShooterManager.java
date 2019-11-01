@@ -8,12 +8,31 @@ import java.util.List;
 import java.util.Random;
 
 class AlienShooterManager {
+    public enum time {
+        FIFTEEN,
+        THIRTY,
+        SIXTY
+    }
+
+    public enum colour {
+        RED,
+        BLACK,
+        PURPLE
+    }
+
+    public enum Difficulty {
+        EASY,
+        MEDIUM,
+        HARD
+    }
+
     private int points;
 
-    AlienShooterManager(){
+    AlienShooterManager() {
         points = 0;
     }
-    int get_point(){
+
+    int get_point() {
         return points;
     }
 

@@ -24,7 +24,7 @@ class AlienShooterPresenter {
         view.updatePoints(rules.get_point());
     }
 
-    void destroy(){
+    void destroy() {
         view = null;
     }
 

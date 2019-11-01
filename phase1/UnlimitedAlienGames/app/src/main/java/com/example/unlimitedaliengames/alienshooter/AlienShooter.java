@@ -29,6 +29,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     private TextView instructionTitle;
     private TextView instructions;
     private View exit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
             }
         });
         exit = findViewById(R.id.exit_button);
-        exit.setOnClickListener(new View.OnClickListener(){
+        exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 endGame();
@@ -65,7 +66,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     /*
     End the current instance of game and return to Main menu.
      */
-    private void endGame(){
+    private void endGame() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }

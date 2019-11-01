@@ -14,9 +14,9 @@
     <string name="alien_painter">Go To Alien Painter</string>
     <string name="alien_background">Alien Background</string>
     <string name="alien_shooter_image">Alien</string>
-    <string name="timer_default">Time: 30</string>
+    <string name="timer_default">Time: </string>
     <string name="alien_shooter_timer">Start Game</string>
-    <string name="alien_shooter_points">Alien Point</string>
+    <string name="alien_shooter_points">Points: </string>
     <string name="alien_shooter_save">Alien Shooter Save</string>
     <string name="alien_shooter_exit">Alien Shooter Exit</string>
     <string name="submit">Submit</string>
