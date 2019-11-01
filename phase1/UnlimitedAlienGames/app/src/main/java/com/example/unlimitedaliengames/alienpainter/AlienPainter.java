@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 
 
@@ -37,19 +39,32 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      */
     private AlienPainterPresenter presenter;
 
+    /**
+     * Holds the button for exiting the game
+     */
+    private Button exitButton;
+
+    /**
+     * Holds the button for retrying the game
+     */
+    private Button retryButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_painter);
 
-        Intent intent = getIntent();  //Leaving this here in case we need to send something through the intent in the future
+        final Intent intent = getIntent();
 
         painterTextViewMoves = findViewById(R.id.painterTextView1);
         painterTextViewTime = findViewById(R.id.painterTextView2);
+        exitButton = findViewById(R.id.exitButton);
+        retryButton = findViewById(R.id.retryButton);
 
         //Initialize the Timer
         painterTimer = new AlienPainterTimer(this);
 
+        buttonSetup();
 
         //Construct the 2D imageButton array
         gridCreation();
@@ -61,7 +76,34 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         startTimer();
 
         //Initialize the Presenter
-        presenter = new AlienPainterPresenter(this, painterTimer, grid, new AlienPainterFunctions(this, grid, this),this);
+        presenter = new AlienPainterPresenter(this, painterTimer, grid, new AlienPainterFunctions(this, grid, this), this);
+    }
+
+    /**
+     * Setup for the exitButton and retryButton.
+     * When exitButton is clicked, the game goes back to MainActivity.
+     * When retryButton is called, the game resets its timer and generates a new board.
+     */
+    private void buttonSetup() {
+        //Setup the exitButton
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), MainActivity.class));
+                finish();
+            }
+
+        });
+
+        //Setup the retryButton
+        retryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.resetBoard();
+                painterTimer.reset();
+                painterTextViewMoves.setText("Number of Moves: " + presenter.getNumMoves());
+            }
+        });
     }
 
     /**
@@ -159,11 +201,13 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * When asking the player whether to play again and they answer yes, this is called.
+     * Resets the timer of the game
      */
     @Override
     public void resetTimer() {
-
+        painterTimer.cancel();
+        painterTimer.start();
+        painterTimer.setActive(true);
     }
 
     /**

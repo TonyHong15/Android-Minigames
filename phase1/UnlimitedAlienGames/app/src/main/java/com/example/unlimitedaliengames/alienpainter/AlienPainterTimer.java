@@ -24,9 +24,12 @@ public class AlienPainterTimer extends CountDownTimer {
         return isActive;
     }
 
+    void reset () {
+        view.resetTimer();
+    }
+
     public void onFinish() {
         isActive = false;
-        view.resetTimer();
         view.TimerExpired();
         cancel();
     }
