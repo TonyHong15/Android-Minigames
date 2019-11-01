@@ -2,6 +2,8 @@ package com.example.unlimitedaliengames.alienshooter;
 
 import android.view.View;
 
+import com.example.unlimitedaliengames.R;
+
 import java.util.List;
 import java.util.Random;
 
@@ -35,10 +37,9 @@ class AlienShooterManager {
         String redAlien = "red alien";
         for (int i = 0; i < 9; i++) {
             if (aliens.get(i).getContentDescription().equals(redAlien)) {
-
+                aliens.get(i).setBackgroundResource(R.drawable.red_alien);
             } else {
-                String text = "normal alien";
-                aliens.get(i).setContentDescription(text);
+                aliens.get(i).setBackgroundResource(R.drawable.alien_shooter_image);
             }
         }
     }

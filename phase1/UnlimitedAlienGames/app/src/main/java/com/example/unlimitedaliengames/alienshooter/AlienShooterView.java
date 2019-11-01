@@ -7,5 +7,4 @@ interface AlienShooterView {
 
     void updateTimer(String text);
 
-    void updateAliens(View v);
 }

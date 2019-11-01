@@ -17,9 +17,8 @@ class AlienShooterPresenter {
         this.timer = timer;
     }
 
-    void clickedAlien(View v, List<View> aliens) {
-        view.updateAliens(v);
-
+    void clickedAlien(List<View> aliens) {
+        rules.randomize(aliens);
     }
 
     void randomizeAliens(List<View> aliens) {
