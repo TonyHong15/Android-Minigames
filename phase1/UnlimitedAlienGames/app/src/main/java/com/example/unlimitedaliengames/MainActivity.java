@@ -14,7 +14,7 @@ import com.example.unlimitedaliengames.userdata.*;
 public class MainActivity extends AppCompatActivity {
 
     private User currentUser;
-    private UserDatabase userDatabase;
+    private UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

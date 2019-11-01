@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     /*
     Array of users, currently only support 16 users.
      */
-    private UserDatabase users;
+    private UserManager users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +36,13 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         display = findViewById(R.id.messageDisplay);
 
-        users = new UserDatabase();
+        users = new UserManager();
 
         //handling clicking for login
         findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSuccess(new User("a", "a"));
+                attemptLogin(username.getText().toString(), password.getText().toString());
             }
         });
 
@@ -72,15 +72,19 @@ public class LoginActivity extends AppCompatActivity {
     Attempt to login based on given user name and password.
      */
     void attemptLogin(String user, String pass){
-
+        if(users.validateCredentials(user, pass)){
+            onSuccess(users.extractUser());
+        }else{
+            display.setText(getString(R.string.login_fail));
+        }
     }
 
     /*
     Go to main menu if successfully logged in.
     */
     void onSuccess(User currUser){
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
-
 }

@@ -53,4 +53,5 @@
     <string name="register">Register</string>
     <string name="register_ok">Successfully registered!</string>
     <string name="register_fail">Password changed.</string>
+    <string name="login_fail">Incorrect username or password.</string>
 </resources>
