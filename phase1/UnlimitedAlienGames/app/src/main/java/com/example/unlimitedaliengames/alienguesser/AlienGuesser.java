@@ -37,8 +37,9 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         setContentView(R.layout.activity_alien_guesser);
         Intent intent = getIntent();
 
-        pack = getPackageName();
         handler = new ProblemHandler(this);
+
+        pack = getPackageName();
         submit = findViewById(R.id.submitButton);
         next = findViewById(R.id.nextButton);
         ret = findViewById(R.id.returnButton);
@@ -61,10 +62,19 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
             }
         });
 
+        //handling clicking event for return button.
         ret.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 returnToMain();
+            }
+        });
+
+        //handling clicking event for take break button.
+        findViewById(R.id.takeBreak).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestSave();
             }
         });
     }
@@ -134,6 +144,12 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         handler.handOutProblem(name, getString(id));
     }
 
+    /*
+    Tell the handler to save current game state.
+     */
+    private void requestSave(){
+        handler.saveGame();
+    }
     /*
     Return the the main menu.
      */
