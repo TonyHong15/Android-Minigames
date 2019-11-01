@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
-import com.example.unlimitedaliengames.alienpainter.AlienPainter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +29,12 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     private TextView instructions;
     private View exit;
 
+    private View customize;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_alien_shooter);
         instructions = findViewById(R.id.instructions);
         instructionTitle = findViewById(R.id.instructionTitle);
@@ -42,27 +44,58 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         timer_text = findViewById(R.id.alienTimer);
         point_text = findViewById(R.id.alienPoint);
         timer = new Timer(this);
+
         timer_button = findViewById(R.id.timer_button);
-        timer_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!timer.getIsActive()) {
-                    startTimer();
-                    setVisibility();
-                    presenter.randomizeAliens(aliens);
-                }
-            }
-        });
+        timer_button.setVisibility(View.INVISIBLE);
+        setTimerListener();
+        customize = findViewById(R.id.customize);
+        setCustomizeListener();
         exit = findViewById(R.id.exit_button);
+        setExitListener();
+
+
+
+        presenter = new AlienShooterPresenter(this, new AlienShooterManager());
+    }
+
+    private void setExitListener(){
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 endGame();
             }
         });
-        presenter = new AlienShooterPresenter(this, new AlienShooterManager());
+    }
+    private void setCustomizeListener(){
+        customize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!presenter.customized()) {
+                    customize.setVisibility(View.INVISIBLE);
+                    timer_button.setVisibility(View.VISIBLE);
+                    presenter.setCustomized();
+                    goToCustomizeActivity();
+                }
+            }
+        });
     }
 
+    private void setTimerListener(){
+        timer_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!timer.getIsActive() && presenter.customized()) {
+                    startTimer();
+                    setVisibility();
+                    presenter.randomizeAliens(aliens);
+                }
+            }
+        });
+    }
+
+    private void goToCustomizeActivity(){
+        startActivity(new Intent(this, CustomizeActivity.class));
+    }
     /*
     End the current instance of game and return to Main menu.
      */
@@ -70,6 +103,8 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
+
+
 
     private void generateAliens() {
         for (int i = 1; i <= numOfAliens; i++) {
@@ -92,8 +127,6 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     }
 
     private void setVisibility() {
-        instructionTitle.setVisibility(View.INVISIBLE);
-        instructions.setVisibility(View.INVISIBLE);
         for (View alien : aliens) {
             alien.setVisibility(View.VISIBLE);
         }
