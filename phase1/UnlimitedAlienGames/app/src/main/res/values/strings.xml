@@ -16,6 +16,10 @@
         the colour of the friendly aliens and the colour of the target evil alien. \n\n
         Now click on the customize button to start your alien shooter journey!!\n\nGood Luck!!
     </string>
+    <string name="Game_Over">Game Over</string>
+    <string name="Restart">Restart</string>
+    <string name="Back_to_Menu">Back to Menu</string>
+    <string name="Game_Info">Total Points: </string>
     <string name="shooter_customize_time">Customize Time</string>
     <string name="shooter_customize_friendly_alien">Choose Friendly Alien</string>
     <string name="shooter_customize_evil_alien">Customize Evil Alien</string>
@@ -25,7 +29,7 @@
     <string name="BLACK">Black</string>
     <string name="YELLOW">Yellow</string>
     <string name="BLUE">Blue</string>
-    <string name="Customize">Customize</string>
+    <string name="Customize">Customize and Replay</string>
     <string name="alien_painter">Go To Alien Painter</string>
     <string name="alien_background">Alien Background</string>
     <string name="alien_shooter_image">Alien</string>
