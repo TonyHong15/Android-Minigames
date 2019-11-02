@@ -12,7 +12,7 @@ import com.example.unlimitedaliengames.R;
 
 public class GameOverActivity extends AppCompatActivity{
     private View restart, customize, backToMenu;
-    private TextView gameInfo, textPoints, friendly, evil;
+    private TextView textPoints, friendly, evil;
     int points, correct, incorrect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class GameOverActivity extends AppCompatActivity{
         setReturnListener();
         restart = findViewById(R.id.Restart);
         setListenerRestart();
-        gameInfo= findViewById(R.id.GameOver);
+
         Intent intent = getIntent();
 
         points = intent.getIntExtra(AlienShooter.POINTS, 0);
