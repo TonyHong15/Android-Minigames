@@ -1,7 +1,5 @@
 package com.example.unlimitedaliengames.userdata;
 
-import android.graphics.Paint;
-
 import java.io.Serializable;
 
 /*
