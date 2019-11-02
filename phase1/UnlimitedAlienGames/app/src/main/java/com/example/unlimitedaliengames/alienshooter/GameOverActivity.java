@@ -10,10 +10,15 @@ import android.widget.TextView;
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 
-public class GameOverActivity extends AppCompatActivity{
+public class GameOverActivity extends AppCompatActivity {
     private View restart, customize, backToMenu;
     private TextView textPoints, friendly, evil;
-    int points, correct, incorrect;
+    private int points, correct, incorrect;
+    private String time, friendlyCustom, evilCustom;
+    public final static String PASS_TIME = "pass time";
+    public final static String PASS_FRIENDLY = "pass friendly";
+    public final static String PASS_EVIL = "pass evil";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +31,9 @@ public class GameOverActivity extends AppCompatActivity{
         setListenerRestart();
 
         Intent intent = getIntent();
-
+        time = intent.getStringExtra(AlienShooter.TIME);
+        friendlyCustom = intent.getStringExtra(AlienShooter.FRIENDLY);
+        evilCustom = intent.getStringExtra(AlienShooter.EVIL);
         points = intent.getIntExtra(AlienShooter.POINTS, 0);
         correct = intent.getIntExtra(AlienShooter.CORRECT, 0);
         incorrect = intent.getIntExtra(AlienShooter.INCORRECT, 0);
@@ -40,26 +47,30 @@ public class GameOverActivity extends AppCompatActivity{
 
     }
 
-    private void setPoints(){
-        String text = "Total Points: "+ points;
+    private void setPoints() {
+        String text = "Total Points: " + points;
         textPoints.setText(text);
     }
-    private void setFriendly(){
-        String text = "Friendly Aliens Shot: "+ incorrect;
+
+    private void setFriendly() {
+        String text = "Friendly Aliens Shot: " + incorrect;
         friendly.setText(text);
     }
-    private void setEvil(){
-        String text = "Evil Aliens Shot: "+ correct;
+
+    private void setEvil() {
+        String text = "Evil Aliens Shot: " + correct;
         evil.setText(text);
     }
+
     private void setListenerRestart() {
         restart.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            restartActivity();
-            finish();
-        }
-    });}
+            @Override
+            public void onClick(View v) {
+                restartActivity();
+                finish();
+            }
+        });
+    }
 
     private void setCustomizeListener() {
         customize.setOnClickListener(new View.OnClickListener() {
@@ -84,8 +95,13 @@ public class GameOverActivity extends AppCompatActivity{
     private void customizeActivity() {
         startActivity(new Intent(this, CustomizeActivity.class));
     }
+
     private void restartActivity() {
-        startActivity(new Intent(this, AlienShooter.class));
+        Intent intent = new Intent(this, AlienShooter.class);
+        intent.putExtra(PASS_EVIL, evilCustom);
+        intent.putExtra(PASS_TIME, time);
+        intent.putExtra(PASS_FRIENDLY, friendlyCustom);
+        startActivity(intent);
     }
 
     private void menu() {

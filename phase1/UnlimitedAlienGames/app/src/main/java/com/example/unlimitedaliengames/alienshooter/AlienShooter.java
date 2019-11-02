@@ -18,9 +18,12 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         View.OnClickListener {
     private AlienShooterPresenter presenter;
     private static final int numOfAliens = 9;
-    public final static String POINTS= "pass points";
-    public final static String CORRECT= "pass friendly";
+    public final static String POINTS = "pass points";
+    public final static String CORRECT = "pass friendly";
     public final static String INCORRECT = "pass evil";
+    public final static String TIME = "pass time";
+    public final static String FRIENDLY = "pass friendly custom";
+    public final static String EVIL = "pass evil custom";
     //timer
     private Timer timer;
     private TextView timer_text;
@@ -111,7 +114,6 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
 
     private void setRedAlien(int i) {
         if (evil.equals("Red")) {
-           // timer_button.setText(evil);
             aliens.get(i).setBackgroundResource(R.drawable.red_alien);
         } else {
             aliens.get(i).setBackgroundResource(R.drawable.black_alien);
@@ -120,7 +122,6 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
 
     private void setNormalAlien(int i) {
         if (friendly.equals("Blue")) {
-            //timer_button.setText(friendly);
             aliens.get(i).setBackgroundResource(R.drawable.blue_alien);
         } else {
             aliens.get(i).setBackgroundResource(R.drawable.yellow_alien);
@@ -156,7 +157,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     private void startTimer() {
         String temp = "Game in progress";
         timer_button.setText(temp);
-        timer.setActive(true);
+        timer.setActive();
         timer.start();
     }
 
@@ -186,16 +187,21 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
             presenter.clickedAlien(aliens, v);
         }
     }
-    public void finishGame(){
+
+    public void finishGame() {
         Intent intent = createIntent();
         startActivity(intent);
-       // finish();
+        finish();
     }
-    public Intent createIntent(){
+
+    public Intent createIntent() {
         Intent intent = new Intent(this, GameOverActivity.class);
         intent.putExtra(POINTS, presenter.getPoints());
         intent.putExtra(CORRECT, presenter.getCorrect());
         intent.putExtra(INCORRECT, presenter.getIncorrect());
+        intent.putExtra(TIME, time);
+        intent.putExtra(EVIL, evil);
+        intent.putExtra(FRIENDLY, friendly);
         return intent;
     }
 

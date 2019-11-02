@@ -16,8 +16,8 @@ class Timer extends CountDownTimer {
         view.updateTimer(text);
     }
 
-    void setActive(boolean active) {
-        isActive = active;
+    void setActive() {
+        isActive = true;
     }
 
     boolean getIsActive() {

@@ -5,7 +5,7 @@ import android.view.View;
 
 import java.util.List;
 
-class AlienShooterPresenter implements AlienShooterPresenterInterface{
+class AlienShooterPresenter implements AlienShooterPresenterInterface {
     private AlienShooterView view;
     private AlienShooterManager rules;
 
@@ -19,8 +19,7 @@ class AlienShooterPresenter implements AlienShooterPresenterInterface{
         if (rules.checkAlien(v)) {
             rules.setPoints(1);
             rules.setCorrect();
-        }
-        else {
+        } else {
             rules.setPoints(-2);
             rules.setIncorrect();
         }
@@ -28,13 +27,15 @@ class AlienShooterPresenter implements AlienShooterPresenterInterface{
         view.updatePoints(getPoints(), getCorrect(), getIncorrect());
     }
 
-    int getPoints(){
+    int getPoints() {
         return rules.get_point();
     }
-    int getCorrect(){
+
+    int getCorrect() {
         return rules.getCorrect();
     }
-    int getIncorrect(){
+
+    int getIncorrect() {
         return rules.getIncorrect();
     }
 
@@ -42,9 +43,10 @@ class AlienShooterPresenter implements AlienShooterPresenterInterface{
         view = null;
     }
 
-    public void changeAlienImage(){
+    public void changeAlienImage() {
         view.changeAlienImage();
     }
+
     void randomizeAliens(List<View> aliens) {
         rules.randomize(aliens);
     }

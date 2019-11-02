@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToAlienShooter(View view) {
         // Do something in response to button
-        Intent intent = new Intent( this, ShooterInstructionsActivity.class);
+        Intent intent = new Intent(this, ShooterInstructionsActivity.class);
         startActivity(intent);
         finish();
     }
