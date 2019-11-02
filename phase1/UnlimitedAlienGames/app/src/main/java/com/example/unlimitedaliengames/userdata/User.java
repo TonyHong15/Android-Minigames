@@ -44,16 +44,18 @@ public class User implements Serializable {
         this.painterData = new PainterData();
     }
 
+    /*
+    Set the password of the current user.
+     */
     void setPassword(String pass){
         this.password = pass;
     }
 
+    /*
+    Return true if the password matches.
+     */
     boolean matchPassword(String pass){
         return password.equals(pass);
-    }
-
-    public void saveGuesser(GuesserData data){
-        this.guesserData = data;
     }
 
     /**
@@ -65,14 +67,16 @@ public class User implements Serializable {
         this.painterData.updateStats(numMoves, timeLeft);
     }
 
-    public void eraseGuesser(){
-        this.guesserData = null;
-    }
-
+    /*
+    Return the name of this user.
+     */
     public String getName() {
         return name;
     }
 
+    /*
+    Return the password of the current user.
+     */
     public String getPassword() {
         return password;
     }

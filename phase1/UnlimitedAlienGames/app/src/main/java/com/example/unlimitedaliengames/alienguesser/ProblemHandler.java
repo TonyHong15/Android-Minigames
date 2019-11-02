@@ -2,8 +2,6 @@ package com.example.unlimitedaliengames.alienguesser;
 
 import com.example.unlimitedaliengames.userdata.*;
 
-import java.io.Serializable;
-
 /*
 The controls for guesser game.
  */
@@ -99,7 +97,7 @@ class ProblemHandler {
     }
 
     /*
-    Update view, display the problem based on rng, and save info about the problem.
+    Update view, display the problem saved in globals, if saved is empty, generate.
      */
     void handOutProblem(){
         if (givenProblem == null || correctAnswer == null) {
@@ -111,6 +109,10 @@ class ProblemHandler {
         guesserView.swapGameState();
     }
 
+
+    /*
+    Generate a problem by assigning globals.
+     */
     private void generateProblem() {
         int i = (int) (Math.random() * bankSize) + 1;
         String name = "problem_" + i;
@@ -124,10 +126,15 @@ class ProblemHandler {
     Save the current game state.
      */
     void saveGame(){
-        GuesserData d = new GuesserData(problemAnswered, totalScore, givenProblem, correctAnswer);
-        currUser.saveGuesser(d);
+        currUser.guesserData.currProblem = givenProblem;
+        currUser.guesserData.correctAns = correctAnswer;
+        currUser.guesserData.guesserScore = totalScore;
+        currUser.guesserData.numProblem = problemAnswered;
     }
 
+    /*
+    Return the current user using this object.
+     */
     User getCurrUser(){
         return currUser;
     }
