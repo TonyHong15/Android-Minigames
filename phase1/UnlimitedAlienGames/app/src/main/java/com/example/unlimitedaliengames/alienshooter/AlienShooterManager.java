@@ -10,11 +10,31 @@ import java.util.Random;
 class AlienShooterManager {
 
     private int points;
+    private int correct;
+    private int incorrect;
     private AlienShooterPresenterInterface presenter;
 
     AlienShooterManager(AlienShooterPresenterInterface presenter) {
         points = 0;
+        correct = 0;
+        incorrect = 0;
         this.presenter = presenter;
+    }
+
+    int getIncorrect() {
+        return incorrect;
+    }
+
+    void setIncorrect() {
+        this.incorrect += 1;
+    }
+
+    int getCorrect() {
+        return correct;
+    }
+
+    void setCorrect() {
+        this.correct += 1;
     }
 
     int get_point() {

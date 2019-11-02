@@ -172,8 +172,8 @@
 
     <TextView
         android:id="@+id/alienPoint"
-        android:layout_width="157dp"
-        android:layout_height="57dp"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:text="@string/alien_shooter_points"
@@ -199,6 +199,26 @@
         android:text="@string/alien_shooter_exit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/incorrectHits"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/incorrect_hits"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alienPoint" />
+
+    <TextView
+        android:id="@+id/correctHits"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/correct_hits"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/incorrectHits" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

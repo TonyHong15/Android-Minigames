@@ -16,12 +16,16 @@ class AlienShooterPresenter implements AlienShooterPresenterInterface{
     }
 
     void clickedAlien(List<View> aliens, View v) {
-        if (rules.checkAlien(v))
+        if (rules.checkAlien(v)) {
             rules.setPoints(1);
-        else
+            rules.setCorrect();
+        }
+        else {
             rules.setPoints(-2);
+            rules.setIncorrect();
+        }
         rules.randomize(aliens);
-        view.updatePoints(rules.get_point());
+        view.updatePoints(rules.get_point(), rules.getCorrect(), rules.getIncorrect());
     }
 
     void destroy() {

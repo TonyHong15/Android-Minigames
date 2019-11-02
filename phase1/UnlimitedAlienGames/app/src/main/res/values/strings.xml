@@ -26,6 +26,8 @@
     <string name="FIFTEEN">15 seconds</string>
     <string name="THIRTY">30 seconds</string>
     <string name="RED">Red</string>
+    <string name="correct_hits">Evil Aliens Shot:</string>
+    <string name="incorrect_hits">Friendly Aliens Shot:</string>
     <string name="BLACK">Black</string>
     <string name="YELLOW">Yellow</string>
     <string name="BLUE">Blue</string>
