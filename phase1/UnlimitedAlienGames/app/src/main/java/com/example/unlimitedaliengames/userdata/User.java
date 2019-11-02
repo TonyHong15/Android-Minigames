@@ -30,6 +30,7 @@ public class User implements Serializable {
     User() {
         this.name = "";
         this.password = "";
+        this.guesserData = new GuesserData();
         this.painterData = new PainterData();
     }
 
@@ -39,6 +40,7 @@ public class User implements Serializable {
     User(String name, String password){
         this.name = name;
         this.password = password;
+        this.guesserData = new GuesserData();
         this.painterData = new PainterData();
     }
 
