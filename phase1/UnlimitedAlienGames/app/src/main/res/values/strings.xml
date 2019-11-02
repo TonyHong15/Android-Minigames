@@ -17,6 +17,9 @@
         Now click on the customize button to start your alien shooter journey!!\n\nGood Luck!!
     </string>
     <string name="Game_Over">Game Over</string>
+    <string name="Final_Point"></string>
+    <string name="Final_Friendly_Alien"></string>
+    <string name="Final_Evil_Alien"></string>
     <string name="Restart">Restart</string>
     <string name="Back_to_Menu">Back to Menu</string>
     <string name="Game_Info">Total Points: </string>
