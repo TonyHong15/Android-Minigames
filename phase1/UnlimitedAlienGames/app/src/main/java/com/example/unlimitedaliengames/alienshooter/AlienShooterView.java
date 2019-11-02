@@ -8,5 +8,5 @@ interface AlienShooterView {
 
     void changeAlienImage();
 
-    void updatePoints(int p);
+    void updatePoints(int points, int correct, int incorrect);
 }

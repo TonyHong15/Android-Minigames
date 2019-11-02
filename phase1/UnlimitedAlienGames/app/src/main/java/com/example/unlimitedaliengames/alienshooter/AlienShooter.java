@@ -23,7 +23,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     private TextView timer_text;
     private Button timer_button;
     private List<View> aliens;
-    private TextView point_text;
+    private TextView point_text, friendlyPoint, evilPoint;
 
     private String time, friendly, evil;
     private View exit;
@@ -43,7 +43,8 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         generateOnClickListener();
         timer_text = findViewById(R.id.alienTimer);
         point_text = findViewById(R.id.alienPoint);
-
+        friendlyPoint = findViewById(R.id.incorrectHits);
+        evilPoint = findViewById(R.id.correctHits);
         timer = new Timer(this, determineTime());
 
         timer_button = findViewById(R.id.timer_button);
@@ -169,9 +170,13 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     }
 
     @Override
-    public void updatePoints(int p) {
-        String text = "Points: " + p;
+    public void updatePoints(int points, int correct, int incorrect) {
+        String text = "Points: " + points;
+        String correctText = "Evil Aliens Shot: " + correct;
+        String incorrectText = "Friendly Aliens Shot: " + incorrect;
         point_text.setText(text);
+        friendlyPoint.setText(incorrectText);
+        evilPoint.setText(correctText);
     }
 
     /**
