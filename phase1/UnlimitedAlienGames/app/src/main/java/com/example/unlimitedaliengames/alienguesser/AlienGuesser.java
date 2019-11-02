@@ -15,8 +15,6 @@ import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.userdata.*;
 
-import java.io.Serializable;
-
 public class AlienGuesser extends AppCompatActivity implements GuesserView{
     /*
     The name of the package.
