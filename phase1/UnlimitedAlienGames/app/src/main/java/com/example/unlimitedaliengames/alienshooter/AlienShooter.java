@@ -19,6 +19,9 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         View.OnClickListener {
     private AlienShooterPresenter presenter;
     private static final int numOfAliens = 9;
+    public final static String POINTS= "pass points";
+    public final static String CORRECT= "pass friendly";
+    public final static String INCORRECT = "pass evil";
     //timer
     private Timer timer;
     private TextView timer_text;
@@ -187,13 +190,13 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     public void finishGame(){
         Intent intent = createIntent();
         startActivity(intent);
-        finish();
+       // finish();
     }
     public Intent createIntent(){
         Intent intent = new Intent(this, GameOverActivity.class);
-        intent.putExtra("POINTS", presenter.getPoints());
-        intent.putExtra("CORRECT", presenter.getCorrect());
-        intent.putExtra("INCORRECT", presenter.getIncorrect());
+        intent.putExtra(POINTS, presenter.getPoints());
+        intent.putExtra(CORRECT, presenter.getCorrect());
+        intent.putExtra(INCORRECT, presenter.getIncorrect());
         return intent;
     }
 
