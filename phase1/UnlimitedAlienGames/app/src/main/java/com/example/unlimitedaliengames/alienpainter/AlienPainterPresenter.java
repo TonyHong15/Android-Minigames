@@ -96,6 +96,15 @@ class AlienPainterPresenter {
     }
 
     /**
+     * Returns the amount of time left when the player finished
+     *
+     * @return the amount of time left, in seconds, integer.
+     */
+    int getTimeLeft() {
+        return buttonFunctions.getTimeLeft();
+    }
+
+    /**
      * Resets the board
      */
     void resetBoard() {
@@ -103,10 +112,12 @@ class AlienPainterPresenter {
     }
 
     /**
-     * Records the statistics of the player by parsing the data into an xml file
+     * Records the statistics of the player by first updating the data of the current User, then
+     * writing the User object to a file at the program location.
      */
     void playerWon() {
-
+        currUser.setPainterData(getNumMoves(), getTimeLeft());
+        AlienPainterDataHandler.readFile(currUser);
     }
-
 }
+
