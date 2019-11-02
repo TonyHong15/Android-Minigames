@@ -37,10 +37,12 @@ class ProblemHandler {
         bankSize = Size;
         currUser = curr;
         guesserView = view;
-        givenProblem = null;
-        correctAnswer = null;
-        totalScore = 0;
-        problemAnswered = 0;
+
+        //Loading user's saved game
+        givenProblem = curr.guesserData.currProblem;
+        correctAnswer = curr.guesserData.correctAns;
+        totalScore = curr.guesserData.guesserScore;
+        problemAnswered = curr.guesserData.numProblem;
     }
 
     void onDestroy(){
@@ -100,17 +102,22 @@ class ProblemHandler {
     Update view, display the problem based on rng, and save info about the problem.
      */
     void handOutProblem(){
+        if (givenProblem == null || correctAnswer == null) {
+            generateProblem();
+        }
+        guesserView.clearProblemView();
+        guesserView.updateProblemView("problem_" + (problemAnswered+1) + "_text");
+        guesserView.updateProblemView(givenProblem);
+        guesserView.swapGameState();
+    }
+
+    private void generateProblem() {
         int i = (int) (Math.random() * bankSize) + 1;
         String name = "problem_" + i;
         String answer_name = name + "_ans";
 
         givenProblem = name;
         correctAnswer = guesserView.fetchFromRes(answer_name);
-
-        guesserView.clearProblemView();
-        guesserView.updateProblemView("problem_" + (problemAnswered+1) + "_text");
-        guesserView.updateProblemView(name);
-        guesserView.swapGameState();
     }
 
     /*

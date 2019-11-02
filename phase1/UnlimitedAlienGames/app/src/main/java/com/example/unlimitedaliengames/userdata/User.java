@@ -23,6 +23,7 @@ public class User implements Serializable {
     User(String name, String password){
         this.name = name;
         this.password = password;
+        this.guesserData = new GuesserData(0, 0, null, null);
     }
 
     void setPassword(String pass){

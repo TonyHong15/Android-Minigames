@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.example.unlimitedaliengames.alienguesser.AlienGuesser;
 import com.example.unlimitedaliengames.alienpainter.AlienPainter;
-import com.example.unlimitedaliengames.alienshooter.AlienShooter;
 import com.example.unlimitedaliengames.alienshooter.ShooterInstructionsActivity;
 import com.example.unlimitedaliengames.userdata.*;
 
