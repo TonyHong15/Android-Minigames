@@ -25,7 +25,17 @@ class AlienShooterPresenter implements AlienShooterPresenterInterface{
             rules.setIncorrect();
         }
         rules.randomize(aliens);
-        view.updatePoints(rules.get_point(), rules.getCorrect(), rules.getIncorrect());
+        view.updatePoints(getPoints(), getCorrect(), getIncorrect());
+    }
+
+    int getPoints(){
+        return rules.get_point();
+    }
+    int getCorrect(){
+        return rules.getCorrect();
+    }
+    int getIncorrect(){
+        return rules.getIncorrect();
     }
 
     void destroy() {

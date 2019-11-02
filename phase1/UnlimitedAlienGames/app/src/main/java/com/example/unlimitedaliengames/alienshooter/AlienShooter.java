@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -158,13 +159,6 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     }
 
     @Override
-    public void resetTimer() {
-        String temp = "Retry Game";
-        timer_button.setText(temp);
-        timer.setActive(false);
-    }
-
-    @Override
     public void updateTimer(String text) {
         timer_text.setText(text);
     }
@@ -190,4 +184,17 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
             presenter.clickedAlien(aliens, v);
         }
     }
+    public void finishGame(){
+        Intent intent = createIntent();
+        startActivity(intent);
+        finish();
+    }
+    public Intent createIntent(){
+        Intent intent = new Intent(this, GameOverActivity.class);
+        intent.putExtra("POINTS", presenter.getPoints());
+        intent.putExtra("CORRECT", presenter.getCorrect());
+        intent.putExtra("INCORRECT", presenter.getIncorrect());
+        return intent;
+    }
+
 }

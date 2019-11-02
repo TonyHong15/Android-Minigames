@@ -32,6 +32,7 @@
     <string name="YELLOW">Yellow</string>
     <string name="BLUE">Blue</string>
     <string name="Customize">Customize and Replay</string>
+    <string name="Customized">Customize</string>
     <string name="alien_painter">Go To Alien Painter</string>
     <string name="alien_background">Alien Background</string>
     <string name="alien_shooter_image">Alien</string>
