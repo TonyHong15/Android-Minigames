@@ -2,8 +2,6 @@ package com.example.unlimitedaliengames.alienshooter;
 
 import android.view.View;
 
-import com.example.unlimitedaliengames.R;
-
 import java.util.List;
 import java.util.Random;
 
