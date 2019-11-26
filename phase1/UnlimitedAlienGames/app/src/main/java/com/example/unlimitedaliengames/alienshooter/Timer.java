@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 class Timer extends CountDownTimer {
     private boolean isActive = false;
     private AlienShooterView view;
+    private long timeLeft;
 
     Timer(AlienShooterView view, long time) {
         super(time, 1000);
@@ -13,6 +14,7 @@ class Timer extends CountDownTimer {
 
     public void onTick(long seconds) {
         String text = "Time: " + seconds / 1000;
+        timeLeft = seconds;
         view.updateTimer(text);
     }
 
@@ -29,4 +31,9 @@ class Timer extends CountDownTimer {
         cancel();
         view.finishGame();
     }
+
+    public long getTimeLeft(){
+        return timeLeft;
+    }
+
 }

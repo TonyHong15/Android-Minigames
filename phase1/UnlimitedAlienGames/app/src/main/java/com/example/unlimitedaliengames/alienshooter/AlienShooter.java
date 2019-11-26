@@ -33,6 +33,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
 
     private String time, friendly, evil;
     private View exit;
+    private long timeLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,10 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         point_text = findViewById(R.id.alienPoint);
         friendlyPoint = findViewById(R.id.incorrectHits);
         evilPoint = findViewById(R.id.correctHits);
-        timer = new Timer(this, determineTime());
+
+
+        determineTime();
+        timer = new Timer(this, timeLeft);
 
         timer_button = findViewById(R.id.timer_button);
         setTimerListener();
@@ -61,14 +65,12 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
         presenter = new AlienShooterPresenter(this);
     }
 
-    private long determineTime() {
-        long targetTime;
+    private void determineTime() {
         if (time.equals("15 seconds")) {
-            targetTime = 15000;
+            timeLeft = 15000;
         } else {
-            targetTime = 30000;
+            timeLeft = 30000;
         }
-        return targetTime;
     }
 
     private void setExitListener() {
@@ -96,6 +98,23 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView,
     /*
     End the current instance of game and return to Main menu.
      */
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        timeLeft = timer.getTimeLeft();
+        String temp = "Resume Game";
+        timer_button.setText(temp);
+        timer.cancel();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        timer= new Timer(this, timeLeft);
+
+    }
+
     private void endGame() {
         startActivity(new Intent(this, MainActivity.class));
         timer.cancel();
