@@ -22,6 +22,10 @@ class Timer extends CountDownTimer {
         isActive = true;
     }
 
+    void setInactive() {
+        isActive = false;
+    }
+
     boolean getIsActive() {
         return isActive;
     }

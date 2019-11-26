@@ -39,6 +39,9 @@ public class CustomizeActivity extends AppCompatActivity {
         choseTime = false;
     }
 
+    /**
+     * proceed the game if the user choose all the customization
+     */
     private void setListenerProceed() {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +53,9 @@ public class CustomizeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * pass in the information about the customization to AlienShooter
+     */
     private void proceedToGame() {
         Intent intent = new Intent(this, AlienShooter.class);
         intent.putExtra(PASS_TIME, time);
@@ -59,6 +65,9 @@ public class CustomizeActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * set the time to 15 seconds when the button is clicked
+     */
     private void setListenerFifteen() {
         fifteen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +81,9 @@ public class CustomizeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * set the time to 30 seconds when the button is clicked
+     */
     private void setListenerThirty() {
         thirty.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +97,9 @@ public class CustomizeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * set the friendly alien to be blue
+     */
     private void setListenerBlue() {
         blue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +113,9 @@ public class CustomizeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * set the friendly alien to be yellow
+     */
     private void setListenerYellow() {
         yellow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +129,9 @@ public class CustomizeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * set evil alien to be red
+     */
     private void setListenerRed() {
         red.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +145,9 @@ public class CustomizeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * set the evil alien to be black
+     */
     private void setListenerBlack() {
         black.setOnClickListener(new View.OnClickListener() {
             @Override

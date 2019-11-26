@@ -24,6 +24,9 @@ public class ShooterInstructionsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * go to the customization activity when clicked
+     */
     private void setCustomizeListener() {
         customize.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +37,9 @@ public class ShooterInstructionsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * go to the menu activity when clicked
+     */
     private void setReturnListener() {
         returnToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,10 +50,16 @@ public class ShooterInstructionsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * send intent to the customize Activity
+     */
     private void customizeActivity() {
         startActivity(new Intent(this, CustomizeActivity.class));
     }
 
+    /**
+     * send intent to the start Activity
+     */
     private void menu() {
         startActivity(new Intent(this, MainActivity.class));
     }
