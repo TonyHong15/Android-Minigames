@@ -12,6 +12,10 @@ public class User implements Serializable {
     public String name;
     private String password;
 
+    //3 common stats for user regardless of game/level
+    private long timePlayed;
+    private int gamesPlayed;
+    private int totalPoints;
     /*
     Stats for the guesser game.
      */
