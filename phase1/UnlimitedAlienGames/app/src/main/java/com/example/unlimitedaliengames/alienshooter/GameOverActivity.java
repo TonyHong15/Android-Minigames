@@ -47,21 +47,33 @@ public class GameOverActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * set the total points
+     */
     private void setPoints() {
         String text = "Total Points: " + points;
         textPoints.setText(text);
     }
 
+    /**
+     * set the number of friendly aliens clicked
+     */
     private void setFriendly() {
         String text = "Friendly Aliens Shot: " + incorrect;
         friendly.setText(text);
     }
 
+    /**
+     * set the number of evil alien clicked
+     */
     private void setEvil() {
         String text = "Evil Aliens Shot: " + correct;
         evil.setText(text);
     }
 
+    /**
+     * restart the game with all the same customization
+     */
     private void setListenerRestart() {
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +84,9 @@ public class GameOverActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * reset the customization before starting the game
+     */
     private void setCustomizeListener() {
         customize.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +97,9 @@ public class GameOverActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * return to menu
+     */
     private void setReturnListener() {
         backToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,10 +110,16 @@ public class GameOverActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * start activity with the new intent
+     */
     private void customizeActivity() {
         startActivity(new Intent(this, CustomizeActivity.class));
     }
 
+    /**
+     * create an intent to pass the information of customization to AlienShooter class
+     */
     private void restartActivity() {
         Intent intent = new Intent(this, AlienShooter.class);
         intent.putExtra(PASS_EVIL, evilCustom);
@@ -104,6 +128,9 @@ public class GameOverActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * start activity with the new intent
+     */
     private void menu() {
         startActivity(new Intent(this, MainActivity.class));
     }
