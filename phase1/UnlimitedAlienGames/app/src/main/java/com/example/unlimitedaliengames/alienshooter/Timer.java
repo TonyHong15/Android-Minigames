@@ -22,10 +22,6 @@ class Timer extends CountDownTimer {
         isActive = true;
     }
 
-    void setInactive() {
-        isActive = false;
-    }
-
     boolean getIsActive() {
         return isActive;
     }
@@ -36,7 +32,7 @@ class Timer extends CountDownTimer {
         view.finishGame();
     }
 
-    public long getTimeLeft(){
+    long getTimeLeft(){
         return timeLeft;
     }
 
