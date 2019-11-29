@@ -51,14 +51,14 @@ public class ShooterInstructionsActivity extends AppCompatActivity {
     }
 
     /**
-     * send intent to the customize Activity
+     * move on to next activity
      */
     private void customizeActivity() {
         startActivity(new Intent(this, CustomizeActivity.class));
     }
 
     /**
-     * send intent to the start Activity
+     * move on to next activity
      */
     private void menu() {
         startActivity(new Intent(this, MainActivity.class));

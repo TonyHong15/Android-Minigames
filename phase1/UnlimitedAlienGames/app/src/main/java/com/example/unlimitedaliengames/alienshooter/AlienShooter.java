@@ -262,9 +262,20 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView{
      * which is destroyed
      */
     public void finishGame() {
-        Intent intent = createIntent();
-        startActivity(intent);
+        if (presenter.getPoints() >= 1){
+            Intent intent = bonusIntent();
+            startActivity(intent);
+        }
+        else {
+            Intent intent = createIntent();
+            startActivity(intent);
+        }
         finish();
+    }
+
+    public Intent bonusIntent(){
+        Intent intent = new Intent(this, BonusInstructionActivity.class);
+        return intent;
     }
 
     /**

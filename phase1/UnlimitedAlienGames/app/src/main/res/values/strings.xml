@@ -16,6 +16,19 @@
         the colour of the friendly aliens and the colour of the target evil alien. \n\n
         Now click on the customize button to start your alien shooter journey!!\n\nGood Luck!!
     </string>
+    <string name="BonusTitleHeader">Bonus Game</string>
+    <string name="BonusRoundDescription">This is a bonus round where you have chance to get more\n
+    points. You will play...(edit)</string>
+    <string name="Shoot">Shoot</string>
+    <string name="Canon">Canon</string>
+    <string name="Ufo">Ufo</string>
+    <string name="Points">Points :</string>
+    <string name="Bullet1">Bullet1</string>
+    <string name="Bullet2">Bullet2</string>
+    <string name="Bullet3">Bullet3</string>
+    <string name="Bullet4">Bullet4</string>
+    <string name="Bullet5">Bullet5</string>
+    <string name="BonusStarButton">Start Bonus Round</string>
     <string name="Game_Over">Game Over</string>
     <string name="Final_Point"></string>
     <string name="Final_Friendly_Alien"></string>
