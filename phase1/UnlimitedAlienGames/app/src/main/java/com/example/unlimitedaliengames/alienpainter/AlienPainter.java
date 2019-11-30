@@ -86,10 +86,31 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     private Button languageButton;
 
     /**
+     * Holds the button that switches the view to the scoreboard.
+     */
+    private Button scoreboardButton;
+
+    /**
      * Holds the current user of this game
      */
     private User currUser;
 
+    /**
+     * used to check whether the user has won or not
+     */
+    private boolean isVictorious;
+
+    /**
+     * This method is automatically called when the app view switches to AlienPainter.
+     * The method extracts the User that logged in from the intent, and uses it to store player
+     * statistics.
+     * The method initializes AlienPainterTimer and AlienPainterPresenter.
+     * The method calls the gridCreation method that creations a 2D array of buttons
+     * The method calls the buttonSetup method that sets up the buttons other than the 2D array
+     * The method sends a toast that informs the player of how to play the game.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,12 +122,13 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         painterTextViewMoves = findViewById(R.id.painterTextView1);
         painterTextViewTime = findViewById(R.id.painterTextView2);
 
+        isVictorious = false;
         isEnglish = true;
 
         //Initialize the Timer
         painterTimer = new AlienPainterTimer(this);
 
-        //Setup the exitButton, languageButton and retryButton
+        //Setup the exitButton, languageButton, scoreboardButton and retryButton
         buttonSetup();
 
         //Construct the 2D imageButton array
@@ -131,17 +153,21 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      * When exitButton is clicked, the game goes back to MainActivity.
      * When retryButton is clicked, the game resets its timer and generates a new board.
      * When languageButton is clicked, the game changes its UI language to Chinese.
+     * When scoreboardButton is clicked, the view switches to the scoreboard.
      */
     private void buttonSetup() {
         exitButton = findViewById(R.id.exitButton);
         retryButton = findViewById(R.id.retryButton);
         languageButton = findViewById(R.id.languageButton);
+        scoreboardButton = findViewById(R.id.scoreBoardButton);
 
         //Setup the exitButton
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), MainActivity.class));
+                presenter.resetBoard();
+                painterTimer.reset();
                 finish();
             }
 
@@ -169,6 +195,16 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
                 updateLanguage();
             }
         });
+
+        //Setup the scoreboardButton
+        scoreboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //calls the gameOver method
+                gameOver();
+            }
+        });
+
     }
 
     /**
@@ -240,7 +276,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
                 }
                 presenter.playerWon();
 
-                gameOver(true);
+                isVictorious = true;
             }
         }
 
@@ -319,15 +355,10 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         } else {
             Toast.makeText(this, LOSS_CHINESE, Toast.LENGTH_SHORT).show();
         }
-
-        gameOver(false);
-
-
-        //Ask whether the player wants to try again
     }
 
     /**
-     * A helper function used to update the language displayed on the map when the use
+     * A helper function used to update the language displayed on the view when the user
      * switches the language.
      */
     private void updateLanguage() {
@@ -335,18 +366,21 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             languageButton.setText(R.string.alien_painter_language_chinese);
             exitButton.setText(R.string.alien_painter_exit);
             retryButton.setText(R.string.alien_painter_retry);
+            scoreboardButton.setText(R.string.alien_painter_scoreboard_button);
         } else {
             languageButton.setText(R.string.alien_painter_language_english);
             exitButton.setText(R.string.alien_painter_exit_chinese);
             retryButton.setText(R.string.alien_painter_retry_chinese);
+            scoreboardButton.setText(R.string.alien_painter_scoreboard_button_chinese);
         }
     }
 
     /**
-     * Calls this method to start the game over activity
+     * Calls this method when the game ends
      */
-    private void gameOver(boolean won) {
+    private void gameOver() {
         Intent intent = new Intent(this, AlienPainterGameOverActivity.class);
+        intent.putExtra("GAMEOVERSTATUS", isVictorious);
         intent.putExtra(NUM_MOVES, presenter.getNumMoves());
         intent.putExtra(TIME_LEFT, presenter.getTimeLeft());
         startActivity(intent);

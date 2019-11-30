@@ -122,4 +122,6 @@
     <string name="alien_painter_language_chinese">Switch to Chinese</string>
     <string name="alien_painter_exit_chinese">退出</string>
     <string name="alien_painter_retry_chinese">重来</string>
+    <string name="alien_painter_scoreboard_button">Scoreboard</string>
+    <string name="alien_painter_scoreboard_button_chinese">分数统计</string>
 </resources>
