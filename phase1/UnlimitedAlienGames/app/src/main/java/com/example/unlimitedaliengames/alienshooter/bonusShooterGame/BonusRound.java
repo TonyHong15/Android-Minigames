@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.unlimitedaliengames.R;
 
@@ -17,7 +18,8 @@ import java.util.List;
 
 public class BonusRound extends AppCompatActivity implements BonunsRoundView {
 
-    private ImageView bullet1, canon, ufo, bulletCount;
+    private TextView text;
+    private ImageView bullet1, canon, ufo;
     private ImageView bullet2, bullet3, bullet4, bullet5;
     private Button shoot;
     private BonusRoundPresenter presenter;
@@ -44,9 +46,9 @@ public class BonusRound extends AppCompatActivity implements BonunsRoundView {
         bullets.add(bullet4);
         bullets.add(bullet5);
 
-//        setInvisibility();
-
         canon = findViewById(R.id.Canon);
+
+        text = findViewById(R.id.Points);
 
         ufo = findViewById(R.id.Ufo);
         presenter = new BonusRoundPresenter(this);
@@ -55,14 +57,8 @@ public class BonusRound extends AppCompatActivity implements BonunsRoundView {
         ShootListener();
 
         canonMotion();
-//        ufoMotion();
+        ufoMotion();
 
-    }
-
-    private void setInvisibility() {
-        for (View bullet: bullets) {
-            bullet.setVisibility(View.INVISIBLE);
-        }
     }
 
     private void ShootListener() {
@@ -89,14 +85,24 @@ public class BonusRound extends AppCompatActivity implements BonunsRoundView {
 
     }
 
+    private void ufoMotion(){
+        leftToRightAnimation(ufo, 500);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ufoMotion();
+            }
+        }, 1000);
+    }
+
     private void canonMotion(){
-        leftToRightAnimation(canon, 5000);
+        leftToRightAnimation(canon, 1000);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     canonMotion();
                 }
-            }, 10000);
+            }, 2000);
     }
 
     private void leftToRightAnimation(View v, int t){
@@ -109,12 +115,17 @@ public class BonusRound extends AppCompatActivity implements BonunsRoundView {
         moveCanon.start();
     }
 
-    private void shootingMotion(View v, float x, float y){
+    private void shootingMotion(final View v, final float x, final float y){
         setBulletLocation(v, x, y);
-        ObjectAnimator animation = ObjectAnimator.ofFloat(v, "translationY", -1500f);
-        animation.setDuration(3000);
+        ObjectAnimator animation = ObjectAnimator.ofFloat(v, "translationY", -300f);
+        animation.setDuration(2000);
         animation.start();
-        checkOnHit(x, y);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkOnHit(v);
+            }
+        }, 1300);
     }
 
     private void setBulletLocation(View v, float x, float y){
@@ -122,15 +133,22 @@ public class BonusRound extends AppCompatActivity implements BonunsRoundView {
         v.setY(y);
     }
 
-    private void checkOnHit(float x, float y) {
-//        if (presenter.checkOnHit(x, y)) {
-//            String hit = "hit";
-//            shoot.setText(hit);
-//        }
-//        else{
-//            String hit = "fail";
-//            shoot.setText(hit);
-//        }
+    private void checkOnHit(View v) {
+        float bulletX = v.getX();
+        float bulletY = v.getY();
+        float ufoX = ufo.getX();
+        float ufoY = ufo.getY();
+
+        if (presenter.checkOnHit(bulletX, bulletY, ufoX, ufoY)) {
+            presenter.increasePoint();
+            presenter.updatePoints();
+            v.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void updatePointText(int point){
+        String textPoint = "points: " + point;
+        text.setText(textPoint);
     }
 }
 

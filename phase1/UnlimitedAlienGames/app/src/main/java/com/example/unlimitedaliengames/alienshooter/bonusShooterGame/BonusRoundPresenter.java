@@ -11,8 +11,8 @@ public class BonusRoundPresenter implements BonusRoundPresenterInterface {
 
     }
 
-    boolean checkOnHit(float x, float y) {
-        return rules.checkIfHit(x, y);
+    boolean checkOnHit(float bulletX, float bulletY, float ufoX, float ufoY) {
+        return rules.checkIfHit(bulletX, bulletY, ufoX, ufoY);
     }
 
     int getBullet(){
@@ -25,4 +25,11 @@ public class BonusRoundPresenter implements BonusRoundPresenterInterface {
         return rules.getNumBullets() > 0;
     }
 
+    public void increasePoint() {
+        rules.increasePoints();
+    }
+
+    public void updatePoints() {
+        view.updatePointText(rules.getPoints());
+    }
 }

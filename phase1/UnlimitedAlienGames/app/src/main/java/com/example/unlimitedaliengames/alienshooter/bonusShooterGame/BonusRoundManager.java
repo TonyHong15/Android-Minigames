@@ -28,8 +28,8 @@ public class BonusRoundManager {
         numBullets -= 1;
     }
 
-    boolean checkIfHit(float x, float y){
-        return (ufoX - 100 <= x &&
-                ufoY + 100 >= x);
+    boolean checkIfHit(float bulletX, float bulletY, float ufoX, float ufoY){
+        return (bulletX - 200 < ufoX && ufoX < bulletX + 200 &&
+                bulletY - 200 < ufoY && ufoY < bulletY + 200);
     }
 }
