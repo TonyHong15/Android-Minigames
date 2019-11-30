@@ -3,14 +3,18 @@ package com.example.unlimitedaliengames.userdata;
 import android.content.Context;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 /*
 User database class, stores an array of users.
@@ -83,19 +87,28 @@ public class UserManager {
     Write (save) user data onto a file
      */
     public static void writeToFile(String data,Context context)  {
+        //context.getApplicationInfo().dataDir;
         File path = context.getFilesDir();
-        File file = new File(path, "savedUserData.txt");
+
+        File file = new File(context.getApplicationInfo().dataDir, "savedUserData.json");
 
         try {
-            FileOutputStream stream = new FileOutputStream(file);
-            try {
-                stream.write("user data test".getBytes());
-                Log.i("tag2", "writeToFile success!");
-            } finally {
-                stream.close();
-            }
+            JSONObject json = new JSONObject();
+            json.put("name", "student");
+            Writer output;
+            output = new BufferedWriter(new FileWriter("com/example/unlimitedaliengames/userdata/savedUserData.json"));
+            output.write(json.toString());
+            output.close();
+
+            Log.i("tag2", "writeToFile success!");
+            Log.i("tag2", json.toString());
+            Log.i("tag2", path.toString());
+            Log.i("tag2", context.getApplicationInfo().dataDir);
         } catch (IOException e){
             Log.e("tag1", "writeToFile failed");
+        } catch (JSONException e) {
+            Log.e("MYAPP", "unexpected JSON exception", e);
+            // Do something to recover ... or kill the app.
         }
     }
 
