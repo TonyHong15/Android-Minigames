@@ -1,4 +1,4 @@
-package com.example.unlimitedaliengames.alienshooter;
+package com.example.unlimitedaliengames.alienshooter.instructionPages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.view.View;
 import android.content.Intent;
 
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
 
 public class CustomizeActivity extends AppCompatActivity {
     public final static String PASS_TIME = "pass time";

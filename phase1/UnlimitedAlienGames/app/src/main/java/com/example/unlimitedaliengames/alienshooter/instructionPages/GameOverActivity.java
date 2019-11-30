@@ -1,4 +1,4 @@
-package com.example.unlimitedaliengames.alienshooter;
+package com.example.unlimitedaliengames.alienshooter.instructionPages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
 
 public class GameOverActivity extends AppCompatActivity {
     private View restart, customize, backToMenu;

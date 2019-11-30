@@ -1,4 +1,4 @@
-package com.example.unlimitedaliengames.alienshooter;
+package com.example.unlimitedaliengames.alienshooter.bonusShooterGame;
 
 public class BonusRoundManager {
     private int points;

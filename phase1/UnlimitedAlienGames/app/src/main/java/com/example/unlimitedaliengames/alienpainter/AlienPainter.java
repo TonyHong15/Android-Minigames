@@ -15,31 +15,33 @@ import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.userdata.User;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class AlienPainter extends AppCompatActivity implements View.OnClickListener, AlienPainterView {
 
     /**
      * The English Constants for what to display on the screen
      */
-    private static final String NUM_MOVES = "Number of Moves: ";
-    private static final String TIME_LEFT = "Time Remaining: ";
-    private static final String WIN = "You Have Won!";
-    private static final String LOSS = "You Have Lost!";
-    private static final String INSTRUCTIONS_ENGLISH = "Clicking a button changes its and all " +
+    static final String NUM_MOVES = "Number of Moves: ";
+    static final String TIME_LEFT = "Time Remaining: ";
+    static final String WIN = "You Have Won!";
+    static final String LOSS = "You Have Lost!";
+    static final String INSTRUCTIONS_ENGLISH = "Clicking a button changes its and all " +
             "nearby buttons' colour. Click on each button to try to get all of them to turn black";
 
     /**
      * The Chinese Constants for what to display on the screen
      */
-    private static final String NUM_MOVES_CHINESE = "步数: ";
-    private static final String TIME_LEFT_CHINESE = "剩余时间: ";
-    private static final String WIN_CHINESE = "你赢了！";
-    private static final String LOSS_CHINESE = "你输了！";
-    private static final String INSTRUCTIONS_CHINESE = "点击一个按钮时会转变它和它周围的按钮的颜色，" +
+    static final String NUM_MOVES_CHINESE = "步数: ";
+    static final String TIME_LEFT_CHINESE = "剩余时间: ";
+    static final String WIN_CHINESE = "你赢了！";
+    static final String LOSS_CHINESE = "你输了！";
+    static final String INSTRUCTIONS_CHINESE = "点击一个按钮时会转变它和它周围的按钮的颜色，" +
             "通过点击按钮来把它们全部变成黑色";
 
     /**
-     * THhe boolean variable used to check whether the player has turned on Chinese Language
+     * The boolean variable used to check whether the player has turned on Chinese Language
      */
     private boolean isEnglish;
 
@@ -159,7 +161,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        //Setuo the languageButton
+        //Setup the languageButton
         languageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,6 +239,8 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, WIN_CHINESE, Toast.LENGTH_SHORT).show();
                 }
                 presenter.playerWon();
+
+                gameOver(true);
             }
         }
 
@@ -316,6 +320,9 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, LOSS_CHINESE, Toast.LENGTH_SHORT).show();
         }
 
+        gameOver(false);
+
+
         //Ask whether the player wants to try again
     }
 
@@ -333,5 +340,16 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             exitButton.setText(R.string.alien_painter_exit_chinese);
             retryButton.setText(R.string.alien_painter_retry_chinese);
         }
+    }
+
+    /**
+     * Calls this method to start the game over activity
+     */
+    private void gameOver(boolean won) {
+        Intent intent = new Intent(this, AlienPainterGameOverActivity.class);
+        intent.putExtra(NUM_MOVES, presenter.getNumMoves());
+        intent.putExtra(TIME_LEFT, presenter.getTimeLeft());
+        startActivity(intent);
+        finish();
     }
 }

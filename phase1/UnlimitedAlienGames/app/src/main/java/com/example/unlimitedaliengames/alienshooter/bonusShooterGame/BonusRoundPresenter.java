@@ -1,9 +1,6 @@
-package com.example.unlimitedaliengames.alienshooter;
+package com.example.unlimitedaliengames.alienshooter.bonusShooterGame;
 
-import android.os.Handler;
-import android.view.View;
-
-public class BonusRoundPresenter implements BonusRoundPresenterInterface{
+public class BonusRoundPresenter implements BonusRoundPresenterInterface {
 
     private BonunsRoundView view;
     private BonusRoundManager rules;

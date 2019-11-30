@@ -1,4 +1,4 @@
-package com.example.unlimitedaliengames.alienshooter;
+package com.example.unlimitedaliengames.alienshooter.instructionPages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
