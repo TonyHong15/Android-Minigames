@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.alienshooter.bonusShooterGame.BonusRound;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.CustomizeActivity;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.BonusInstructionActivity;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.GameOverActivity;
@@ -36,6 +38,8 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
     private String time, friendly, evil;
     private View exit;
     private long timeLeft;
+
+    private boolean bonusAchieved = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +124,20 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         timer.cancel();
     }
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (bonusAchieved) {
+            presenter.addBonusPoints(getBonusPoints());
+            finishGame();
+        }
+    }
+
+    private int getBonusPoints() {
+        return getIntent().getIntExtra(BonusRound.POINTS, 0);
+    }
+
     /**
      * If the user exits the app and returns, this will create a new timer with the amount of time
      * remaining based on when the user left
@@ -127,7 +145,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
     @Override
     protected void onResume() {
         super.onResume();
-        timer= new Timer(this, timeLeft);
+        timer = new Timer(this, timeLeft);
 
     }
 
@@ -157,7 +175,8 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
     /**
      * Sets the alien at index i in aliens to a evil alien with colour scheme based on user
      * customization
-     * @param i  integer that represents the index of the alien in aliens
+     *
+     * @param i integer that represents the index of the alien in aliens
      */
     private void setRedAlien(int i) {
         if (evil.equals("Red")) {
@@ -170,7 +189,8 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
     /**
      * Sets the alien at index i in aliens to a good alien with colour scheme based on user
      * customization
-     * @param i  integer that represents the index of the alien in aliens
+     *
+     * @param i integer that represents the index of the alien in aliens
      */
     private void setNormalAlien(int i) {
         if (friendly.equals("Blue")) {
@@ -237,6 +257,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
 
     /**
      * updates the label telling the user how much time is remaining
+     *
      * @param text a String that tells the user the time remaining currently in the game
      */
     @Override
@@ -246,8 +267,9 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
 
     /**
      * updates the labels corresponding to the current stats of the user for this current game.
-     * @param points the points the user currently has scored
-     * @param correct the number of evil aliens the user has shot
+     *
+     * @param points    the points the user currently has scored
+     * @param correct   the number of evil aliens the user has shot
      * @param incorrect the number of good aliens the user has shot
      */
     @Override
@@ -265,25 +287,27 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
      * which is destroyed
      */
     public void finishGame() {
-        if (presenter.getPoints() >= 1){
+        if (presenter.getPoints() >= 5 && !bonusAchieved) {
+            bonusAchieved = true;
             Intent intent = bonusIntent();
             startActivity(intent);
-        }
-        else {
+        } else {
             Intent intent = createIntent();
             startActivity(intent);
+            finish();
         }
-        finish();
+
     }
 
-    public Intent bonusIntent(){
-        Intent intent = new Intent(this, BonusInstructionActivity.class);
-        return intent;
+
+    public Intent bonusIntent() {
+        return new Intent(this, BonusInstructionActivity.class);
     }
 
     /**
      * creates an intent containing the user statistics data from the current game. This intent
      * transitions from this activity to the score screen/ game over activity.
+     *
      * @return an Intent that contains the information of the user's statistics in the current game
      */
     public Intent createIntent() {

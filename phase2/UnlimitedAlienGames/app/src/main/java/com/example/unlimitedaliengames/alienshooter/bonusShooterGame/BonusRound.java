@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BonusRound extends AppCompatActivity implements BonusRoundView {
-
+    public final static String POINTS = "pass points";
     private TextView text, endMessage;
     private ImageView bullet1, canon, ufo;
     private ImageView bullet2, bullet3, bullet4, bullet5;
@@ -71,11 +71,15 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     }
 
-    private void EndButtonListener(){
+    public void setShoot(String text) {
+        shoot.setText(text);
+    }
+
+    private void EndButtonListener() {
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (clickable){
+                if (clickable) {
                     Intent intent = createIntent();
                     startActivity(intent);
                     finish();
@@ -89,22 +93,16 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         shoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (presenter.canShoot()){
+                if (presenter.canShoot()) {
                     shoot(presenter.getBullet());
-                }
-                else{
-                    String text = "Out of Ammo";
-                    shoot.setText(text);
-                    endingDescription();
-                    setExitButton();
-
+                    presenter.checkLastBullet();
                 }
 
             }
         });
     }
 
-    void shoot(int bulletLeft){
+    public void shoot(int bulletLeft) {
         float xValue = canon.getX();
         float yValue = canon.getY();
         bullets.get(bulletLeft).setVisibility(View.VISIBLE);
@@ -112,7 +110,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     }
 
-    private void ufoMotion(){
+    private void ufoMotion() {
         leftToRightAnimation(ufo, 500);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -122,7 +120,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         }, 1000);
     }
 
-    private void canonMotion(){
+    private void canonMotion() {
         leftToRightAnimation(canon, 1000);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -132,7 +130,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         }, 2000);
     }
 
-    private void leftToRightAnimation(View v, int t){
+    private void leftToRightAnimation(View v, int t) {
         ObjectAnimator canonMoveLeft = ObjectAnimator.ofFloat(v, "translationX", 0f);
         canonMoveLeft.setDuration(t);
         ObjectAnimator canonMoveRight = ObjectAnimator.ofFloat(v, "translationX", 870f);
@@ -142,7 +140,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         moveCanon.start();
     }
 
-    private void shootingMotion(final View v, final float x, final float y){
+    private void shootingMotion(final View v, final float x, final float y) {
         setBulletLocation(v, x, y);
         ObjectAnimator animation = ObjectAnimator.ofFloat(v, "translationY", -300f);
         animation.setDuration(2000);
@@ -155,7 +153,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         }, 1300);
     }
 
-    private void setBulletLocation(View v, float x, float y){
+    private void setBulletLocation(View v, float x, float y) {
         v.setX(x);
         v.setY(y);
     }
@@ -173,30 +171,25 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         }
     }
 
-    public void updatePointText(int point){
+    public void updatePointText(int point) {
         String textPoint = "points: " + point;
         text.setText(textPoint);
     }
 
-    private void endingDescription(){
+    public void endingDescription() {
         String endDescription = "congratulation you earned : " + presenter.getPoints()
-                + "points";
+                + " point(s)";
         endMessage.setText(endDescription);
     }
 
-    private void setExitButton(){
+    public void setExitButton() {
         clickable = true;
         endButton.setVisibility(View.VISIBLE);
     }
 
-    private Intent createIntent(){
+    private Intent createIntent() {
         Intent intent = new Intent(this, GameOverActivity.class);
-//        intent.putExtra(POINTS, presenter.getPoints());
-//        intent.putExtra(CORRECT, presenter.getCorrect());
-//        intent.putExtra(INCORRECT, presenter.getIncorrect());
-//        intent.putExtra(TIME, time);
-//        intent.putExtra(EVIL, evil);
-//        intent.putExtra(FRIENDLY, friendly);
+        intent.putExtra(POINTS, presenter.getPoints());
         return intent;
     }
 }

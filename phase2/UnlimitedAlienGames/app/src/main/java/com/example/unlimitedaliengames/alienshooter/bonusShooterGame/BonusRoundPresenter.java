@@ -1,11 +1,13 @@
 package com.example.unlimitedaliengames.alienshooter.bonusShooterGame;
 
+import android.os.Handler;
+
 public class BonusRoundPresenter implements BonusRoundPresenterInterface {
 
     private BonusRoundView view;
     private BonusRoundManager rules;
 
-    BonusRoundPresenter(BonusRoundView view){
+    BonusRoundPresenter(BonusRoundView view) {
         this.view = view;
         this.rules = new BonusRoundManager(this);
 
@@ -15,13 +17,31 @@ public class BonusRoundPresenter implements BonusRoundPresenterInterface {
         return rules.checkIfHit(bulletX, bulletY, ufoX, ufoY);
     }
 
-    public int getBullet(){
+    public int getBullet() {
         int numLeft = rules.getNumBullets();
         rules.decreaseNumBullets();
         return numLeft;
     }
 
-    public boolean canShoot(){
+
+    void checkLastBullet(){
+        if (!canShoot()){
+            endBonusRound();
+        }
+    }
+    void endBonusRound() {
+        String text = "Out of Ammo";
+        view.setShoot(text);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.endingDescription();
+                view.setExitButton();
+            }
+        }, 1500);
+    }
+
+    public boolean canShoot() {
         return rules.getNumBullets() > 0;
     }
 
@@ -33,5 +53,7 @@ public class BonusRoundPresenter implements BonusRoundPresenterInterface {
         view.updatePointText(rules.getPoints());
     }
 
-    public int getPoints() {return rules.getPoints();}
+    public int getPoints() {
+        return rules.getPoints();
+    }
 }
