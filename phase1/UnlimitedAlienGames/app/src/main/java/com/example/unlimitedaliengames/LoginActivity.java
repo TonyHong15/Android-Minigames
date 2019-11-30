@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -40,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         display = findViewById(R.id.messageDisplay);
 
         users = new UserManager();
-
         //handling clicking for login
         findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         String pass = password.getText().toString();
         if(users.attemptRegister(user, pass)){
             display.setText(getString(R.string.register_ok));
+            UserManager.writeToFile("text to be saved", getApplicationContext());
         }else{
             display.setText(getString(R.string.register_fail));
         }
