@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Writer;
 
 /*
@@ -88,28 +89,30 @@ public class UserManager {
      */
     public static void writeToFile(String data,Context context)  {
         //context.getApplicationInfo().dataDir;
-        File path = context.getFilesDir();
+        String path = context.getFilesDir().getAbsolutePath();
 
-        File file = new File(context.getApplicationInfo().dataDir, "savedUserData.json");
+        File file = new File(path + "/savedUserData.json");
+
+        File file2 = new File(path + "/tmp.txt");
+        Log.i("tag2", "line 0");
 
         try {
-            JSONObject json = new JSONObject();
+            FileWriter output = new FileWriter(file2);
+
+            /*JSONObject json = new JSONObject();
             json.put("name", "student");
-            Writer output;
-            output = new BufferedWriter(new FileWriter("com/example/unlimitedaliengames/userdata/savedUserData.json"));
-            output.write(json.toString());
+            output.write(json.toString());*/
+            output.write("hello");
+            output.flush();
             output.close();
 
             Log.i("tag2", "writeToFile success!");
-            Log.i("tag2", json.toString());
-            Log.i("tag2", path.toString());
-            Log.i("tag2", context.getApplicationInfo().dataDir);
         } catch (IOException e){
             Log.e("tag1", "writeToFile failed");
-        } catch (JSONException e) {
+        } /*catch (JSONException e) {
             Log.e("MYAPP", "unexpected JSON exception", e);
             // Do something to recover ... or kill the app.
-        }
+        }*/
     }
 
     /*
