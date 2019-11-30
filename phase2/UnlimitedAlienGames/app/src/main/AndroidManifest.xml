@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".alienpainter.AlienPainterGameOverActivity" />
+        <activity android:name=".alienpainter.AlienPainterScoreboardActivity" />
         <activity android:name=".alienshooter.bonusShooterGame.BonusRound" ></activity>
         <activity android:name=".alienshooter.instructionPages.BonusInstructionActivity" />
         <activity android:name=".alienshooter.instructionPages.GameOverActivity" />

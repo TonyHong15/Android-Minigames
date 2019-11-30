@@ -21,21 +21,26 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     /**
      * The English Constants for what to display on the screen
      */
-    static final String SCOREBOARDSTATUS = "scoreboard";
+    static final String SCOREBOARD_STATUS = "You Have ";
     static final String NUM_MOVES = "Number of Moves: ";
     static final String TIME_LEFT = "Time Remaining: ";
+    static final String POINTS = "Points: ";
     static final String WIN = "You Have Won!";
     static final String LOSS = "You Have Lost!";
-    static final String POINTS = "Points: ";
 
     /**
      * The Chinese Constants for what to display on the screen
      */
     static final String NUM_MOVES_CHINESE = "步数: ";
     static final String TIME_LEFT_CHINESE = "剩余时间: ";
+    static final String POINTS_CHINESE = "分数:";
     static final String WIN_CHINESE = "你赢了！";
     static final String LOSS_CHINESE = "你输了！";
-    static final String POINTS_CHINESE = "分数";
+
+    /**
+     * A constant used as a keyword to pass the isEnglish variable through intent
+     */
+    static final String LANGUAGE = "LANGUAGE";
 
     /**
      * The boolean variable used to check whether the player has turned on Chinese Language
@@ -116,7 +121,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      * The method calls the buttonSetup method that sets up the buttons other than the 2D array
      * The method sends a toast that informs the player of how to play the game.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState the instanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -408,10 +413,12 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      * Calls this method when the game ends
      */
     private void scoreboard() {
-        Intent intent = new Intent(this, AlienPainterGameOverActivity.class);
-        intent.putExtra(SCOREBOARDSTATUS, isVictorious);
+        Intent intent = new Intent(this, AlienPainterScoreboardActivity.class);
+        intent.putExtra(SCOREBOARD_STATUS, isVictorious);
+        intent.putExtra(POINTS, presenter.getPoints());
         intent.putExtra(NUM_MOVES, presenter.getNumMoves());
         intent.putExtra(TIME_LEFT, presenter.getTimeLeft());
+        intent.putExtra(LANGUAGE, isEnglish);
         startActivity(intent);
         finish();
     }
