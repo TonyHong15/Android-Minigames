@@ -15,20 +15,18 @@ import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.userdata.User;
 
-import java.util.concurrent.TimeUnit;
-
 
 public class AlienPainter extends AppCompatActivity implements View.OnClickListener, AlienPainterView {
 
     /**
      * The English Constants for what to display on the screen
      */
+    static final String SCOREBOARDSTATUS = "scoreboard";
     static final String NUM_MOVES = "Number of Moves: ";
     static final String TIME_LEFT = "Time Remaining: ";
     static final String WIN = "You Have Won!";
     static final String LOSS = "You Have Lost!";
-    static final String INSTRUCTIONS_ENGLISH = "Clicking a button changes its and all " +
-            "nearby buttons' colour. Click on each button to try to get all of them to turn black";
+    static final String POINTS = "Points: ";
 
     /**
      * The Chinese Constants for what to display on the screen
@@ -37,8 +35,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     static final String TIME_LEFT_CHINESE = "剩余时间: ";
     static final String WIN_CHINESE = "你赢了！";
     static final String LOSS_CHINESE = "你输了！";
-    static final String INSTRUCTIONS_CHINESE = "点击一个按钮时会转变它和它周围的按钮的颜色，" +
-            "通过点击按钮来把它们全部变成黑色";
+    static final String POINTS_CHINESE = "分数";
 
     /**
      * The boolean variable used to check whether the player has turned on Chinese Language
@@ -59,6 +56,16 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      * Holds the textView for amount of time that has passed
      */
     private TextView painterTextViewTime;
+
+    /**
+     * Holds the textView for the amount of points the user has earned
+     */
+    private TextView painterTextViewPoints;
+
+    /**
+     * Holds the textView for the instructions of the game
+     */
+    private TextView painterTextViewInstructions;
 
     /**
      * Holds the instance of AlienPainterTimer for the...timer
@@ -121,6 +128,8 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
 
         painterTextViewMoves = findViewById(R.id.painterTextView1);
         painterTextViewTime = findViewById(R.id.painterTextView2);
+        painterTextViewPoints = findViewById(R.id.painterTextView3);
+        painterTextViewInstructions = findViewById(R.id.painterInstructionsView);
 
         isVictorious = false;
         isEnglish = true;
@@ -136,9 +145,9 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
 
         //Game Instructions
         if (isEnglish) {
-            Toast.makeText(this, INSTRUCTIONS_ENGLISH, Toast.LENGTH_LONG).show();
+            painterTextViewInstructions.setText(R.string.alien_painter_instructions);
         } else {
-            Toast.makeText(this, INSTRUCTIONS_CHINESE, Toast.LENGTH_LONG).show();
+            painterTextViewInstructions.setText(R.string.alien_painter_instructions_chinese);
         }
         //Start the Timer
         startTimer();
@@ -166,7 +175,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), MainActivity.class));
-                presenter.resetBoard();
+                presenter.resetGame();
                 painterTimer.reset();
                 finish();
             }
@@ -177,13 +186,9 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.resetBoard();
+                presenter.resetGame();
                 painterTimer.reset();
-                if (isEnglish) {
-                    painterTextViewMoves.setText(NUM_MOVES + presenter.getNumMoves());
-                } else {
-                    painterTextViewMoves.setText(NUM_MOVES_CHINESE + presenter.getNumMoves());
-                }
+                updateStats();
             }
         });
 
@@ -193,6 +198,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 isEnglish = !isEnglish;
                 updateLanguage();
+                updateStats();
             }
         });
 
@@ -200,8 +206,9 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         scoreboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //calls the gameOver method
-                gameOver();
+                //calls the scoreboard method
+                painterTimer.cancel();
+                scoreboard();
             }
         });
 
@@ -245,6 +252,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      * This method will call the presenter to update the number of moves the player has made.
      * This method will flip the buttons according to whichever one the player has pressed.
      * This method wil check whether the player has won the game and call the playerWon
+     * This method calculates points earned by player for the move they made
      * method in the presenter if so.
      *
      * @param v The view
@@ -258,15 +266,19 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             } else {
                 v.setContentDescription(getString(R.string.alien_painter_white_clicked));
             }
+
+            //Update the number of moves made by the player
             presenter.updateNumMoves();
 
-            if (isEnglish) {
-                painterTextViewMoves.setText(NUM_MOVES + presenter.getNumMoves());
-            } else {
-                painterTextViewMoves.setText(NUM_MOVES_CHINESE + presenter.getNumMoves());
-            }
-
+            //Do the actual button flipping
             flipButton();
+
+            //Calculate points earned
+            presenter.calculatePoints();
+
+            //Display the information calculated
+            updateStats();
+
 
             if (checkWinCondition()) {
                 if (isEnglish) {
@@ -367,20 +379,37 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             exitButton.setText(R.string.alien_painter_exit);
             retryButton.setText(R.string.alien_painter_retry);
             scoreboardButton.setText(R.string.alien_painter_scoreboard_button);
+            painterTextViewInstructions.setText(R.string.alien_painter_instructions);
         } else {
             languageButton.setText(R.string.alien_painter_language_english);
             exitButton.setText(R.string.alien_painter_exit_chinese);
             retryButton.setText(R.string.alien_painter_retry_chinese);
             scoreboardButton.setText(R.string.alien_painter_scoreboard_button_chinese);
+            painterTextViewInstructions.setText(R.string.alien_painter_instructions_chinese);
+        }
+    }
+
+    /**
+     * A helper function used to update the statistics displayed on the view to the user
+     */
+    private void updateStats() {
+        if (isEnglish) {
+            painterTextViewMoves.setText(NUM_MOVES + presenter.getNumMoves());
+            painterTextViewTime.setText(TIME_LEFT + presenter.getTimeLeft());
+            painterTextViewPoints.setText(POINTS + presenter.getPoints());
+        } else {
+            painterTextViewTime.setText(TIME_LEFT_CHINESE + presenter.getTimeLeft());
+            painterTextViewMoves.setText(NUM_MOVES_CHINESE + presenter.getNumMoves());
+            painterTextViewPoints.setText(POINTS_CHINESE + presenter.getPoints());
         }
     }
 
     /**
      * Calls this method when the game ends
      */
-    private void gameOver() {
+    private void scoreboard() {
         Intent intent = new Intent(this, AlienPainterGameOverActivity.class);
-        intent.putExtra("GAMEOVERSTATUS", isVictorious);
+        intent.putExtra(SCOREBOARDSTATUS, isVictorious);
         intent.putExtra(NUM_MOVES, presenter.getNumMoves());
         intent.putExtra(TIME_LEFT, presenter.getTimeLeft());
         startActivity(intent);

@@ -84,7 +84,7 @@
         \n
         Click "Next" to begin guessing.
     </string>
-    <string name="alien_painter_moves">Number of Moves: 0</string>
+    <string name="alien_painter_moves">Number of Moves: </string>
     <string name="alien_painter_timer">Time Passed: </string>
     <string name="alien_painter_white">white</string>
     <string name="alien_painter_black">black</string>
@@ -124,4 +124,7 @@
     <string name="alien_painter_retry_chinese">重来</string>
     <string name="alien_painter_scoreboard_button">Scoreboard</string>
     <string name="alien_painter_scoreboard_button_chinese">分数统计</string>
+    <string name="alien_painter_points">Points:</string>
+    <string name="alien_painter_instructions">Clicking a button changes its and all nearby buttons\' colours. Your objective is to change all the buttons\' colours to black. You have 30 seconds to do so, and you accumulate points base on how many moves you have made, and how much time you have left.</string>
+    <string name="alien_painter_instructions_chinese">点击一个按钮时会改变它和它周围按钮的颜色。你的目标是把所有按钮的颜色变成黑色。你有30秒时间限制，并且会根据步数和剩余时间获得分数。</string>
 </resources>

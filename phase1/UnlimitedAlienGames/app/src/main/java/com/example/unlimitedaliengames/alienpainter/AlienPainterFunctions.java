@@ -21,6 +21,11 @@ class AlienPainterFunctions {
     private int numMoves;
 
     /**
+     * Used to record the amount of points the user has earned
+     */
+    private int points;
+
+    /**
      * Holds the view of the user
      */
     private AlienPainterView view;
@@ -108,7 +113,7 @@ class AlienPainterFunctions {
     }
 
     /**
-     * Resets the 2D imageButton array and numMoves
+     * Resets the 2D imageButton array, numMoves and points
      */
     void resetGame() {
         for (int i = 0; i < 3; i++) {
@@ -125,6 +130,7 @@ class AlienPainterFunctions {
         }
 
         this.updateNumMoves(0);
+        this.setPoints(0);
     }
 
     /**
@@ -169,6 +175,33 @@ class AlienPainterFunctions {
      */
     int getNumMoves() {
         return this.numMoves;
+    }
+
+    /**
+     * @return the amount of points the user has earned
+     */
+    int getPoints() {
+        return this.points;
+    }
+
+    /**
+     * Set the amount of points the user has earned
+     * @param points the amount of points to set this.points to
+     */
+    void setPoints(int points) {
+        this.points = points;
+    }
+
+    /**
+     * Calculates and records the amount of points the user has earned.
+     * This method is called after every move the player has made
+     *  The points earned is the product of 50-numMoves and timeLeft.
+     */
+    void calculatePoints() {
+        int pointsToAdd;
+        pointsToAdd = timeLeft * (50 - numMoves);
+        if (pointsToAdd >= 0)
+            this.points += pointsToAdd;
     }
 
 }

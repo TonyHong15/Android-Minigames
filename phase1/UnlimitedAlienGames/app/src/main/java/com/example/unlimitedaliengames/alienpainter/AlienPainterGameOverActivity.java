@@ -11,8 +11,9 @@ import com.example.unlimitedaliengames.R;
 /**
  * The Game Over Screen for alien painter
  */
-class AlienPainterGameOverActivity extends AppCompatActivity {
+public class AlienPainterGameOverActivity extends AppCompatActivity {
 
+    private boolean isVictorious;
 
     private int numMoves, timeLeft;
 
@@ -20,12 +21,17 @@ class AlienPainterGameOverActivity extends AppCompatActivity {
 
     private TextView timeLeftTextView;
 
+    /**
+     * This method is automatically called when the view switches to AlienPainterGameOverActivity
+     * @param savedInstanceState the instanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_painter_game_over);
 
         Intent intent = getIntent();
+        intent.getBooleanExtra(AlienPainter.SCOREBOARDSTATUS, isVictorious);
         intent.getIntExtra(AlienPainter.NUM_MOVES, numMoves);
         intent.getIntExtra(AlienPainter.TIME_LEFT, timeLeft);
 

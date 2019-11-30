@@ -105,9 +105,35 @@ class AlienPainterPresenter {
     }
 
     /**
+     * Set the amount of points the user has earned
+     * @param points the amount of points to set to
+     */
+    void setPoints(int points) {
+        buttonFunctions.setPoints(points);
+    }
+
+    /**
+     * Calls the getPoints method in AlienPainterFunctions to set
+     *  the amount of points the user has earned
+     *
+     * @return the amount of points the user has earned
+     */
+    int getPoints() {
+        return buttonFunctions.getPoints();
+    }
+
+    /**
+     * Calls the calculatePoints function in AlienPainterFunctions to calculate and update
+     *  the points the player has earned
+     */
+    void calculatePoints() {
+        buttonFunctions.calculatePoints();
+    }
+
+    /**
      * Resets the board
      */
-    void resetBoard() {
+    void resetGame() {
         buttonFunctions.resetGame();
     }
 
@@ -116,8 +142,10 @@ class AlienPainterPresenter {
      * writing the User object to a file at the program location.
      */
     void playerWon() {
+        painterTimer.cancel();
         currUser.setPainterData(getNumMoves(), getTimeLeft());
         AlienPainterDataHandler.readFile(currUser);
     }
+
 }
 
