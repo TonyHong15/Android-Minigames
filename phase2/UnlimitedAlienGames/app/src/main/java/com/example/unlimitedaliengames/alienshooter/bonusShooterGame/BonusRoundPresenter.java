@@ -24,11 +24,12 @@ public class BonusRoundPresenter implements BonusRoundPresenterInterface {
     }
 
 
-    void checkLastBullet(){
-        if (!canShoot()){
+    void checkLastBullet() {
+        if (!canShoot()) {
             endBonusRound();
         }
     }
+
     void endBonusRound() {
         String text = "Out of Ammo";
         view.setShoot(text);
