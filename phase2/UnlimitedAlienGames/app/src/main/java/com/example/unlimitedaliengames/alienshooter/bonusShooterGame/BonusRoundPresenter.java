@@ -2,10 +2,10 @@ package com.example.unlimitedaliengames.alienshooter.bonusShooterGame;
 
 public class BonusRoundPresenter implements BonusRoundPresenterInterface {
 
-    private BonunsRoundView view;
+    private BonusRoundView view;
     private BonusRoundManager rules;
 
-    BonusRoundPresenter(BonunsRoundView view){
+    BonusRoundPresenter(BonusRoundView view){
         this.view = view;
         this.rules = new BonusRoundManager(this);
 
