@@ -11,6 +11,17 @@ import com.example.unlimitedaliengames.R;
 class AlienPainterFunctions {
 
     /**
+     * The number of moves the player must make less than or equal to, in order to get
+     *  the bonus points
+     */
+    static final int BONUSMOVES = 10;
+
+    /**
+     * The number of bonus points the player gets
+     */
+    static final int BONUSPOINTS = 50000;
+
+    /**
      * Used to record the amount of time left when the player has won
      */
     private int timeLeft;
@@ -202,6 +213,16 @@ class AlienPainterFunctions {
         pointsToAdd = timeLeft * (50 - numMoves);
         if (pointsToAdd >= 0)
             this.points += pointsToAdd;
+    }
+
+    /**
+     * Checks if the user finished the game with 10 or less move. If yes,
+     *  give the player additional points.
+     */
+    void checkBonus() {
+        if (numMoves < BONUSMOVES) {
+            this.points += BONUSPOINTS;
+        }
     }
 
 }

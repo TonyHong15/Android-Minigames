@@ -143,6 +143,7 @@ class AlienPainterPresenter {
      */
     void playerWon() {
         painterTimer.cancel();
+        buttonFunctions.checkBonus();
         currUser.setPainterData(getNumMoves(), getTimeLeft());
         AlienPainterDataHandler.readFile(currUser);
     }
