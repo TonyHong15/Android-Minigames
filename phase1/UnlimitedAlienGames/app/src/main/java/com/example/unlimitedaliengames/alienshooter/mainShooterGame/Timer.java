@@ -1,6 +1,8 @@
-package com.example.unlimitedaliengames.alienshooter;
+package com.example.unlimitedaliengames.alienshooter.mainShooterGame;
 
 import android.os.CountDownTimer;
+
+import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooterView;
 
 class Timer extends CountDownTimer {
     private boolean isActive = false;

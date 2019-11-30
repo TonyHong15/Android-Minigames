@@ -13,13 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".alienpainter.AlienPainterGameOverActivity"></activity>
-        <activity android:name=".alienshooter.BonusRound" ></activity>
-        <activity android:name=".alienshooter.BonusInstructionActivity" />
-        <activity android:name=".alienshooter.GameOverActivity" />
-        <activity android:name=".alienshooter.ShooterInstructionsActivity" />
-        <activity android:name=".alienshooter.CustomizeActivity" />
+        <activity android:name=".alienshooter.bonusShooterGame.BonusRound" ></activity>
+        <activity android:name=".alienshooter.instructionPages.BonusInstructionActivity" />
+        <activity android:name=".alienshooter.instructionPages.GameOverActivity" />
+        <activity android:name=".alienshooter.instructionPages.ShooterInstructionsActivity" />
+        <activity android:name=".alienshooter.instructionPages.CustomizeActivity" />
         <activity
-            android:name=".alienshooter.AlienShooter"
+            android:name=".alienshooter.mainShooterGame.AlienShooter"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".alienpainter.AlienPainter"

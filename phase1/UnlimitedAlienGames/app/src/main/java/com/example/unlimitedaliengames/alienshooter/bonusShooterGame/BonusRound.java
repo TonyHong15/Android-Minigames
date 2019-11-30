@@ -1,4 +1,4 @@
-package com.example.unlimitedaliengames.alienshooter;
+package com.example.unlimitedaliengames.alienshooter.bonusShooterGame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.style.BulletSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,7 +15,7 @@ import com.example.unlimitedaliengames.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BonusRound extends AppCompatActivity implements BonunsRoundView{
+public class BonusRound extends AppCompatActivity implements BonunsRoundView {
 
     private ImageView bullet1, canon, ufo, bulletCount;
     private ImageView bullet2, bullet3, bullet4, bullet5;

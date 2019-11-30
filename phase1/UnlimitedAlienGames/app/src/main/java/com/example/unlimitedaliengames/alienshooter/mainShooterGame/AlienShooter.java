@@ -1,4 +1,4 @@
-package com.example.unlimitedaliengames.alienshooter;
+package com.example.unlimitedaliengames.alienshooter.mainShooterGame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,11 +10,14 @@ import android.widget.TextView;
 
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.alienshooter.instructionPages.CustomizeActivity;
+import com.example.unlimitedaliengames.alienshooter.instructionPages.BonusInstructionActivity;
+import com.example.unlimitedaliengames.alienshooter.instructionPages.GameOverActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlienShooter extends AppCompatActivity implements AlienShooterView{
+public class AlienShooter extends AppCompatActivity implements AlienShooterView {
     private AlienShooterPresenter presenter;
     private static final int numOfAliens = 9;
     public final static String POINTS = "pass points";

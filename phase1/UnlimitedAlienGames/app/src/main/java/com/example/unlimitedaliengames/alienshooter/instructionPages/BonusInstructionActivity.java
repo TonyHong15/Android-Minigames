@@ -1,4 +1,4 @@
-package com.example.unlimitedaliengames.alienshooter;
+package com.example.unlimitedaliengames.alienshooter.instructionPages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.alienshooter.bonusShooterGame.BonusRound;
 
 public class BonusInstructionActivity extends AppCompatActivity {
     private  Button startButton;
