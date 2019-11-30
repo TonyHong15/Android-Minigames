@@ -11,17 +11,17 @@ public class BonusRoundPresenter implements BonusRoundPresenterInterface {
 
     }
 
-    boolean checkOnHit(float bulletX, float bulletY, float ufoX, float ufoY) {
+    public boolean checkOnHit(float bulletX, float bulletY, float ufoX, float ufoY) {
         return rules.checkIfHit(bulletX, bulletY, ufoX, ufoY);
     }
 
-    int getBullet(){
+    public int getBullet(){
         int numLeft = rules.getNumBullets();
         rules.decreaseNumBullets();
         return numLeft;
     }
 
-    boolean canShoot(){
+    public boolean canShoot(){
         return rules.getNumBullets() > 0;
     }
 
@@ -32,4 +32,6 @@ public class BonusRoundPresenter implements BonusRoundPresenterInterface {
     public void updatePoints() {
         view.updatePointText(rules.getPoints());
     }
+
+    public int getPoints() {return rules.getPoints();}
 }

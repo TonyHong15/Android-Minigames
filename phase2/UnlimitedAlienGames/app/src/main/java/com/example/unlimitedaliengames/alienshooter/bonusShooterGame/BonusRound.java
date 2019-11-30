@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,18 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.alienshooter.instructionPages.GameOverActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
-    private TextView text;
+    private TextView text, endMessage;
     private ImageView bullet1, canon, ufo;
     private ImageView bullet2, bullet3, bullet4, bullet5;
-    private Button shoot;
+    private Button shoot, endButton;
     private BonusRoundPresenter presenter;
     private List<ImageView> bullets;
+    private boolean clickable = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,16 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         canon = findViewById(R.id.Canon);
 
         text = findViewById(R.id.Points);
+        endMessage = findViewById(R.id.BonusResult);
 
         ufo = findViewById(R.id.Ufo);
         presenter = new BonusRoundPresenter(this);
+        endButton = findViewById(R.id.ExitButton);
+        EndButtonListener();
+
+        endButton.setVisibility(View.INVISIBLE);
+
+//        intent = getIntent();
 
         shoot = findViewById(R.id.Shoot);
         ShootListener();
@@ -59,6 +69,20 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         canonMotion();
         ufoMotion();
 
+    }
+
+    private void EndButtonListener(){
+        endButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clickable){
+                    Intent intent = createIntent();
+                    startActivity(intent);
+                    finish();
+                }
+
+            }
+        });
     }
 
     private void ShootListener() {
@@ -71,6 +95,9 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
                 else{
                     String text = "Out of Ammo";
                     shoot.setText(text);
+                    endingDescription();
+                    setExitButton();
+
                 }
 
             }
@@ -97,12 +124,12 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     private void canonMotion(){
         leftToRightAnimation(canon, 1000);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    canonMotion();
-                }
-            }, 2000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                canonMotion();
+            }
+        }, 2000);
     }
 
     private void leftToRightAnimation(View v, int t){
@@ -149,6 +176,28 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
     public void updatePointText(int point){
         String textPoint = "points: " + point;
         text.setText(textPoint);
+    }
+
+    private void endingDescription(){
+        String endDescription = "congratulation you earned : " + presenter.getPoints()
+                + "points";
+        endMessage.setText(endDescription);
+    }
+
+    private void setExitButton(){
+        clickable = true;
+        endButton.setVisibility(View.VISIBLE);
+    }
+
+    private Intent createIntent(){
+        Intent intent = new Intent(this, GameOverActivity.class);
+//        intent.putExtra(POINTS, presenter.getPoints());
+//        intent.putExtra(CORRECT, presenter.getCorrect());
+//        intent.putExtra(INCORRECT, presenter.getIncorrect());
+//        intent.putExtra(TIME, time);
+//        intent.putExtra(EVIL, evil);
+//        intent.putExtra(FRIENDLY, friendly);
+        return intent;
     }
 }
 
