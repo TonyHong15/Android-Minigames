@@ -29,6 +29,8 @@
     <string name="Bullet4">Bullet4</string>
     <string name="Bullet5">Bullet5</string>
     <string name="BonusStarButton">Start Bonus Round</string>
+    <string name="BonusResult"></string>
+    <string name="ExitBonus">Exit Bonus Round</string>
     <string name="Game_Over">Game Over</string>
     <string name="Final_Point"></string>
     <string name="Final_Friendly_Alien"></string>

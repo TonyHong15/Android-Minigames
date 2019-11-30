@@ -2,8 +2,6 @@ package com.example.unlimitedaliengames.alienshooter.bonusShooterGame;
 
 public class BonusRoundManager {
     private int points;
-    private float ufoX = 300;
-    private float ufoY = 300;
     private BonusRoundPresenterInterface presenter;
     private int numBullets = 5;
 
