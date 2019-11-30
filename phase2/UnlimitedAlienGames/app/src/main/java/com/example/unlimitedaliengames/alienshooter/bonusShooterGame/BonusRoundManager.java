@@ -1,32 +1,32 @@
 package com.example.unlimitedaliengames.alienshooter.bonusShooterGame;
 
-public class BonusRoundManager {
+class BonusRoundManager {
     private int points;
     private BonusRoundPresenterInterface presenter;
     private int numBullets = 5;
 
-    BonusRoundManager(BonusRoundPresenter presenter){
+    BonusRoundManager(BonusRoundPresenter presenter) {
         this.presenter = presenter;
         points = 0;
     }
 
-    int getPoints(){
+    int getPoints() {
         return points;
     }
 
-    void increasePoints(){
+    void increasePoints() {
         points += 1;
     }
 
-    int getNumBullets(){
+    int getNumBullets() {
         return numBullets;
     }
 
-    void decreaseNumBullets(){
+    void decreaseNumBullets() {
         numBullets -= 1;
     }
 
-    boolean checkIfHit(float bulletX, float bulletY, float ufoX, float ufoY){
+    boolean checkIfHit(float bulletX, float bulletY, float ufoX, float ufoY) {
         return (bulletX - 200 < ufoX && ufoX < bulletX + 200 &&
                 bulletY - 200 < ufoY && ufoY < bulletY + 200);
     }

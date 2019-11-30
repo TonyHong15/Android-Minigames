@@ -1,5 +1,6 @@
 package com.example.unlimitedaliengames.alienshooter.mainShooterGame;
 
+import android.content.Intent;
 import android.view.View;
 
 import java.util.List;
@@ -62,6 +63,11 @@ class AlienShooterPresenter implements AlienShooterPresenterInterface {
         view = null;
     }
 
+
+
+    void addBonusPoints(int bonus){
+        rules.setPoints(bonus);
+    }
     /**
      * change all alien image buttons to appropriate alien representation
      */
