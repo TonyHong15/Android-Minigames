@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.alienshooter.bonusShooterGame.BonusRound;
 import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
 
 public class GameOverActivity extends AppCompatActivity {
@@ -31,13 +32,8 @@ public class GameOverActivity extends AppCompatActivity {
         restart = findViewById(R.id.Restart);
         setListenerRestart();
 
-        Intent intent = getIntent();
-        time = intent.getStringExtra(AlienShooter.TIME);
-        friendlyCustom = intent.getStringExtra(AlienShooter.FRIENDLY);
-        evilCustom = intent.getStringExtra(AlienShooter.EVIL);
-        points = intent.getIntExtra(AlienShooter.POINTS, 0);
-        correct = intent.getIntExtra(AlienShooter.CORRECT, 0);
-        incorrect = intent.getIntExtra(AlienShooter.INCORRECT, 0);
+        retrieveData();
+
 
         textPoints = findViewById(R.id.Points);
         setPoints();
@@ -48,6 +44,26 @@ public class GameOverActivity extends AppCompatActivity {
 
     }
 
+    private void retrieveData(){
+        Intent intent = getIntent();
+        if (intent.getStringExtra("from").equals("notBonus")) {
+            points = intent.getIntExtra(AlienShooter.POINTS, 0);
+            time = intent.getStringExtra(AlienShooter.TIME);
+            friendlyCustom = intent.getStringExtra(AlienShooter.FRIENDLY);
+            evilCustom = intent.getStringExtra(AlienShooter.EVIL);
+            correct = intent.getIntExtra(AlienShooter.CORRECT, 0);
+            incorrect = intent.getIntExtra(AlienShooter.INCORRECT, 0);
+        }
+        else{
+            points = intent.getIntExtra(BonusRound.POINTS,0);
+            time = intent.getStringExtra(BonusRound.TIME);
+            friendlyCustom = intent.getStringExtra(BonusRound.FRIENDLY);
+            evilCustom = intent.getStringExtra(BonusRound.EVIL);
+            correct = intent.getIntExtra(BonusRound.CORRECT, 0);
+            incorrect = intent.getIntExtra(BonusRound.INCORRECT, 0);
+        }
+
+    }
     /**
      * set the total points
      */
@@ -126,6 +142,7 @@ public class GameOverActivity extends AppCompatActivity {
         intent.putExtra(PASS_EVIL, evilCustom);
         intent.putExtra(PASS_TIME, time);
         intent.putExtra(PASS_FRIENDLY, friendlyCustom);
+
         startActivity(intent);
     }
 

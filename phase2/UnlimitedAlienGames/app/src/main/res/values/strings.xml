@@ -17,8 +17,8 @@
         Now click on the customize button to start your alien shooter journey!!\n\nGood Luck!!
     </string>
     <string name="BonusTitleHeader">Bonus Game</string>
-    <string name="BonusRoundDescription">This is a bonus round where you have chance to get more\n
-    points. You will play...(edit)</string>
+    <string name="BonusRoundDescription">Congratulations!! \n\n\nYou have scored more than 5 points
+    and unlocked the bonus round to get more points!!</string>
     <string name="Shoot">Shoot</string>
     <string name="Canon">Canon</string>
     <string name="Ufo">Ufo</string>
@@ -29,12 +29,12 @@
     <string name="Bullet4">Bullet4</string>
     <string name="Bullet5">Bullet5</string>
     <string name="BonusStarButton">Start Bonus Round</string>
-    <string name="BonusResult"></string>
+    <string name="BonusResult">0</string>
     <string name="ExitBonus">Exit Bonus Round</string>
     <string name="Game_Over">Game Over</string>
-    <string name="Final_Point"></string>
-    <string name="Final_Friendly_Alien"></string>
-    <string name="Final_Evil_Alien"></string>
+    <string name="Final_Point">0</string>
+    <string name="Final_Friendly_Alien">0</string>
+    <string name="Final_Evil_Alien">0</string>
     <string name="Restart">Restart</string>
     <string name="Back_to_Menu">Back to Menu</string>
     <string name="Game_Info">Total Points: </string>

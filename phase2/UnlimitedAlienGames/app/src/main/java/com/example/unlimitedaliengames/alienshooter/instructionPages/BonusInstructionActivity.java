@@ -9,9 +9,18 @@ import android.widget.Button;
 
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.alienshooter.bonusShooterGame.BonusRound;
+import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
 
 public class BonusInstructionActivity extends AppCompatActivity {
-    private  Button startButton;
+    private Button startButton;
+    public final static String POINTS = "pass points";
+    public final static String CORRECT = "pass friendly";
+    public final static String INCORRECT = "pass evil";
+    public final static String TIME = "pass time";
+    public final static String FRIENDLY = "pass friendly custom";
+    public final static String EVIL = "pass evil custom";
+    private String time, friendly, evil;
+    private int points, correct, incorrect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +28,14 @@ public class BonusInstructionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bonus_instruction);
         startButton = findViewById(R.id.BonusStartButton);
         setBonusStartListener();
+
+        Intent intent = getIntent();
+        time = intent.getStringExtra(AlienShooter.TIME);
+        friendly = intent.getStringExtra(AlienShooter.FRIENDLY);
+        evil = intent.getStringExtra(AlienShooter.EVIL);
+        points = intent.getIntExtra(AlienShooter.POINTS, 0);
+        correct = intent.getIntExtra(AlienShooter.CORRECT, 0);
+        incorrect = intent.getIntExtra(AlienShooter.INCORRECT, 0);
     }
 
     private void setBonusStartListener() {
@@ -31,8 +48,14 @@ public class BonusInstructionActivity extends AppCompatActivity {
         });
     }
 
-    private void startBonusRound(){
-        startActivity(new Intent(this, BonusRound.class));
-
+    private void startBonusRound() {
+        Intent intent = new Intent(this, BonusRound.class);
+        intent.putExtra(POINTS, points);
+        intent.putExtra(CORRECT, correct);
+        intent.putExtra(INCORRECT, incorrect);
+        intent.putExtra(TIME, time);
+        intent.putExtra(EVIL, evil);
+        intent.putExtra(FRIENDLY, friendly);
+        startActivity(intent);
     }
 }

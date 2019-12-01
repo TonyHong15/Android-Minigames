@@ -13,16 +13,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.alienshooter.instructionPages.BonusInstructionActivity;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.GameOverActivity;
+import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BonusRound extends AppCompatActivity implements BonusRoundView {
     public final static String POINTS = "pass points";
+    public final static String CORRECT = "pass friendly";
+    public final static String INCORRECT = "pass evil";
+    public final static String TIME = "pass time";
+    public final static String FRIENDLY = "pass friendly custom";
+    public final static String EVIL = "pass evil custom";
+    private String time, friendly, evil;
+    private int points, correct, incorrect;
     private TextView text, endMessage;
-    private ImageView bullet1, canon, ufo;
-    private ImageView bullet2, bullet3, bullet4, bullet5;
+    private ImageView canon, ufo;
     private Button shoot, endButton;
     private BonusRoundPresenter presenter;
     private List<ImageView> bullets;
@@ -33,15 +41,24 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bonus_round);
 
+        Intent intent = getIntent();
+        time = intent.getStringExtra(BonusInstructionActivity.TIME);
+        friendly = intent.getStringExtra(BonusInstructionActivity.FRIENDLY);
+        evil = intent.getStringExtra(BonusInstructionActivity.EVIL);
+        points = intent.getIntExtra(BonusInstructionActivity.POINTS, 0);
+        correct = intent.getIntExtra(BonusInstructionActivity.CORRECT, 0);
+        incorrect = intent.getIntExtra(BonusInstructionActivity.INCORRECT, 0);
+
+
         bullets = new ArrayList<>();
-        bullets.add(bullet1);
+
 
         //add 5 bullets
-        bullet1 = findViewById(R.id.Bullet1);
-        bullet2 = findViewById(R.id.Bullet2);
-        bullet3 = findViewById(R.id.Bullet3);
-        bullet4 = findViewById(R.id.Bullet4);
-        bullet5 = findViewById(R.id.Bullet5);
+        ImageView bullet1 = findViewById(R.id.Bullet1);
+        ImageView bullet2 = findViewById(R.id.Bullet2);
+        ImageView bullet3 = findViewById(R.id.Bullet3);
+        ImageView bullet4 = findViewById(R.id.Bullet4);
+        ImageView bullet5 = findViewById(R.id.Bullet5);
 
         bullets.add(bullet1);
         bullets.add(bullet2);
@@ -115,7 +132,8 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                ufoMotion();
+                if (!clickable)
+                    ufoMotion();
             }
         }, 1000);
     }
@@ -125,7 +143,8 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                canonMotion();
+                if (!clickable)
+                    canonMotion();
             }
         }, 2000);
     }
@@ -177,8 +196,9 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
     }
 
     public void endingDescription() {
-        String endDescription = "congratulation you earned : " + presenter.getPoints()
-                + " point(s)";
+        String endDescription = "Congratulation! you earned an extra " + presenter.getPoints()
+                + " point(s) and have increased your total from " + points + " points to " +
+                (points + presenter.getPoints()) + " points.";
         endMessage.setText(endDescription);
     }
 
@@ -189,7 +209,13 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     private Intent createIntent() {
         Intent intent = new Intent(this, GameOverActivity.class);
-        intent.putExtra(POINTS, presenter.getPoints());
+        intent.putExtra(POINTS, presenter.getPoints() + points);
+        intent.putExtra(CORRECT, correct);
+        intent.putExtra(INCORRECT, incorrect);
+        intent.putExtra(TIME, time);
+        intent.putExtra(EVIL, evil);
+        intent.putExtra(FRIENDLY, friendly);
+        intent.putExtra("from", "bonus");
         return intent;
     }
 }
