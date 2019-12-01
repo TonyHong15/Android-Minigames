@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".alienpainter.AlienPainter">
+    tools:context=".alienpainter.AlienPainterActivity">
 
 
     <Button
@@ -216,7 +216,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textStyle="bold"

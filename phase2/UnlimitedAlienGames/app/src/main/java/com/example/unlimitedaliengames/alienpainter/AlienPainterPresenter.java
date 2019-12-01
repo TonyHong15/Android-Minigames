@@ -1,12 +1,15 @@
 package com.example.unlimitedaliengames.alienpainter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.userdata.User;
 
 /**
- * This class serves as the middle man between AlienPainter and AlienPainterFunctions
+ * This class uses AlienPainterTimer and AlienPainterFunctions to manage the actual game mechanics
+ * This class also contains methods that tell AlienPainterActivity what to display to the user
  */
 class AlienPainterPresenter {
 
@@ -40,34 +43,129 @@ class AlienPainterPresenter {
      */
     private User currUser;
 
+    /**
+     * Used to check whether the user has won or not
+     */
+    private boolean isVictorious;
+
+    /**
+     * Used to check is the game has ended
+     */
+    private boolean gameEnded;
+
     private Context mContext;
 
     /**
      * Creates an AlienPainterPresenter
      *
      * @param view            The view
-     * @param painterTimer    The timer displayed
      * @param grid            The 2D Array of imageButtons
      * @param buttonFunctions The object referencing the class containing the rules
      * @param mContext        The Context
      */
-    AlienPainterPresenter(AlienPainterView view, AlienPainterTimer painterTimer,
+    AlienPainterPresenter(AlienPainterView view,
                           ImageButton[][] grid, AlienPainterFunctions buttonFunctions,
                           Context mContext, User currUser) {
         this.view = view;
-        this.painterTimer = painterTimer;
+        this.painterTimer = new AlienPainterTimer(this);
         this.grid = grid;
         this.mContext = mContext;
         this.buttonFunctions = buttonFunctions;
         this.currUser = currUser;
+
+        startTimer();
+
+        //Set default values for isVictorious and isEnglish and gameEnded
+        gameEnded = false;
+        isVictorious = false;
     }
 
     /**
-     * Calls the flipButton method in buttonFunctions to find out what happens when the user clicks
-     * one of the imageButtons in the 2D array
+     * The event in which any of the imageButtons are pressed.
+     * This method will call the presenter to update the number of moves the player has made.
+     * This method will flip the buttons according to whichever one the player has pressed.
+     * This method wil check whether the player has won the game and call the playerWon
+     * This method calculates points earned by player for the move they made
+     * method in the presenter if so.
+     *
+     * @param v The view
      */
-    void flipButton() {
-        buttonFunctions.flipButton();
+    void onGridClick(View v) {
+        //Checks whether the time is still active and whether the win condition has been met
+        if (painterTimer.getIsActive() && !gameEnded) {
+            if (v.getContentDescription().equals("white")) {
+                v.setContentDescription(mContext.getString(R.string.alien_painter_white_clicked));
+            } else {
+                v.setContentDescription(mContext.getString(R.string.alien_painter_black_clicked));
+            }
+
+            //Call the recordButtonPress method
+            buttonFunctions.recordButtonPress();
+
+            //Update the number of moves made by the player
+            buttonFunctions.updateNumMoves();
+
+            //Do the actual button flipping
+            buttonFunctions.flipButton();
+
+            //Calculate points earned
+            buttonFunctions.calculatePoints();
+
+            //Display the information calculated
+            view.updateStats();
+
+
+            if (buttonFunctions.checkWinCondition()) {
+
+                view.showPlayerWon();
+
+                playerWon();
+            }
+        }
+    }
+
+
+
+    /**
+     * As the name suggests, terminates the timer
+     */
+    void terminateTimer() {
+        painterTimer.cancel();
+    }
+
+    /**
+     * Starts the timer.
+     */
+    private void startTimer() {
+        painterTimer.setActive(true);
+        painterTimer.start();
+    }
+
+    /**
+     * Resets the timer of the game
+     */
+    void resetTimer() {
+        painterTimer.reset();
+    }
+
+    /**
+     * Updates the time displayed on screen.
+     *
+     * @param time the time to update painterTextViewTime with.
+     */
+    void updateTimer(int time) {
+        if (!buttonFunctions.checkWinCondition()) {
+            setTimeLeft(time);
+            view.updateTimer(time);
+        }
+    }
+
+    /**
+     * Calls this when the timer is done.
+     */
+    void timerExpired() {
+        gameEnded = true;
+        view.timerExpired();
     }
 
     /**
@@ -75,7 +173,7 @@ class AlienPainterPresenter {
      *
      * @param timeLeft the amount of time left until the end of the game
      */
-    void setTimeLeft(int timeLeft) {
+    private void setTimeLeft(int timeLeft) {
         buttonFunctions.setTimeLeft(timeLeft);
     }
 
@@ -123,37 +221,45 @@ class AlienPainterPresenter {
     }
 
     /**
-     * Calls the calculatePoints function in AlienPainterFunctions to calculate and update
-     *  the points the player has earned
+     * Returns whether the player is victorious
+     *
+     * @return returns the isVictorious variable
      */
-    void calculatePoints() {
-        buttonFunctions.calculatePoints();
+    boolean getIsVictorious() {
+        return isVictorious;
     }
 
     /**
-     * Resets the board
+     * Returns whether the game has ended
+     *
+     * @return returns the gameEnded variable
+     */
+    boolean getGameEnded() {
+        return gameEnded;
+    }
+
+    /**
+     * Resets the game
      */
     void resetGame() {
         buttonFunctions.resetGame();
-    }
-
-    /**
-     * Calls the recordButtonPress method in AlienPainterFunctions to record the player
-     *  pressing a button
-     */
-    void recordButtonPress() {
-        buttonFunctions.recordButtonPress();
+        gameEnded = false;
+        isVictorious = false;
     }
 
     /**
      * Records the statistics of the player by first updating the data of the current User, then
      * writing the User object to a file at the program location.
      */
-    void playerWon() {
+    private void playerWon() {
+        isVictorious = true;
+        gameEnded = true;
+        painterTimer.setActive(false);
         painterTimer.cancel();
         buttonFunctions.checkBonus();
-        currUser.setPainterData(getNumMoves(), getTimeLeft());
-        AlienPainterDataHandler.readFile(currUser);
+        view.updateStats();
+        /*currUser.setPainterData(getNumMoves(), getTimeLeft());
+        AlienPainterDataHandler.readFile(currUser);*/
     }
 
     /**

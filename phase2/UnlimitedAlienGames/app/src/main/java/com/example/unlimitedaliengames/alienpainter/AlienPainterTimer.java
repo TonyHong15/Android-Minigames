@@ -4,24 +4,24 @@ import android.os.CountDownTimer;
 
 /**
  * A class that inherits CountDownTimer and has a few more attributes used to create
- * a timer for the game
+ * a timer for the game. This class is used by AlienPainterPresenter
  */
 public class AlienPainterTimer extends CountDownTimer {
     private static final long TIMELEFT = 30000;
     private boolean isActive = true;
-    private AlienPainterView view;
+    private AlienPainterPresenter presenter;
 
     /**
      * Constructs a new CountDownTimer
-     * @param view The View
+     * @param presenter The presenter
      */
-    AlienPainterTimer(AlienPainterView view) {
+    AlienPainterTimer(AlienPainterPresenter presenter) {
         super(TIMELEFT, 1000);
-        this.view = view;
+        this.presenter = presenter;
     }
 
     public void onTick(long seconds) {
-        view.updateTimer(Math.toIntExact(seconds / 1000));
+        presenter.updateTimer(Math.toIntExact(seconds / 1000));
     }
 
     /**
@@ -44,7 +44,9 @@ public class AlienPainterTimer extends CountDownTimer {
      * Reset the timer
      */
     void reset () {
-        view.resetTimer();
+        this.cancel();
+        this.start();
+        this.setActive(true);
     }
 
     /**
@@ -52,7 +54,7 @@ public class AlienPainterTimer extends CountDownTimer {
      */
     public void onFinish() {
         isActive = false;
-        view.TimerExpired();
+        presenter.timerExpired();
         cancel();
     }
 }

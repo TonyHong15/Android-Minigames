@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.unlimitedaliengames.alienguesser.AlienGuesser;
-import com.example.unlimitedaliengames.alienpainter.AlienPainter;
+import com.example.unlimitedaliengames.alienpainter.AlienPainterActivity;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.ShooterInstructionsActivity;
 import com.example.unlimitedaliengames.userdata.*;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToAlienPainter(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, AlienPainter.class);
+        Intent intent = new Intent(this, AlienPainterActivity.class);
         intent.putExtra(LoginActivity.PASS_USER, currUser);
         startActivity(intent);
         finish();

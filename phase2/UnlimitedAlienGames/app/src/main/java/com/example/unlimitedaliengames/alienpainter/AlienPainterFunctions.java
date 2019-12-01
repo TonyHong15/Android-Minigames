@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * This class holds the actual mechanics of the game, including calculating points earned by player,
  * recording number of moves made, and amount of time left.
+ * This class is used by AlienPainterPresenter
  */
 class AlienPainterFunctions {
 
@@ -76,11 +77,50 @@ class AlienPainterFunctions {
      * @param grid     the 2D array of ImageButtons
      * @param mContext the context
      */
-    AlienPainterFunctions(AlienPainterView view, ImageButton[][] grid, Context mContext, String[][] initialBoard) {
+    AlienPainterFunctions(AlienPainterView view, ImageButton[][] grid, Context mContext) {
         this.view = view;
         this.grid = grid;
         this.mContext = mContext;
-        this.initialBoard = initialBoard;
+        this.initialBoard = recordInitialBoard();
+
+    }
+
+    /**
+     * A helper function used to record the initial state of the board for the purpose of
+     * instant replay. This is done by iterating through the grid and storing the
+     * contentDescription of each ImageButton to a separate 2D array called initialBoard
+     */
+    private String[][] recordInitialBoard() {
+        String[][] initialBoard = new String[3][3];
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (grid[i][j].getContentDescription().equals(mContext.getString(
+                        (R.string.alien_painter_white)))) {
+                    initialBoard[i][j] = mContext.getString(R.string.alien_painter_white);
+                } else {
+                    initialBoard[i][j] = mContext.getString(R.string.alien_painter_black);
+                }
+            }
+        }
+        return initialBoard;
+    }
+
+    /**
+     * Checks whether all the player has completed the task. In this case, all the buttons should
+     * be displaying a black circle.
+     *
+     * @return Whether the player has won or not
+     */
+    boolean checkWinCondition() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (!grid[i][j].getContentDescription().equals("black")) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -169,6 +209,11 @@ class AlienPainterFunctions {
             }
         }
 
+        //clean the replayList
+        while(!replayList.isEmpty())
+            replayList.remove(0);
+
+        this.initialBoard = recordInitialBoard();
         this.updateNumMoves(0);
         this.setPoints(0);
     }
@@ -254,6 +299,8 @@ class AlienPainterFunctions {
             this.points += BONUSPOINTS;
         }
     }
+
+
 
     /**
      * Iterate through the 2D array of buttons and record the row and col values of the

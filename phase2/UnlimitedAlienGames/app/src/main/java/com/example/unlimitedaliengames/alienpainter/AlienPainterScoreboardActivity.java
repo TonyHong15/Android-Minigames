@@ -19,7 +19,7 @@ import com.example.unlimitedaliengames.R;
 public class AlienPainterScoreboardActivity extends AppCompatActivity {
 
     /**
-     * The constants used to receive the intents from AlienPainter
+     * The constants used to receive the intents from AlienPainterActivity
      * Also used as part of the TextViews
      */
     static final String NUM_MOVES = "Number of Moves: ";

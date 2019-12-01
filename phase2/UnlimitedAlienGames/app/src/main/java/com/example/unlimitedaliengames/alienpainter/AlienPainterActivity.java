@@ -18,7 +18,7 @@ import com.example.unlimitedaliengames.userdata.User;
 /**
  * The top-level class for the alien painter game.
  */
-public class AlienPainter extends AppCompatActivity implements View.OnClickListener, AlienPainterView {
+public class AlienPainterActivity extends AppCompatActivity implements View.OnClickListener, AlienPainterView {
 
     /**
      * The English Constants used by the TextViews to display on the screen
@@ -78,11 +78,6 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     private TextView painterTextViewInstructions;
 
     /**
-     * Holds the instance of AlienPainterTimer for the...timer
-     */
-    private AlienPainterTimer painterTimer;
-
-    /**
      * Holds the presenter of this game
      */
     private AlienPainterPresenter presenter;
@@ -118,23 +113,9 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      */
     private User currUser;
 
-    /**
-     * Used to check whether the user has won or not
-     */
-    private boolean isVictorious;
 
     /**
-     * Used to check is the game has ended
-     */
-    private boolean gameEnded;
-
-    /**
-     * Holds the strings that describe the colour of each ImageButton on the board initially
-     */
-    private String[][] initialBoard = new String[3][3];
-
-    /**
-     * This method is automatically called when the app view switches to AlienPainter.
+     * This method is automatically called when the app view switches to AlienPainterActivity.
      * The method extracts the User that logged in from the intent, and uses it to store player
      * statistics.
      * The method initializes AlienPainterTimer and AlienPainterPresenter.
@@ -152,13 +133,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         Intent intent = getIntent();
         currUser = (User) intent.getSerializableExtra(LoginActivity.PASS_USER);
 
-        //Set default values for isVictorious and isEnglish and gameEnded
-        gameEnded = false;
-        isVictorious = false;
         isEnglish = true;
-
-        //Initialize the Timer
-        painterTimer = new AlienPainterTimer(this);
 
         //Setup the TextViews
         setupTextView();
@@ -175,12 +150,10 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         } else {
             painterTextViewInstructions.setText(R.string.alien_painter_instructions_chinese);
         }
-        //Start the Timer
-        startTimer();
 
         //Initialize the Presenter
-        presenter = new AlienPainterPresenter(this, painterTimer, grid,
-                new AlienPainterFunctions(this, grid, this, initialBoard), this, currUser);
+        presenter = new AlienPainterPresenter(this, grid,
+                new AlienPainterFunctions(this, grid, this), this, currUser);
     }
 
     /**
@@ -222,8 +195,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), MainActivity.class));
-                presenter.resetGame();
-                painterTimer.reset();
+                presenter.terminateTimer();
                 finish();
             }
 
@@ -242,16 +214,13 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
              */
             @Override
             public void onClick(View v) {
-                if (gameEnded) {
+                if (presenter.getGameEnded()) {
                     presenter.resetGame();
-                    recordInitialBoard();
-                    painterTimer.reset();
+                    presenter.resetTimer();
                     updateStats();
                     replayButton.setVisibility(View.INVISIBLE);
                     retryButton.setVisibility(View.INVISIBLE);
                     scoreboardButton.setVisibility(View.INVISIBLE);
-                    gameEnded = false;
-                    isVictorious = false;
                 }
             }
         });
@@ -280,9 +249,9 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
              */
             @Override
             public void onClick(View v) {
-                if (gameEnded) {
+                if (presenter.getGameEnded()) {
                     //calls the scoreboard method
-                    painterTimer.cancel();
+                    presenter.terminateTimer();
                     scoreboard();
                 }
             }
@@ -309,7 +278,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Constructs the 2D array for the imageButtons. Also sets onClickListener for each imageButton
-     * inside.
+     * inside. This 2D grid is pass into the presenter.
      */
     private void createGrid() {
         String imageButtonID;
@@ -338,110 +307,17 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         //Make sure the grid isn't entirely black at the beginning
         grid[1][1].setImageResource(R.drawable.white_circle);
         grid[1][1].setContentDescription("white");
-
-        //Record the initial board state to be dependency injected into AlienPainterFunctions
-        recordInitialBoard();
     }
 
     /**
      * The event in which any of the imageButtons are pressed.
-     * This method will call the presenter to update the number of moves the player has made.
-     * This method will flip the buttons according to whichever one the player has pressed.
-     * This method wil check whether the player has won the game and call the playerWon
-     * This method calculates points earned by player for the move they made
-     * method in the presenter if so.
+     * Calls the onGridClick method in the presenter.
      *
      * @param v The view
      */
     @Override
     public void onClick(View v) {
-        //Checks whether the time is still active and whether the win condition has been met
-        if (painterTimer.getIsActive() && !gameEnded) {
-            if (v.getContentDescription().equals("white")) {
-                v.setContentDescription(getString(R.string.alien_painter_white_clicked));
-            } else {
-                v.setContentDescription(getString(R.string.alien_painter_black_clicked));
-            }
-
-            //Call the recordButtonPress method
-            presenter.recordButtonPress();
-
-            //Update the number of moves made by the player
-            presenter.updateNumMoves();
-
-            //Do the actual button flipping
-            flipButton();
-
-            //Calculate points earned
-            presenter.calculatePoints();
-
-            //Display the information calculated
-            updateStats();
-
-
-            if (checkWinCondition()) {
-                if (isEnglish) {
-                    Toast.makeText(this, WIN, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, WIN_CHINESE, Toast.LENGTH_SHORT).show();
-                }
-                presenter.playerWon();
-
-                //Set visibility for replayButton to visible
-                replayButton.setVisibility(View.VISIBLE);
-                retryButton.setVisibility(View.VISIBLE);
-                scoreboardButton.setVisibility(View.VISIBLE);
-
-                isVictorious = true;
-                gameEnded = true;
-            }
-        }
-
-    }
-
-    /**
-     * Checks whether all the player has completed the task. In this case, all the buttons should
-     * be displaying a black circle.
-     *
-     * @return Whether the player has won or not
-     */
-    private boolean checkWinCondition() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (!grid[i][j].getContentDescription().equals("black")) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Flips the imageButtons around the imageButton the user clicked,
-     * including the one the user clicked.
-     */
-    @Override
-    public void flipButton() {
-        presenter.flipButton();
-    }
-
-    /**
-     * Starts the timer.
-     */
-    @Override
-    public void startTimer() {
-        painterTimer.setActive(true);
-        painterTimer.start();
-    }
-
-    /**
-     * Resets the timer of the game
-     */
-    @Override
-    public void resetTimer() {
-        painterTimer.cancel();
-        painterTimer.start();
-        painterTimer.setActive(true);
+        presenter.onGridClick(v);
     }
 
     /**
@@ -451,13 +327,10 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      */
     @Override
     public void updateTimer(int time) {
-        if (!checkWinCondition()) {
-            if (isEnglish) {
-                painterTextViewTime.setText(TIME_LEFT + time);
-            } else {
-                painterTextViewTime.setText(TIME_LEFT_CHINESE + time);
-            }
-            presenter.setTimeLeft(time);
+        if (isEnglish) {
+            painterTextViewTime.setText(TIME_LEFT + time);
+        } else {
+            painterTextViewTime.setText(TIME_LEFT_CHINESE + time);
         }
     }
 
@@ -465,7 +338,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      * Calls this when the timer is done.
      */
     @Override
-    public void TimerExpired() {
+    public void timerExpired() {
         //Inform the player they have failed
         if (isEnglish) {
             Toast.makeText(this, LOSS, Toast.LENGTH_SHORT).show();
@@ -477,14 +350,14 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
         replayButton.setVisibility(View.VISIBLE);
         retryButton.setVisibility(View.VISIBLE);
         scoreboardButton.setVisibility(View.VISIBLE);
-        gameEnded = true;
     }
 
     /**
      * A helper function used to update the language displayed on the view when the user
      * switches the language.
      */
-    private void updateLanguage() {
+    @Override
+    public void updateLanguage() {
         if (isEnglish) {
             languageButton.setText(R.string.alien_painter_language_chinese);
             exitButton.setText(R.string.alien_painter_exit);
@@ -505,7 +378,8 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     /**
      * A helper function used to update the statistics displayed on the view to the user
      */
-    private void updateStats() {
+    @Override
+    public void updateStats() {
         if (isEnglish) {
             painterTextViewMoves.setText(NUM_MOVES + presenter.getNumMoves());
             painterTextViewTime.setText(TIME_LEFT + presenter.getTimeLeft());
@@ -524,7 +398,7 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
      */
     private void scoreboard() {
         Intent intent = new Intent(this, AlienPainterScoreboardActivity.class);
-        intent.putExtra(SCOREBOARD_STATUS, isVictorious);
+        intent.putExtra(SCOREBOARD_STATUS, presenter.getIsVictorious());
         intent.putExtra(POINTS, presenter.getPoints());
         intent.putExtra(NUM_MOVES, presenter.getNumMoves());
         intent.putExtra(TIME_LEFT, presenter.getTimeLeft());
@@ -534,31 +408,31 @@ public class AlienPainter extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * A helper function used to record the initial state of the board for the purpose of
-     * instant replay. This is done by iterating through the grid and storing the
-     * contentDescription of each ImageButton to a separate 2D array called initialBoard
-     */
-    void recordInitialBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (grid[i][j].getContentDescription().equals(getString(
-                        (R.string.alien_painter_white)))) {
-                    initialBoard[i][j] = getString(R.string.alien_painter_white);
-                } else {
-                    initialBoard[i][j] = getString(R.string.alien_painter_black);
-                }
-            }
-        }
-    }
-
-    /**
      * A helper function used to display a toast to let the player know that it is
      * INSTANT REPLAY TIME
      */
-    void displayReplay() {
+    private void displayReplay() {
         if (isEnglish)
             Toast.makeText(this, REPLAY, Toast.LENGTH_LONG).show();
         else
             Toast.makeText(this, REPLAY_CHINESE, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Displays the fact that the player has won
+     */
+    @Override
+    public void showPlayerWon() {
+        if (isEnglish) {
+            Toast.makeText(this, WIN, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, WIN_CHINESE, Toast.LENGTH_SHORT).show();
+        }
+
+
+        //Set visibility for replayButton to visible
+        replayButton.setVisibility(View.VISIBLE);
+        retryButton.setVisibility(View.VISIBLE);
+        scoreboardButton.setVisibility(View.VISIBLE);
     }
 }

@@ -22,7 +22,7 @@
             android:name=".alienshooter.mainShooterGame.AlienShooter"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".alienpainter.AlienPainter"
+            android:name=".alienpainter.AlienPainterActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".alienguesser.AlienGuesser"
