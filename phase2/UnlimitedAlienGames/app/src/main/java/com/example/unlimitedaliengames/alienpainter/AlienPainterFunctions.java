@@ -1,25 +1,30 @@
 package com.example.unlimitedaliengames.alienpainter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.widget.ImageButton;
 
 import com.example.unlimitedaliengames.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * This class holds the actual mechanics of the game
+ * This class holds the actual mechanics of the game, including calculating points earned by player,
+ * recording number of moves made, and amount of time left.
  */
 class AlienPainterFunctions {
 
     /**
      * The number of moves the player must make less than or equal to, in order to get
-     *  the bonus points
+     * the bonus points
      */
-    static final int BONUSMOVES = 10;
+    private static final int BONUSMOVES = 10;
 
     /**
      * The number of bonus points the player gets
      */
-    static final int BONUSPOINTS = 50000;
+    private static final int BONUSPOINTS = 50000;
 
     /**
      * Used to record the amount of time left when the player has won
@@ -42,16 +47,40 @@ class AlienPainterFunctions {
     private AlienPainterView view;
 
     /**
-     * Holds the grid of imageButtons in the view
+     * Holds the grid of ImageButtons in the view
      */
     private ImageButton[][] grid;
 
+    /**
+     * Holds the strings that describe the colour of each ImageButton on the board initially
+     */
+    private String[][] initialBoard;
+
+    /**
+     * Used to hold the list of gridButton clicks the user has made for the purpose
+     * of instant replay
+     */
+    private List<Integer[]> replayList = new ArrayList<>();
+
+    /**
+     * A Handler used for the purpose of instant replay
+     */
+    private Handler replayHandler = new Handler();
+
     private Context mContext;
 
-    AlienPainterFunctions(AlienPainterView view, ImageButton[][] grid, Context mContext) {
+    /**
+     * Default constructor for AlienPainterFunctions
+     *
+     * @param view     the view
+     * @param grid     the 2D array of ImageButtons
+     * @param mContext the context
+     */
+    AlienPainterFunctions(AlienPainterView view, ImageButton[][] grid, Context mContext, String[][] initialBoard) {
         this.view = view;
         this.grid = grid;
         this.mContext = mContext;
+        this.initialBoard = initialBoard;
     }
 
     /**
@@ -63,11 +92,11 @@ class AlienPainterFunctions {
             for (int j = 0; j < 3; j++) {
                 if (grid[i][j].getContentDescription().equals(mContext.getString
                         (R.string.alien_painter_white_clicked))) {
-                    flip(i, j, "black"); //flip the clicked one
+                    flip(i, j, "white"); //flip the clicked one
                     flipAdjacent(i, j); //flip the ones near the clicked one
                 } else if (grid[i][j].getContentDescription().equals(mContext.getString
                         (R.string.alien_painter_black_clicked))) {
-                    flip(i, j, "white"); //flip the clicked one
+                    flip(i, j, "black"); //flip the clicked one
                     flipAdjacent(i, j); //flip the ones near the clicked one
                 }
             }
@@ -82,7 +111,7 @@ class AlienPainterFunctions {
      * @param colour the current colour of the imageButton
      */
     private void flip(int i, int j, String colour) {
-        if (colour.equals("white")) {
+        if (colour.equals(mContext.getString(R.string.alien_painter_white))) {
             grid[i][j].setImageResource(R.drawable.black_circle);
             grid[i][j].setContentDescription(mContext.getString(R.string.alien_painter_black));
         } else {
@@ -197,6 +226,7 @@ class AlienPainterFunctions {
 
     /**
      * Set the amount of points the user has earned
+     *
      * @param points the amount of points to set this.points to
      */
     void setPoints(int points) {
@@ -206,7 +236,7 @@ class AlienPainterFunctions {
     /**
      * Calculates and records the amount of points the user has earned.
      * This method is called after every move the player has made
-     *  The points earned is the product of 50-numMoves and timeLeft.
+     * The points earned is the product of 50-numMoves and timeLeft.
      */
     void calculatePoints() {
         int pointsToAdd;
@@ -217,12 +247,92 @@ class AlienPainterFunctions {
 
     /**
      * Checks if the user finished the game with 10 or less move. If yes,
-     *  give the player additional points.
+     * give the player additional points.
      */
     void checkBonus() {
         if (numMoves < BONUSMOVES) {
             this.points += BONUSPOINTS;
         }
     }
+
+    /**
+     * Iterate through the 2D array of buttons and record the row and col values of the
+     * button that the player has pressed for the purpose of instant replay.
+     */
+    void recordButtonPress() {
+        //Create a local array of length 2 that will be sent to the replayList
+        Integer[] replayArray = new Integer[2];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                //Find the button that was pressed
+                if (grid[i][j].getContentDescription().equals(mContext.getString
+                        (R.string.alien_painter_white_clicked)) ||
+                        grid[i][j].getContentDescription().equals(mContext.getString
+                                (R.string.alien_painter_black_clicked))) {
+                    replayArray[0] = i;
+                    replayArray[1] = j;
+                    replayList.add(replayArray);
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Provides an instant replay of the game.
+     * This is done by first restoring the board back to the original state.
+     * Then iterating through replayList
+     */
+    void instantReplay() {
+        //Restore the board to the initial state using initialBoard
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (initialBoard[i][j].equals(mContext.getString(R.string.alien_painter_black))) {
+                    grid[i][j].setImageResource(R.drawable.black_circle);
+                    grid[i][j].setContentDescription(mContext.getString(R.string.alien_painter_black));
+                } else {
+                    grid[i][j].setImageResource(R.drawable.white_circle);
+                    grid[i][j].setContentDescription(mContext.getString(R.string.alien_painter_white));
+                }
+            }
+        }
+
+        //Then iterate through replayList with a delay
+        replayRunnable.run();
+
+    }
+
+    /**
+     * A runnable variable used for the purpose of instant replay
+     */
+    private Runnable replayRunnable = new Runnable() {
+        @Override
+        public void run() {
+
+            Integer[] intPair = replayList.get(0);
+            int temp1 = intPair[0];
+            int temp2 = intPair[1];
+
+            //Flip the buttons
+            if (grid[temp1][temp2].getContentDescription().equals(mContext.getString
+                    (R.string.alien_painter_white))) {
+                System.out.println("WHITE REPLAY");
+                grid[temp1][temp2].setContentDescription(mContext.getString(R.string.alien_painter_white_clicked));
+            } else if (grid[temp1][temp2].getContentDescription().equals(mContext.getString
+                    (R.string.alien_painter_black))) {
+                System.out.println("BLACK REPLAY");
+                grid[temp1][temp2].setContentDescription(mContext.getString(R.string.alien_painter_black_clicked));
+            }
+            flipButton();
+
+            //Remove the first item in replayList
+            replayList.remove(0);
+
+            //Loop the Runnable if replayList is not empty
+            if (!replayList.isEmpty()) {
+                replayHandler.postDelayed(this, 500);
+            }
+        }
+    };
 
 }
