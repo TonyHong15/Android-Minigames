@@ -138,6 +138,14 @@ class AlienPainterPresenter {
     }
 
     /**
+     * Calls the recordButtonPress method in AlienPainterFunctions to record the player
+     *  pressing a button
+     */
+    void recordButtonPress() {
+        buttonFunctions.recordButtonPress();
+    }
+
+    /**
      * Records the statistics of the player by first updating the data of the current User, then
      * writing the User object to a file at the program location.
      */
@@ -146,6 +154,14 @@ class AlienPainterPresenter {
         buttonFunctions.checkBonus();
         currUser.setPainterData(getNumMoves(), getTimeLeft());
         AlienPainterDataHandler.readFile(currUser);
+    }
+
+    /**
+     * Calls the instantReplay function in AlienPainterFunctions to provide an instant replay of
+     *  the game for the player.
+     */
+    void instantReplay() {
+        buttonFunctions.instantReplay();
     }
 
 }
