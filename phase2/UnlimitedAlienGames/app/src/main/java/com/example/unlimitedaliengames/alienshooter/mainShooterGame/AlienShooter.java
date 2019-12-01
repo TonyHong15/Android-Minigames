@@ -20,21 +20,26 @@ import java.util.List;
 public class AlienShooter extends AppCompatActivity implements AlienShooterView {
     private AlienShooterPresenter presenter;
     private static final int numOfAliens = 9;
+
+    //intent keys
     public final static String POINTS = "pass points";
     public final static String CORRECT = "pass friendly";
     public final static String INCORRECT = "pass evil";
     public final static String TIME = "pass time";
     public final static String FRIENDLY = "pass friendly custom";
     public final static String EVIL = "pass evil custom";
-    //timer
+
     private Timer timer;
-    private TextView timer_text;
-    private Button timer_button;
+
     private List<View> aliens;
-    private TextView point_text, friendlyPoint, evilPoint;
 
     private String time, friendly, evil;
+
+    private TextView point_text, friendlyPoint, evilPoint;
+    private TextView timer_text;
+    private Button timer_button;
     private View exit;
+
     private long timeLeft;
 
     @Override
@@ -49,45 +54,43 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
 
         aliens = new ArrayList<>();
         generateAliens();
-        generateOnClickListener();
         timer_text = findViewById(R.id.alienTimer);
         point_text = findViewById(R.id.alienPoint);
         friendlyPoint = findViewById(R.id.incorrectHits);
         evilPoint = findViewById(R.id.correctHits);
-
+        timer_button = findViewById(R.id.timer_button);
+        exit = findViewById(R.id.exit_button);
 
         determineTime();
+
         timer = new Timer(this, timeLeft);
-
-        timer_button = findViewById(R.id.timer_button);
-        setTimerListener();
-        exit = findViewById(R.id.exit_button);
-        setExitListener();
-
         presenter = new AlienShooterPresenter(this);
+        generateViewListeners();
     }
 
     /**
-     * determines time for the game based on the customization chosen by the user
+     * Generates all button listeners in this activity UI
      */
-    private void determineTime() {
-        if (time.equals("15 seconds")) {
-            timeLeft = 15000;
-        } else {
-            timeLeft = 30000;
+    private void generateViewListeners() {
+        generateOnClickListener();
+        setTimerListener();
+        setExitListener();
+    }
+
+    /**
+     * Generates onClickListener to each of the alienButtons representing an alien
+     */
+    private void generateOnClickListener() {
+        for (int i = 0; i < numOfAliens; i++) {
+            aliens.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (timer.getIsActive()) {
+                        presenter.clickedAlien(aliens, v);
+                    }
+                }
+            });
         }
-    }
-
-    /**
-     * Adds an onClickListener to the exit button so that game ends when the user clicks it
-     */
-    private void setExitListener() {
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                endGame();
-            }
-        });
     }
 
     /**
@@ -106,6 +109,30 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
             }
         });
     }
+
+    /**
+     * Adds an onClickListener to the exit button so that game ends when the user clicks it
+     */
+    private void setExitListener() {
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                endGame();
+            }
+        });
+    }
+
+    /**
+     * determines time for the game based on the customization chosen by the user
+     */
+    private void determineTime() {
+        if (time.equals("15 seconds")) {
+            timeLeft = 15000;
+        } else {
+            timeLeft = 30000;
+        }
+    }
+
 
     /**
      * Stores the time left when a user leaves the app so that when they return, they can continue
@@ -129,6 +156,15 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         super.onResume();
         timer = new Timer(this, timeLeft);
 
+    }
+
+    /**
+     * Run when activity is closed
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.destroy();
     }
 
     /**
@@ -193,30 +229,6 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         }
     }
 
-    /**
-     * Run when activity is closed
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.destroy();
-    }
-
-    /**
-     * Generates onClickListener to each of the alienButtons representing an alien
-     */
-    private void generateOnClickListener() {
-        for (int i = 0; i < numOfAliens; i++) {
-            aliens.get(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (timer.getIsActive()) {
-                        presenter.clickedAlien(aliens, v);
-                    }
-                }
-            });
-        }
-    }
 
     /**
      * Makes all alien imageButtons visible
@@ -279,7 +291,12 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         finish();
     }
 
-
+    /**
+     * creates an intent containing the user statistics data from the current game. This intent
+     * transitions from this activity to the bonus activity.
+     *
+     * @return an Intent that contains the information of the user's statistics in the current game
+     */
     public Intent bonusIntent() {
         Intent intent = new Intent(this, BonusInstructionActivity.class);
         intent.putExtra(POINTS, presenter.getPoints());
@@ -308,5 +325,4 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         intent.putExtra("from", "notBonus");
         return intent;
     }
-
 }
