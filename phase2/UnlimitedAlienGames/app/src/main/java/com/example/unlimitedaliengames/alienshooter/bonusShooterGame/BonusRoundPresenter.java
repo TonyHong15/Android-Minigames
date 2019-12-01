@@ -18,9 +18,8 @@ public class BonusRoundPresenter implements BonusRoundPresenterInterface {
     }
 
     public int getBullet() {
-        int numLeft = rules.getNumBullets();
         rules.decreaseNumBullets();
-        return numLeft;
+        return rules.getNumBullets();
     }
 
 
@@ -30,7 +29,7 @@ public class BonusRoundPresenter implements BonusRoundPresenterInterface {
         }
     }
 
-    void endBonusRound() {
+    private void endBonusRound() {
         String text = "Out of Ammo";
         view.setShoot(text);
         new Handler().postDelayed(new Runnable() {

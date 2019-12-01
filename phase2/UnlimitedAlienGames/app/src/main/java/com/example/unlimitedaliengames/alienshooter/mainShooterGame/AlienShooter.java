@@ -4,14 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
-import com.example.unlimitedaliengames.alienshooter.bonusShooterGame.BonusRound;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.CustomizeActivity;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.BonusInstructionActivity;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.GameOverActivity;
@@ -38,8 +36,6 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
     private String time, friendly, evil;
     private View exit;
     private long timeLeft;
-
-    private boolean bonusAchieved = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,20 +118,6 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         String temp = "Resume Game";
         timer_button.setText(temp);
         timer.cancel();
-    }
-
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        if (bonusAchieved) {
-            presenter.addBonusPoints(getBonusPoints());
-            finishGame();
-        }
-    }
-
-    private int getBonusPoints() {
-        return getIntent().getIntExtra(BonusRound.POINTS, 0);
     }
 
     /**
@@ -287,21 +269,26 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
      * which is destroyed
      */
     public void finishGame() {
-        if (presenter.getPoints() >= 5 && !bonusAchieved) {
-            bonusAchieved = true;
+        if (presenter.getPoints() >= 5) {
             Intent intent = bonusIntent();
             startActivity(intent);
         } else {
             Intent intent = createIntent();
             startActivity(intent);
-            finish();
         }
-
+        finish();
     }
 
 
     public Intent bonusIntent() {
-        return new Intent(this, BonusInstructionActivity.class);
+        Intent intent = new Intent(this, BonusInstructionActivity.class);
+        intent.putExtra(POINTS, presenter.getPoints());
+        intent.putExtra(CORRECT, presenter.getCorrect());
+        intent.putExtra(INCORRECT, presenter.getIncorrect());
+        intent.putExtra(TIME, time);
+        intent.putExtra(EVIL, evil);
+        intent.putExtra(FRIENDLY, friendly);
+        return intent;
     }
 
     /**
@@ -318,6 +305,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         intent.putExtra(TIME, time);
         intent.putExtra(EVIL, evil);
         intent.putExtra(FRIENDLY, friendly);
+        intent.putExtra("from", "notBonus");
         return intent;
     }
 
