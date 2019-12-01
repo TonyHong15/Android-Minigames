@@ -3,19 +3,21 @@ package com.example.unlimitedaliengames.userdata;
 import android.content.Context;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+//import org.json.simple.parser.JSONParser;
+//import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /*
 User database class, stores an array of users.
@@ -88,62 +90,54 @@ public class UserManager {
     Write (save) user data onto a file
      */
     public static void writeToFile(String data,Context context)  {
-        //context.getApplicationInfo().dataDir;
-        String path = context.getFilesDir().getAbsolutePath();
-
-        File file = new File(path + "/savedUserData.json");
-
-        File file2 = new File(path + "/tmp.txt");
-        Log.i("tag2", "line 0");
+        //String path = context.getFilesDir().getAbsolutePath();
+        File file = new File(context.getFilesDir(),"/savedUserData.json");
 
         try {
-            FileWriter output = new FileWriter(file2);
+            FileWriter output = new FileWriter(file);
 
-            /*JSONObject json = new JSONObject();
-            json.put("name", "student");
-            output.write(json.toString());*/
-            output.write("hello");
+            User user1 = new User("toshi", "123123");
+            JSONObject json1 = new JSONObject();
+            json1.put("username", user1.name);
+
+            JSONArray userList = new JSONArray();
+            userList.put(json1);
+
+            output.write(userList.toString());
             output.flush();
-            output.close();
 
-            Log.i("tag2", "writeToFile success!");
         } catch (IOException e){
             Log.e("tag1", "writeToFile failed");
-        } /*catch (JSONException e) {
-            Log.e("MYAPP", "unexpected JSON exception", e);
-            // Do something to recover ... or kill the app.
-        }*/
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
     Read user data from a file
      */
-    private String readFromFile(Context context){
-        String ret = "";
+    /*public static void readFromFile(Context context){
+        File file = new File(context.getFilesDir(),"/savedUserData.json");
 
+        JSONParser parser = new JSONParser();
         try {
-            InputStream inputStream = context.openFileInput("config.txt");
+            JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(file));
 
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
+            ArrayList<Object> a = new ArrayList<Object>();
+            if (jsonArray != null)
+                for (int i = 0; i < jsonArray.length(); i++)
+                    a.add(jsonArray.get(i));
 
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
+            for(int i = 0; i < a.size(); i++) {
+                User user = (User) a.get(i);
 
-                inputStream.close();
-                ret = stringBuilder.toString();
+                String name = user.name;
+                Log.i("tag1", "name = "+name);
             }
+        } catch(FileNotFoundException fe) {
+            fe.printStackTrace();
+        } catch(Exception e) {
+            e.printStackTrace();
         }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        return ret;
-    }
+    }*/
 }

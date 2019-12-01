@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         if(users.attemptRegister(user, pass)){
             display.setText(getString(R.string.register_ok));
             UserManager.writeToFile("text to be saved", getApplicationContext());
+            //UserManager.readFromFile(getApplicationContext());
         }else{
             display.setText(getString(R.string.register_fail));
         }
