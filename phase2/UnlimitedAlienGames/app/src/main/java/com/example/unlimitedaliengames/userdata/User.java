@@ -1,6 +1,8 @@
 package com.example.unlimitedaliengames.userdata;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 An User object.
@@ -81,5 +83,13 @@ public class User implements Serializable {
      */
     public String getPassword() {
         return password;
+    }
+
+    public List<Integer> getStatistics() {
+        List<Integer> list = new  ArrayList<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        return list;
     }
 }

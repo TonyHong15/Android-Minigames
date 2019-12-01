@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.unlimitedaliengames.userdata.*;
 
+import java.io.IOException;
+
 /*
 An Login menu for the game.
  */
@@ -52,7 +54,11 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.registerButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attemptRegister();
+                try {
+                    attemptRegister();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -60,13 +66,14 @@ public class LoginActivity extends AppCompatActivity {
     /*
     Attempt to put a user into this database, if duplicated, change the password.
      */
-    private void attemptRegister() {
+    private void attemptRegister() throws IOException {
         String user = username.getText().toString();
         String pass = password.getText().toString();
         if(users.attemptRegister(user, pass)){
             display.setText(getString(R.string.register_ok));
-            UserManager.writeToFile("text to be saved", getApplicationContext());
+            users.writeToFile("text to be saved", getApplicationContext());
             //UserManager.readFromFile(getApplicationContext());
+            users.readMessage(getApplicationContext());
         }else{
             display.setText(getString(R.string.register_fail));
         }

@@ -1,23 +1,27 @@
 package com.example.unlimitedaliengames.userdata;
 
 import android.content.Context;
+import android.util.JsonReader;
 import android.util.Log;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-//import org.json.simple.parser.JSONParser;
-//import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.io.InputStream;
 import java.util.List;
+
+//import org.json.simple.parser.ParseException;
 
 /*
 User database class, stores an array of users.
@@ -89,26 +93,75 @@ public class UserManager {
     /*
     Write (save) user data onto a file
      */
-    public static void writeToFile(String data,Context context)  {
+    public void writeToFile(String data, Context context) throws IOException {
+
         //String path = context.getFilesDir().getAbsolutePath();
-        File file = new File(context.getFilesDir(),"/savedUserData.json");
+        File file = new File(context.getFilesDir(), "saved.json");
 
         try {
             FileWriter output = new FileWriter(file);
 
-            User user1 = new User("toshi", "123123");
-            JSONObject json1 = new JSONObject();
-            json1.put("username", user1.name);
+            User user1;
+            user1 = new User("hehe", "123123");
+            JsonObject json1 = new JsonObject();
+            json1.addProperty("userId", user1.name);
+            json1.addProperty("password", user1.getPassword());
+            json1.addProperty("Statistics", 1);
 
-            JSONArray userList = new JSONArray();
-            userList.put(json1);
+            User user2;
+            user2 = new User("haha", "123123");
+            JsonObject json2 = new JsonObject();
+            json2.addProperty("userId", user2.name);
+            json2.addProperty("password", user2.getPassword());
+            json2.addProperty("Statistics", 1);
+
+            JsonArray userList = new JsonArray();
+            userList.add(json1);
+            userList.add(json2);
 
             output.write(userList.toString());
+            Log.e("tag1", "finish write");
             output.flush();
 
         } catch (IOException e){
             Log.e("tag1", "writeToFile failed");
-        } catch (JSONException e) {
+        }
+    }
+
+    public void readMessage(Context context) throws IOException {
+        JsonParser parser = new JsonParser();
+        File file = new File(context.getFilesDir(), "saved.json");
+        try {
+            FileReader reader = new FileReader(file);
+            Log.e("tag2", "finish read");
+
+            Object obj = parser.parse(reader);
+
+            JsonArray userList = (JsonArray) obj;
+
+            int listSize = userList.size();
+
+            System.out.println(userList);
+
+            for (int i = 0; i < listSize; i++) {
+                System.out.println(userList.get(i));
+                JsonObject item = (JsonObject) userList.get(i);
+                System.out.println(item.get("userId"));
+            }
+//            Log.e("tag3", "finish read");
+
+
+
+//            JsonElement name = jsonArray.get(0);
+//
+//            String userId = name.getAsString();
+////            String password = jsonObject.get("password").getAsString();
+////            String stats = jsonObject.get("Statistics").getAsString();
+//
+//            Log.e("Name: ", userId);
+//            Log.e("Password: ", password);
+//            Log.e("Statistics: ", stats);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
