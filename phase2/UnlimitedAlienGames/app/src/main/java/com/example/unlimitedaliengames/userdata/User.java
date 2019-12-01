@@ -31,11 +31,10 @@ public class User implements Serializable {
     /**
      * The default constructor for User
      */
-    User() {
+    User() {/*
         this.name = "";
-        this.password = "";
-        this.guesserData = new GuesserData();
-        this.painterData = new PainterData();
+        this.password = "";*/
+        this("","");
     }
 
     /*
@@ -46,6 +45,10 @@ public class User implements Serializable {
         this.password = password;
         this.guesserData = new GuesserData();
         this.painterData = new PainterData();
+
+        this.timePlayed = 0;
+        this.totalPoints = 0;
+        this.gamesPlayed = 0;
     }
 
     /*
@@ -115,5 +118,17 @@ public class User implements Serializable {
 
     public void setTotalPoints(int tmp){
         totalPoints = tmp;
+    }
+
+    public void updateTimePlayed(long tmp){
+        timePlayed += tmp;
+    }
+
+    public void updateGamesPlayed(int tmp){
+        gamesPlayed += tmp;
+    }
+
+    public void updateTotalPoints(int tmp){
+        totalPoints += tmp;
     }
 }

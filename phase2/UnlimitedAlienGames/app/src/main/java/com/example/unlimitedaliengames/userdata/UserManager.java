@@ -40,10 +40,12 @@ public class UserManager {
     Attempt to put a user into this database, if duplicated, change the password.
      */
     public boolean attemptRegister(String name, String pass){
+        if (name.length() <= 0)
+            return false;
         for (int i = 0; i < users.size(); i++){
             User currUser = users.get(i);
 
-            if (currUser.name.equals(name)){
+            if (currUser.name.equals(name)) {
                 return false;
             }
         }
