@@ -5,11 +5,12 @@ import android.view.View;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Model class that implements alien management tasks
+ */
 class AlienShooterManager {
 
     private static final int numOfAliens = 9;
-    List<View> aliens;
-
     private AlienShooterPresenterInterface presenter;
 
     AlienShooterManager(AlienShooterPresenterInterface presenter) {
@@ -36,7 +37,7 @@ class AlienShooterManager {
      * @param aliens the list containing all the alien image buttons
      */
     private void randomizeContentDescription(int random, List<View> aliens) {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < numOfAliens; i++) {
             if (random == i) {
                 String text = "red alien";
                 aliens.get(i).setContentDescription(text);
@@ -54,7 +55,7 @@ class AlienShooterManager {
      */
     private int randomNum() {
         Random random = new Random();
-        return random.nextInt(9);
+        return random.nextInt(numOfAliens);
     }
 
     /**

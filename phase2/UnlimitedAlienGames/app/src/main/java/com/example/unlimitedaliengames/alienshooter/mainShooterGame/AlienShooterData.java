@@ -1,6 +1,8 @@
 package com.example.unlimitedaliengames.alienshooter.mainShooterGame;
 
-
+/**
+ * Contains the data of the current game that user is playing
+ */
 class AlienShooterData {
 
     private int points;

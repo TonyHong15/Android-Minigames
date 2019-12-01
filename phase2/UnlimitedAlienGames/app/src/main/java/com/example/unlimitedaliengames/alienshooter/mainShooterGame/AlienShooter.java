@@ -291,7 +291,12 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         finish();
     }
 
-
+    /**
+     * creates an intent containing the user statistics data from the current game. This intent
+     * transitions from this activity to the bonus activity.
+     *
+     * @return an Intent that contains the information of the user's statistics in the current game
+     */
     public Intent bonusIntent() {
         Intent intent = new Intent(this, BonusInstructionActivity.class);
         intent.putExtra(POINTS, presenter.getPoints());

@@ -1,5 +1,8 @@
 package com.example.unlimitedaliengames.alienshooter.mainShooterGame;
 
+/**
+ * Presenter class that handles score/data related tasks
+ */
 class DataPresenter {
     private AlienShooterData data;
     private AlienShooterView view;

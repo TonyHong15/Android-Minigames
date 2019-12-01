@@ -4,6 +4,9 @@ import android.view.View;
 
 import java.util.List;
 
+/**
+ * Presenter class that handles alien management tasks
+ */
 class AlienPresenter implements AlienShooterPresenterInterface {
     private AlienShooterManager rules;
     private AlienShooterView view;
@@ -41,6 +44,9 @@ class AlienPresenter implements AlienShooterPresenterInterface {
         rules.randomize(aliens);
     }
 
+    /**
+     * Changes the image corresponding the the aliens in the aliens arraylist
+     */
     @Override
     public void changeAlienImage() {
         view.changeAlienImage();
