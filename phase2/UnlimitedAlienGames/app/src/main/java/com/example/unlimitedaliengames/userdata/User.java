@@ -92,4 +92,28 @@ public class User implements Serializable {
         list.add(3);
         return list;
     }
+
+    public long getTimePlayed() {
+        return timePlayed;
+    }
+
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTimePlayed(long tmp){
+        timePlayed = tmp;
+    }
+
+    public void setGamesPlayed(int tmp){
+        gamesPlayed = tmp;
+    }
+
+    public void setTotalPoints(int tmp){
+        totalPoints = tmp;
+    }
 }

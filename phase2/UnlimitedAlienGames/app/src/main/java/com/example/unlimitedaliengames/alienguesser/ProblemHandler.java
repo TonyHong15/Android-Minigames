@@ -130,6 +130,9 @@ class ProblemHandler {
         currUser.guesserData.correctAns = correctAnswer;
         currUser.guesserData.guesserScore = totalScore;
         currUser.guesserData.numProblem = problemAnswered;
+
+        currUser.setTotalPoints(666);
+
     }
 
     /*

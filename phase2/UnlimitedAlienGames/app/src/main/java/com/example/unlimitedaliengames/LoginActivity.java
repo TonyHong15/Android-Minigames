@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView display;
 
     /*
-    Array of users, currently only support 16 users.
+    ArrayList of users.
      */
     private UserManager users;
 
@@ -37,11 +37,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        users = new UserManager();
+
+        //users.writeToFile("text to be saved", getApplicationContext()); //save the new user
+        users.readFromFile(getApplicationContext()); //get past users' data from file
+
         username = findViewById(R.id.userName);
         password = findViewById(R.id.password);
         display = findViewById(R.id.messageDisplay);
 
-        users = new UserManager();
+
         //handling clicking for login
         findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,11 +74,12 @@ public class LoginActivity extends AppCompatActivity {
     private void attemptRegister() throws IOException {
         String user = username.getText().toString();
         String pass = password.getText().toString();
+
         if(users.attemptRegister(user, pass)){
             display.setText(getString(R.string.register_ok));
-            users.writeToFile("text to be saved", getApplicationContext());
-            //UserManager.readFromFile(getApplicationContext());
-            users.readMessage(getApplicationContext());
+
+            users.writeToFile("text to be saved", getApplicationContext()); //save the new user
+            users.readFromFile(getApplicationContext()); //get past users' data from file
         }else{
             display.setText(getString(R.string.register_fail));
         }
