@@ -40,12 +40,13 @@ public class UserManager {
     Attempt to put a user into this database, if duplicated, change the password.
      */
     public boolean attemptRegister(String name, String pass){
-        /*for (int i = 0; i < 15; i++){
-            if (users[i] != null && users[i].name.equals(name)){
-                users[i].setPassword(pass);
+        for (int i = 0; i < users.size(); i++){
+            User currUser = users.get(i);
+
+            if (currUser.name.equals(name)){
                 return false;
             }
-        }*/
+        }
         addUser(name, pass);
         return true;
     }
@@ -64,7 +65,8 @@ public class UserManager {
     public boolean validateCredentials(String name, String pass){
         for (int i = 0; i < users.size(); i++){
             User currUser = users.get(i);
-            if (currUser.name.equals(name) && currUser.matchPassword(pass)){
+
+            if (currUser.name.equals(name) && currUser.getPassword().equals(pass)){
                 toExtract = i;
                 return true;
             }
@@ -82,7 +84,7 @@ public class UserManager {
     /*
     Write (save) user data onto a file
      */
-    public void writeToFile(String data, Context context) {
+    public void writeToFile(Context context) {
 
         //String path = context.getFilesDir().getAbsolutePath();
         File file = new File(context.getFilesDir(), "savedUserData.json");
@@ -120,7 +122,7 @@ public class UserManager {
 
         File file = context.getFileStreamPath("savedUserData.json");
         if (!file.exists()){
-            writeToFile("", context);
+            writeToFile(context);
         }
 
         //File file = new File(context.getFilesDir(), "savedUserData.json");

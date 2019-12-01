@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
 
         users = new UserManager();
 
-        //users.writeToFile("text to be saved", getApplicationContext()); //save the new user
         users.readFromFile(getApplicationContext()); //get past users' data from file
 
         username = findViewById(R.id.userName);
@@ -78,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         if(users.attemptRegister(user, pass)){
             display.setText(getString(R.string.register_ok));
 
-            users.writeToFile("text to be saved", getApplicationContext()); //save the new user
+            users.writeToFile(getApplicationContext()); //save the new user
             users.readFromFile(getApplicationContext()); //get past users' data from file
         }else{
             display.setText(getString(R.string.register_fail));
