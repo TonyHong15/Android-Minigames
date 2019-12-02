@@ -74,12 +74,12 @@ public class LoginActivity extends AppCompatActivity {
         String user = username.getText().toString();
         String pass = password.getText().toString();
 
-        if(userManager.attemptRegister(user, pass)){
+        if (userManager.attemptRegister(user, pass)) {
             display.setText(getString(R.string.register_ok));
 
             userManager.writeToFile(getApplicationContext()); //save the new user
             // userManager.readFromFile(getApplicationContext()); //get past users' data from file
-        }else{
+        } else {
             display.setText(getString(R.string.register_fail));
         }
     }
@@ -87,10 +87,10 @@ public class LoginActivity extends AppCompatActivity {
     /*
     Attempt to login based on given user name and password.
      */
-    void attemptLogin(String user, String pass){
-        if(userManager.validateCredentials(user, pass)){
+    void attemptLogin(String user, String pass) {
+        if (userManager.validateCredentials(user, pass)) {
             onSuccess(userManager.extractUser());
-        }else{
+        } else {
             display.setText(getString(R.string.login_fail));
         }
     }
@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
     /*
     Go to main menu if successfully logged in.
     */
-    void onSuccess(User currUser){
+    void onSuccess(User currUser) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(PASS_USER, currUser);
         startActivity(intent);

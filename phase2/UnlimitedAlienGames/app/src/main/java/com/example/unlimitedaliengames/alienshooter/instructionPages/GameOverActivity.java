@@ -80,7 +80,6 @@ public class GameOverActivity extends AppCompatActivity {
         } else {
             user.updateTimePlayed(30);
         }
-        user.writeToFile(getApplicationContext());
     }
     /**
      * set the total points

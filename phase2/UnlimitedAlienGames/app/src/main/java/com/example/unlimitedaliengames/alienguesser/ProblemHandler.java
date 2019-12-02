@@ -132,7 +132,6 @@ class ProblemHandler {
         currUser.guesserData.numProblem = problemAnswered;
         currUser.updateGamesPlayed(1);
         currUser.updateTotalPoints(totalScore);
-        currUser.setTotalPoints(666);
 
     }
 

@@ -27,19 +27,13 @@ public class User implements Serializable {
      */
     public GuesserData guesserData;
 
-    /**
-     * Statistics of the user for alien painter game
-     */
-    private PainterData painterData;
-
     /*
     Initialize a user with not game info.
      */
-    User(String name, String password, UserManager manager){
+    User(String name, String password, UserManager manager) {
         this.name = name;
         this.password = password;
         this.guesserData = new GuesserData();
-        this.painterData = new PainterData();
         this.userManagerInterface = manager;
         this.timePlayed = 0;
         this.totalPoints = 0;
@@ -47,35 +41,12 @@ public class User implements Serializable {
 
     }
 
-    public void writeToFile(Context context){
-         userManagerInterface.writeToFile(context);
+    public void writeToFile(Context context) {
+        userManagerInterface.writeToFile(context);
     }
 
-    public void readFromFile(Context context){
-     //   userManagerInterface.readFromFile(context);
-    }
-
-    /*
-    Set the password of the current user.
-     */
-    void setPassword(String pass){
-        this.password = pass;
-    }
-
-    /*
-    Return true if the password matches.
-     */
-    boolean matchPassword(String pass){
-        return password.equals(pass);
-    }
-
-    /**
-     * Updates the statistics of this User in regards to the alien painter game
-     * @param numMoves the number of moves the player has made
-     * @param timeLeft the amount of time left when the player finished the game
-     */
-    public void setPainterData(int numMoves, int timeLeft) {
-        this.painterData.updateStats(numMoves, timeLeft);
+    public void readFromFile(Context context) {
+        //   userManagerInterface.readFromFile(context);
     }
 
     /*
@@ -88,19 +59,19 @@ public class User implements Serializable {
     /*
     Return the password of the current user.
      */
-    public String getPassword() {
+    String getPassword() {
         return password;
     }
 
     public List<Integer> getStatistics() {
-        List<Integer> list = new  ArrayList<Integer>();
+        List<Integer> list = new ArrayList<Integer>();
         list.add(1);
         list.add(2);
         list.add(3);
         return list;
     }
 
-    public long getTimePlayed() {
+    long getTimePlayed() {
         return timePlayed;
     }
 
@@ -112,27 +83,27 @@ public class User implements Serializable {
         return totalPoints;
     }
 
-    public void setTimePlayed(long tmp){
+    void setTimePlayed(long tmp) {
         timePlayed = tmp;
     }
 
-    public void setGamesPlayed(int tmp){
+    void setGamesPlayed(int tmp) {
         gamesPlayed = tmp;
     }
 
-    public void setTotalPoints(int tmp){
+    void setTotalPoints(int tmp) {
         totalPoints = tmp;
     }
 
-    public void updateTimePlayed(long tmp){
+    public void updateTimePlayed(long tmp) {
         timePlayed += tmp;
     }
 
-    public void updateGamesPlayed(int tmp){
+    public void updateGamesPlayed(int tmp) {
         gamesPlayed += tmp;
     }
 
-    public void updateTotalPoints(int tmp){
+    public void updateTotalPoints(int tmp) {
         totalPoints += tmp;
     }
 }

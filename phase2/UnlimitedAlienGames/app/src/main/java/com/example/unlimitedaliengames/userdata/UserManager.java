@@ -17,33 +17,28 @@ import java.util.ArrayList;
 /*
 User database class, stores an array of users.
  */
-public class UserManager implements Serializable, UserManagerInterface{
+public class UserManager implements Serializable, UserManagerInterface {
 
     /*
     ArrayList of users.
      */
     private ArrayList<User> users;
     /*
-    Current slot of next new user.
-     */
-    private int slot;
-    /*
     Users to extract, always after matching password.
      */
     private int toExtract;
 
-    public UserManager(){
+    public UserManager() {
         users = new ArrayList<>();
-        slot = 0;
     }
 
     /*
     Attempt to put a user into this database, if duplicated, change the password.
      */
-    public boolean attemptRegister(String name, String pass){
+    public boolean attemptRegister(String name, String pass) {
         if (name.length() <= 0)
             return false;
-        for (int i = 0; i < users.size(); i++){
+        for (int i = 0; i < users.size(); i++) {
             User currUser = users.get(i);
 
             if (currUser.name.equals(name)) {
@@ -57,19 +52,18 @@ public class UserManager implements Serializable, UserManagerInterface{
     /*
     Add the user to the database.
      */
-    private void addUser(String name, String pass){
+    private void addUser(String name, String pass) {
         users.add(new User(name, pass, this));
-        slot += 1;
     }
 
     /*
     Return true if there is a user with given name and password.
      */
-    public boolean validateCredentials(String name, String pass){
-        for (int i = 0; i < users.size(); i++){
+    public boolean validateCredentials(String name, String pass) {
+        for (int i = 0; i < users.size(); i++) {
             User currUser = users.get(i);
 
-            if (currUser.name.equals(name) && currUser.getPassword().equals(pass)){
+            if (currUser.name.equals(name) && currUser.getPassword().equals(pass)) {
                 toExtract = i;
                 return true;
             }
@@ -80,7 +74,7 @@ public class UserManager implements Serializable, UserManagerInterface{
     /*
     Extract the user found by validateCredentials.
      */
-    public User extractUser(){
+    public User extractUser() {
         return users.get(toExtract);
     }
 
@@ -97,7 +91,7 @@ public class UserManager implements Serializable, UserManagerInterface{
 
             JsonArray userList = new JsonArray();
 
-            for (int i = 0; i < users.size(); i++){
+            for (int i = 0; i < users.size(); i++) {
                 User currUser = users.get(i);
                 JsonObject json1 = new JsonObject();
                 json1.addProperty("userId", currUser.name);
@@ -112,7 +106,7 @@ public class UserManager implements Serializable, UserManagerInterface{
             output.flush();
 
             Log.e("tag1", "writeToFile successful");
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -124,7 +118,7 @@ public class UserManager implements Serializable, UserManagerInterface{
         JsonParser parser = new JsonParser();
 
         File file = context.getFileStreamPath("savedUserData.json");
-        if (!file.exists()){
+        if (!file.exists()) {
             writeToFile(context);
         }
 

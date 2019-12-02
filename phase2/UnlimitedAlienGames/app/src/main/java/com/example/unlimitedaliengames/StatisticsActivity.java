@@ -57,7 +57,7 @@ public class StatisticsActivity extends AppCompatActivity {
         });
     }
 
-    private void exitScoreBoard(){
+    private void exitScoreBoard() {
         startActivity(new Intent(this, MainActivity.class));
     }
 }
