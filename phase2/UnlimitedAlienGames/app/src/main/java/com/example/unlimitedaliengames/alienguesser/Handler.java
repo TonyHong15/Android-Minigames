@@ -91,15 +91,7 @@ class Handler {
     /*
     Save the current game state.
     */
-    void saveGame(){
-        currUser.guesserData.currProblem = givenProblem;
-        currUser.guesserData.correctAns = correctAnswer;
-        currUser.guesserData.guesserScore = totalScore;
-        currUser.guesserData.numProblem = problemAnswered;
-        currUser.updateGamesPlayed(1);
-        currUser.updateTotalPoints(totalScore);
-
-    }
+    void saveGame(){    }
 
     /*
     Return the current user using this object.

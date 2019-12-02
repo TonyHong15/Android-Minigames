@@ -72,4 +72,16 @@ class ProblemHandler extends Handler{
         givenProblem = name;
         correctAnswer = guesserView.fetchFromRes(answer_name);
     }
+    /*
+Save the current game state.
+*/
+    void saveGame(){
+        currUser.guesserData.currProblem = givenProblem;
+        currUser.guesserData.correctAns = correctAnswer;
+        currUser.guesserData.guesserScore = totalScore;
+        currUser.guesserData.numProblem = problemAnswered;
+        currUser.updateGamesPlayed(1);
+        currUser.updateTotalPoints(totalScore);
+    }
+
 }
