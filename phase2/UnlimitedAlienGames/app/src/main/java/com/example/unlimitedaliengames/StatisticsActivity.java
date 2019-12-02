@@ -13,10 +13,6 @@ import com.example.unlimitedaliengames.userdata.User;
 import static com.example.unlimitedaliengames.LoginActivity.PASS_USER;
 
 public class StatisticsActivity extends AppCompatActivity {
-    private int totalTime;
-    private int totalGamesPlayed;
-    private int totalPoints;
-    private TextView game, points, time;
     private Button exit, save;
 
     /**
@@ -32,19 +28,22 @@ public class StatisticsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         currUser = (User) intent.getSerializableExtra(PASS_USER);
 
-        totalTime = (int) currUser.getTimePlayed();
-        totalGamesPlayed = currUser.getGamesPlayed();
-        totalPoints = currUser.getTotalPoints();
+        int totalTime = (int) currUser.getTimePlayed();
+        int totalGamesPlayed = currUser.getGamesPlayed();
+        int totalPoints = currUser.getTotalPoints();
 
-        game = findViewById(R.id.Game);
-        points = findViewById(R.id.Points);
-        time = findViewById(R.id.Time);
+        TextView game = findViewById(R.id.Game);
+        TextView points = findViewById(R.id.Points);
+        TextView time = findViewById(R.id.Time);
         exit = findViewById(R.id.BackToMenu);
         save = findViewById(R.id.statisticsSaveButton);
 
-        game.setText("Total Number of Games Played: " + totalGamesPlayed);
-        points.setText("Total Points Earned: " + totalPoints);
-        time.setText("Total Amount of Time Played: " + totalTime);
+        String gameString = "Total Number of Games Played: " + totalGamesPlayed;
+        String pointsString = "Total Number of Points: " + totalPoints;
+        String timeString = "Total Number Time in Seconds: " + totalTime;
+        game.setText(gameString);
+        points.setText(pointsString);
+        time.setText(timeString);
         SetupButtonListeners();
 
     }

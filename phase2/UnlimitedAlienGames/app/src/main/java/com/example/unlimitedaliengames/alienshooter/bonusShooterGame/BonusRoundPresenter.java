@@ -2,7 +2,7 @@ package com.example.unlimitedaliengames.alienshooter.bonusShooterGame;
 
 import android.os.Handler;
 
-public class BonusRoundPresenter implements BonusRoundPresenterInterface {
+public class BonusRoundPresenter {
 
     private BonusRoundView view;
     private BonusRoundManager rules;
@@ -13,7 +13,7 @@ public class BonusRoundPresenter implements BonusRoundPresenterInterface {
      */
     BonusRoundPresenter(BonusRoundView view) {
         this.view = view;
-        this.rules = new BonusRoundManager(this);
+        this.rules = new BonusRoundManager();
 
     }
 

@@ -49,7 +49,7 @@ public class GameOverActivity extends AppCompatActivity {
 
     }
 
-    private void retrieveData(){
+    private void retrieveData() {
         Intent intent = getIntent();
         if (intent.getStringExtra("from").equals("notBonus")) {
             points = intent.getIntExtra(AlienShooter.POINTS, 0);
@@ -59,9 +59,8 @@ public class GameOverActivity extends AppCompatActivity {
             evilCustom = intent.getStringExtra(AlienShooter.EVIL);
             correct = intent.getIntExtra(AlienShooter.CORRECT, 0);
             incorrect = intent.getIntExtra(AlienShooter.INCORRECT, 0);
-        }
-        else{
-            points = intent.getIntExtra(BonusRound.POINTS,0);
+        } else {
+            points = intent.getIntExtra(BonusRound.POINTS, 0);
             user = (User) intent.getSerializableExtra(BonusRound.PASS_USER);
             time = intent.getStringExtra(BonusRound.TIME);
             friendlyCustom = intent.getStringExtra(BonusRound.FRIENDLY);
@@ -72,7 +71,7 @@ public class GameOverActivity extends AppCompatActivity {
 
     }
 
-    private void saveData(){
+    private void saveData() {
         user.updateTotalPoints(points);
         user.updateGamesPlayed(1);
         if (time.equals("15 seconds")) {
@@ -81,6 +80,7 @@ public class GameOverActivity extends AppCompatActivity {
             user.updateTimePlayed(30);
         }
     }
+
     /**
      * set the total points
      */

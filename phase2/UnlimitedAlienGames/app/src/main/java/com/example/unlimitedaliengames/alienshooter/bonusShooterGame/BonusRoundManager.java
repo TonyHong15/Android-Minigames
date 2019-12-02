@@ -2,15 +2,12 @@ package com.example.unlimitedaliengames.alienshooter.bonusShooterGame;
 
 class BonusRoundManager {
     private int points;
-    private BonusRoundPresenterInterface presenter;
     private int numBullets = 5;
 
     /**
      * initialize the presenter and points
-     * @param presenter a instance of BonusRoundPresenter
      */
-    BonusRoundManager(BonusRoundPresenter presenter) {
-        this.presenter = presenter;
+    BonusRoundManager() {
         points = 0;
     }
 

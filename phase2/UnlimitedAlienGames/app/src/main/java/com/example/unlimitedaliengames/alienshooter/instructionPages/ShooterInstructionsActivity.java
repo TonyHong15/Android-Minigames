@@ -16,6 +16,7 @@ public class ShooterInstructionsActivity extends AppCompatActivity {
     private View customize;
     public static final String PASS_USER = "passUser";
     private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();

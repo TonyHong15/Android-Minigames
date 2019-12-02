@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.BonusInstructionActivity;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.GameOverActivity;
-import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
 import com.example.unlimitedaliengames.userdata.User;
 
 import java.util.ArrayList;

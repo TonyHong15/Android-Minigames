@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
 
-import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
 import com.example.unlimitedaliengames.userdata.User;
