@@ -13,11 +13,13 @@ import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.CustomizeActivity;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.BonusInstructionActivity;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.GameOverActivity;
+import com.example.unlimitedaliengames.userdata.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AlienShooter extends AppCompatActivity implements AlienShooterView {
+    private User user;
     private AlienShooterPresenter presenter;
     private static final int numOfAliens = 9;
 
@@ -51,6 +53,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         time = intent.getStringExtra(CustomizeActivity.PASS_TIME);
         friendly = intent.getStringExtra(CustomizeActivity.PASS_FRIENDLY);
         evil = intent.getStringExtra(CustomizeActivity.PASS_EVIL);
+        user = (User) intent.getSerializableExtra("user");
 
         aliens = new ArrayList<>();
         generateAliens();
@@ -171,7 +174,8 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
      * Returns to the menu and destroys this activity/game instance
      */
     private void endGame() {
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
         timer.cancel();
         finish();
     }

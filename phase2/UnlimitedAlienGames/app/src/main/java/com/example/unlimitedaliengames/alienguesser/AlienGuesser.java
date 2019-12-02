@@ -16,6 +16,8 @@ import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.userdata.*;
 
 public class AlienGuesser extends AppCompatActivity implements GuesserView{
+    public static final String PASS_USER = "passUser";
+    private User user;
     /*
     The name of the package.
      */
@@ -43,8 +45,8 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         problems.recycle();
 
         Intent intent = getIntent();
-        User curr = (User)intent.getSerializableExtra(LoginActivity.PASS_USER);
-        handler = new ProblemHandler(this, curr, bankSize);
+        user = (User)intent.getSerializableExtra("user");
+        handler = new ProblemHandler(this, user, bankSize);
 
         setUpInterface();
     }
@@ -171,7 +173,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
      */
     private void returnToMain(){
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(LoginActivity.PASS_USER, handler.getCurrUser());
+        intent.putExtra(PASS_USER, user);
         startActivity(intent);
         finish();
     }

@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
 
+import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
+import com.example.unlimitedaliengames.userdata.User;
 
 public class CustomizeActivity extends AppCompatActivity {
     public final static String PASS_TIME = "pass time";
@@ -38,6 +40,8 @@ public class CustomizeActivity extends AppCompatActivity {
         choseEvil = false;
         choseFriendly = false;
         choseTime = false;
+        Intent intent = getIntent();
+
     }
 
     /**

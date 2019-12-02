@@ -10,8 +10,11 @@ import android.widget.Button;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.alienshooter.bonusShooterGame.BonusRound;
 import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
+import com.example.unlimitedaliengames.userdata.User;
 
 public class BonusInstructionActivity extends AppCompatActivity {
+    public static final String PASS_USER = "passUser";
+    private User user;
     private Button startButton;
     public final static String POINTS = "pass points";
     public final static String CORRECT = "pass friendly";
@@ -30,6 +33,7 @@ public class BonusInstructionActivity extends AppCompatActivity {
         setBonusStartListener();
 
         Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("user");
         time = intent.getStringExtra(AlienShooter.TIME);
         friendly = intent.getStringExtra(AlienShooter.FRIENDLY);
         evil = intent.getStringExtra(AlienShooter.EVIL);
@@ -54,7 +58,9 @@ public class BonusInstructionActivity extends AppCompatActivity {
         intent.putExtra(CORRECT, correct);
         intent.putExtra(INCORRECT, incorrect);
         intent.putExtra(TIME, time);
+        intent.putExtra(PASS_USER, user);
         intent.putExtra(EVIL, evil);
+        intent.putExtra(PASS_USER, user);
         intent.putExtra(FRIENDLY, friendly);
         startActivity(intent);
     }

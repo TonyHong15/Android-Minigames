@@ -11,8 +11,11 @@ import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.alienshooter.bonusShooterGame.BonusRound;
 import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
+import com.example.unlimitedaliengames.userdata.User;
 
 public class GameOverActivity extends AppCompatActivity {
+    public static final String PASS_USER = "passUser";
+    private User user;
     private View restart, customize, backToMenu;
     private TextView textPoints, friendly, evil;
     private int points, correct, incorrect;
@@ -25,7 +28,8 @@ public class GameOverActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
-        customize = findViewById(R.id.Customize);
+        customize = findViewById(R.id.Customize)
+        ;
         setCustomizeListener();
         backToMenu = findViewById(R.id.BackToMenu);
         setReturnListener();
@@ -33,7 +37,6 @@ public class GameOverActivity extends AppCompatActivity {
         setListenerRestart();
 
         retrieveData();
-
 
         textPoints = findViewById(R.id.Points);
         setPoints();
@@ -48,6 +51,7 @@ public class GameOverActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra("from").equals("notBonus")) {
             points = intent.getIntExtra(AlienShooter.POINTS, 0);
+            user = (User) intent.getSerializableExtra("user");
             time = intent.getStringExtra(AlienShooter.TIME);
             friendlyCustom = intent.getStringExtra(AlienShooter.FRIENDLY);
             evilCustom = intent.getStringExtra(AlienShooter.EVIL);
@@ -56,6 +60,7 @@ public class GameOverActivity extends AppCompatActivity {
         }
         else{
             points = intent.getIntExtra(BonusRound.POINTS,0);
+            user = (User) intent.getSerializableExtra(BonusRound.PASS_USER);
             time = intent.getStringExtra(BonusRound.TIME);
             friendlyCustom = intent.getStringExtra(BonusRound.FRIENDLY);
             evilCustom = intent.getStringExtra(BonusRound.EVIL);
@@ -131,7 +136,9 @@ public class GameOverActivity extends AppCompatActivity {
      * start activity with the new intent
      */
     private void customizeActivity() {
-        startActivity(new Intent(this, CustomizeActivity.class));
+        Intent intent = new Intent(this, CustomizeActivity.class);
+        intent.putExtra(PASS_USER, user);
+        startActivity(intent);
     }
 
     /**
@@ -142,7 +149,7 @@ public class GameOverActivity extends AppCompatActivity {
         intent.putExtra(PASS_EVIL, evilCustom);
         intent.putExtra(PASS_TIME, time);
         intent.putExtra(PASS_FRIENDLY, friendlyCustom);
-
+        intent.putExtra(PASS_USER, user);
         startActivity(intent);
     }
 
@@ -150,6 +157,8 @@ public class GameOverActivity extends AppCompatActivity {
      * start activity with the new intent
      */
     private void menu() {
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(PASS_USER, user);
+        startActivity(intent);
     }
 }

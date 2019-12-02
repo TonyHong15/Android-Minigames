@@ -16,11 +16,14 @@ import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.BonusInstructionActivity;
 import com.example.unlimitedaliengames.alienshooter.instructionPages.GameOverActivity;
 import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter;
+import com.example.unlimitedaliengames.userdata.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BonusRound extends AppCompatActivity implements BonusRoundView {
+    public static final String PASS_USER = "passUser";
+    private User user;
     public final static String POINTS = "pass points";
     public final static String CORRECT = "pass friendly";
     public final static String INCORRECT = "pass evil";
@@ -42,6 +45,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         setContentView(R.layout.activity_bonus_round);
 
         Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra(BonusInstructionActivity.PASS_USER);
         time = intent.getStringExtra(BonusInstructionActivity.TIME);
         friendly = intent.getStringExtra(BonusInstructionActivity.FRIENDLY);
         evil = intent.getStringExtra(BonusInstructionActivity.EVIL);
@@ -210,6 +214,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
     private Intent createIntent() {
         Intent intent = new Intent(this, GameOverActivity.class);
         intent.putExtra(POINTS, presenter.getPoints() + points);
+        intent.putExtra(PASS_USER, user);
         intent.putExtra(CORRECT, correct);
         intent.putExtra(INCORRECT, incorrect);
         intent.putExtra(TIME, time);
