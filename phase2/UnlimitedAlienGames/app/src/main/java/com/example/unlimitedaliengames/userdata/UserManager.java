@@ -16,10 +16,10 @@ import java.util.ArrayList;
 /*
 User database class, stores an array of users.
  */
-public class UserManager {
+public class UserManager implements UserManagerInterface{
 
     /*
-    The array of users.
+    ArrayList of users.
      */
     private ArrayList<User> users;
     /*

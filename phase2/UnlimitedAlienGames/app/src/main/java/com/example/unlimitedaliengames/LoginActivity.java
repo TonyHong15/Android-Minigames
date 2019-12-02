@@ -30,16 +30,16 @@ public class LoginActivity extends AppCompatActivity {
     /*
     ArrayList of users.
      */
-    private UserManager users;
+    private UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        users = new UserManager();
+        userManager = new UserManager();
 
-        users.readFromFile(getApplicationContext()); //get past users' data from file
+        userManager.readFromFile(getApplicationContext()); //get past users' data from file
 
         username = findViewById(R.id.userName);
         password = findViewById(R.id.password);
@@ -74,11 +74,11 @@ public class LoginActivity extends AppCompatActivity {
         String user = username.getText().toString();
         String pass = password.getText().toString();
 
-        if(users.attemptRegister(user, pass)){
+        if(userManager.attemptRegister(user, pass)){
             display.setText(getString(R.string.register_ok));
 
-            users.writeToFile(getApplicationContext()); //save the new user
-            users.readFromFile(getApplicationContext()); //get past users' data from file
+            userManager.writeToFile(getApplicationContext()); //save the new user
+            userManager.readFromFile(getApplicationContext()); //get past users' data from file
         }else{
             display.setText(getString(R.string.register_fail));
         }
@@ -88,8 +88,8 @@ public class LoginActivity extends AppCompatActivity {
     Attempt to login based on given user name and password.
      */
     void attemptLogin(String user, String pass){
-        if(users.validateCredentials(user, pass)){
-            onSuccess(users.extractUser());
+        if(userManager.validateCredentials(user, pass)){
+            onSuccess(userManager.extractUser());
         }else{
             display.setText(getString(R.string.login_fail));
         }

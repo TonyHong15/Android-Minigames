@@ -1,5 +1,7 @@
 package com.example.unlimitedaliengames.userdata;
 
+import android.content.Context;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.List;
 An User object.
  */
 public class User implements Serializable {
+
+    private UserManagerInterface userManagerInterface;
     /*
     User's information.
      */
@@ -49,6 +53,14 @@ public class User implements Serializable {
         this.timePlayed = 0;
         this.totalPoints = 0;
         this.gamesPlayed = 0;
+    }
+
+    void writeToFile(Context context){
+        userManagerInterface.writeToFile(context);
+    }
+
+    void readFromFile(Context context){
+        userManagerInterface.readFromFile(context);
     }
 
     /*
