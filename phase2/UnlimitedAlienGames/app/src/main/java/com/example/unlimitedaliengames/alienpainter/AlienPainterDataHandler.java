@@ -18,9 +18,9 @@ class AlienPainterDataHandler {
     /**
      * records the statistics of currUser
      */
-    void recordStats(int gamesPlayed, long timeLeft, int points, User currUser) {
+    void recordStats(int gamesPlayed, int totalTime, int points, User currUser) {
         currUser.updateGamesPlayed(gamesPlayed);
-        currUser.updateTimePlayed(30 - timeLeft);
+        currUser.updateTimePlayed(totalTime);
         currUser.updateTotalPoints(points);
     }
 }

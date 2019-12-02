@@ -159,6 +159,13 @@ public class AlienPainterScoreboardActivity extends AppCompatActivity {
     private void setupButtons() {
         exitButton = findViewById(R.id.scoreboardExitButton);
 
+
+        if (isEnglish) {
+            exitButton.setText(R.string.alien_painter_exit);
+        } else {
+            exitButton.setText(R.string.alien_painter_exit_chinese);
+        }
+
         exitButton.setOnClickListener(new View.OnClickListener() {
             /**
              * Called when a view has been clicked.

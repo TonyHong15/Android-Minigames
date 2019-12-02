@@ -31,7 +31,6 @@
         android:text="@string/alien_painter"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -43,9 +42,21 @@
         android:layout_marginBottom="32dp"
         android:onClick="goToAlienShooter"
         android:text="@string/alien_shooter"
+        app:layout_constraintBottom_toTopOf="@+id/mainStatisticsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/mainStatisticsButton"
+        android:layout_width="350dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:onClick="goToAlienStatistics"
+        android:text="@string/alien_main_statistics_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -69,11 +80,12 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="275dp"
-        android:layout_marginBottom="@android:dimen/notification_large_icon_width"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/alien_background"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/alien_background" />
 </androidx.constraintlayout.widget.ConstraintLayout>

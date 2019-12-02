@@ -153,10 +153,11 @@ class AlienPainterPresenter {
     }
 
     /**
-     * Calls this when the timer is done.
+     * Calls this when the timer is done. Adds time played to totalTime
      */
     void timerExpired() {
         gameEnded = true;
+        buttonFunctions.setTotalTime(buttonFunctions.getTotalTime() + 30);
         view.timerExpired();
     }
 
@@ -242,12 +243,14 @@ class AlienPainterPresenter {
     }
 
     /**
-     * Records the statistics of the player by first updating the data of the current User, then
-     * writing the User object to a file at the program location.
+     * Disable the timer and change the isVictorious and gameEnded boolean variables to signal
+     * the fact that the game has ended. Also checks if the player has met the bonus criteria.
+     * Adds the amount of time played to totalTime.
      */
     private void playerWon() {
         isVictorious = true;
         gameEnded = true;
+        buttonFunctions.setTotalTime(buttonFunctions.getTotalTime() + (30 - getTimeLeft()));
         painterTimer.setActive(false);
         painterTimer.cancel();
         buttonFunctions.checkBonus();
@@ -266,7 +269,7 @@ class AlienPainterPresenter {
      * records the statistics of currUser
      */
     void recordStats() {
-        dataHandler.recordStats(buttonFunctions.getGamesPlayed(), buttonFunctions.getTimeLeft()
+        dataHandler.recordStats(buttonFunctions.getGamesPlayed(), buttonFunctions.getTotalTime()
                 , buttonFunctions.getPoints(), currUser);
     }
 }

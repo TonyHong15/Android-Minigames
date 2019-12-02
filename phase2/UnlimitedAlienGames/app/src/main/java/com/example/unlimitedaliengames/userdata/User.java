@@ -64,14 +64,14 @@ public class User implements Serializable {
     }
 
     public List<Integer> getStatistics() {
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.add(3);
         return list;
     }
 
-    long getTimePlayed() {
+    public long getTimePlayed() {
         return timePlayed;
     }
 

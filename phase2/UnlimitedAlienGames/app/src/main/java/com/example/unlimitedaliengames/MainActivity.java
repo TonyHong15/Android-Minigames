@@ -48,4 +48,12 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void goToAlienStatistics(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, StatisticsActivity.class);
+        intent.putExtra(LoginActivity.PASS_USER, currUser);
+        startActivity(intent);
+        finish();
+    }
+
 }

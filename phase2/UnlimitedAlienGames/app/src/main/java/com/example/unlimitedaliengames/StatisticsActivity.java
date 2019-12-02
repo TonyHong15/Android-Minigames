@@ -17,7 +17,12 @@ public class StatisticsActivity extends AppCompatActivity {
     private int totalGamesPlayed;
     private int totalPoints;
     private TextView game, points, time;
-    private Button exit;
+    private Button exit, save;
+
+    /**
+     * Holds the object that references the current user
+     */
+    private User currUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,28 +30,26 @@ public class StatisticsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_statistics);
 
         Intent intent = getIntent();
-        User curr = (User) intent.getSerializableExtra(PASS_USER);
+        currUser = (User) intent.getSerializableExtra(PASS_USER);
 
-        totalTime = curr.getGamesPlayed();
-        totalGamesPlayed = curr.getGamesPlayed();
-        totalPoints = curr.getTotalPoints();
+        totalTime = (int) currUser.getTimePlayed();
+        totalGamesPlayed = currUser.getGamesPlayed();
+        totalPoints = currUser.getTotalPoints();
 
         game = findViewById(R.id.Game);
         points = findViewById(R.id.Points);
         time = findViewById(R.id.Time);
         exit = findViewById(R.id.BackToMenu);
+        save = findViewById(R.id.statisticsSaveButton);
 
-        String text1 = "Game Played: " + totalGamesPlayed;
-        String text2 = "Total Points: " + totalPoints;
-        String text3 = "Total Time Played" + totalTime;
-        game.setText(text1);
-        points.setText(text2);
-        time.setText(text3);
-        EndButtonListener();
+        game.setText("Total Number of Games Player: " + totalGamesPlayed);
+        points.setText("Total Points Earned: " + totalPoints);
+        time.setText("Total Amount of Time Played: " + totalTime);
+        SetupButtonListeners();
 
     }
 
-    private void EndButtonListener() {
+    private void SetupButtonListeners() {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,9 +58,24 @@ public class StatisticsActivity extends AppCompatActivity {
 
             }
         });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Called when a view has been clicked.
+             *
+             * @param v The view that was clicked.
+             */
+            @Override
+            public void onClick(View v) {
+                currUser.writeToFile(getApplicationContext());
+            }
+        });
     }
 
     private void exitScoreBoard() {
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(PASS_USER, currUser);
+        startActivity(intent);
+        finish();
     }
 }

@@ -36,5 +36,9 @@ interface AlienPainterFunctionable {
 
     void resetGame();
 
+    int getTotalTime();
+
+    void setTotalTime(int time);
+
 
 }
