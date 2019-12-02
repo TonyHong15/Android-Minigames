@@ -39,7 +39,6 @@ class ProblemHandler {
         //Loading user's saved game
         givenProblem = curr.guesserData.currProblem;
         correctAnswer = curr.guesserData.correctAns;
-        totalScore = curr.guesserData.guesserScore;
         problemAnswered = curr.guesserData.numProblem;
     }
 
