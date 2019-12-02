@@ -42,7 +42,7 @@ public class StatisticsActivity extends AppCompatActivity {
         exit = findViewById(R.id.BackToMenu);
         save = findViewById(R.id.statisticsSaveButton);
 
-        game.setText("Total Number of Games Player: " + totalGamesPlayed);
+        game.setText("Total Number of Games Played: " + totalGamesPlayed);
         points.setText("Total Points Earned: " + totalPoints);
         time.setText("Total Amount of Time Played: " + totalTime);
         SetupButtonListeners();
