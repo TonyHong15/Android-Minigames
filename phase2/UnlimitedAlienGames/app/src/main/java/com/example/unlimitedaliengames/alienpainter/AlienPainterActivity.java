@@ -222,7 +222,7 @@ public class AlienPainterActivity extends AppCompatActivity implements View.OnCl
              */
             @Override
             public void onClick(View v) {
-                if (presenter.getGameEnded()) {
+                if (presenter.getGameEnded() && !presenter.checkIfReplaying()) {
                     presenter.resetGame();
                     presenter.resetTimer();
                     updateStats();
@@ -257,7 +257,7 @@ public class AlienPainterActivity extends AppCompatActivity implements View.OnCl
              */
             @Override
             public void onClick(View v) {
-                if (presenter.getGameEnded()) {
+                if (presenter.getGameEnded() && !presenter.checkIfReplaying()) {
                     //calls the scoreboard method
                     presenter.terminateTimer();
                     presenter.recordStats();

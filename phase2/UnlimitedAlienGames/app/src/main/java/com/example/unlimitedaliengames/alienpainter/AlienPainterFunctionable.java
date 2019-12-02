@@ -40,5 +40,6 @@ interface AlienPainterFunctionable {
 
     void setTotalTime(int time);
 
+    boolean getIsReplaying();
 
 }

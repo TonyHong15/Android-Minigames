@@ -265,5 +265,13 @@ class AlienPainterPresenter {
         dataHandler.recordStats(buttonFunctions.getGamesPlayed(), buttonFunctions.getTotalTime()
                 , buttonFunctions.getPoints(), currUser);
     }
+
+    /**
+     * Returns whether a replay is happening
+     * @return true or false
+     */
+    boolean checkIfReplaying() {
+        return buttonFunctions.getIsReplaying();
+    }
 }
 

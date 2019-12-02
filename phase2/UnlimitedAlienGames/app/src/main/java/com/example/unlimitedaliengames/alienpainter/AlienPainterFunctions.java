@@ -58,6 +58,11 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
     private String[][] initialBoard;
 
     /**
+     * Used to track whether a replay is happening
+     */
+    private boolean isReplaying;
+
+    /**
      * Used to hold the list of gridButton clicks the user has made for the purpose
      * of instant replay
      */
@@ -88,6 +93,7 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
         this.gamesPlayed = 1;
         this.points = 100;
         this.totalTime = 0;
+        this.isReplaying = false;
     }
 
     /**
@@ -387,6 +393,9 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
      */
     @Override
     public void instantReplay() {
+
+        isReplaying = true;
+
         //Restore the board to the initial state using initialBoard
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -434,8 +443,14 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
             //Loop the Runnable if replayList is not empty
             if (!replayList.isEmpty()) {
                 replayHandler.postDelayed(this, 500);
+            } else {
+                isReplaying = false;
             }
         }
     };
 
+    @Override
+    public boolean getIsReplaying() {
+        return isReplaying;
+    }
 }
