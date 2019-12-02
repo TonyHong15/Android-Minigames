@@ -176,6 +176,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
      */
     private void endGame() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(PASS_USER, user);
         startActivity(intent);
         timer.cancel();
         finish();
