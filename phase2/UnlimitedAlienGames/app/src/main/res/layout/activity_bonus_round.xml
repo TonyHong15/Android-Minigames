@@ -5,6 +5,7 @@
     android:id="@+id/BonusLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bonus_background"
     tools:context=".alienshooter.bonusShooterGame.BonusRound">
 
     <Button
