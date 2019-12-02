@@ -1,11 +1,9 @@
 package com.example.unlimitedaliengames.alienguesser;
 
-import com.example.unlimitedaliengames.userdata.*;
+import com.example.unlimitedaliengames.userdata.User;
+import java.util.Random;
 
-/*
-The controls for guesser game.
- */
-class ProblemHandler extends Handler{
+public class RandomHandler extends Handler{
     /*
     The interface.
      */
@@ -19,7 +17,7 @@ class ProblemHandler extends Handler{
      */
     private static final int correctScore = 2;
     private static final int incorrectScore = -1;
-    private int bankSize;
+    private static final int multiplicationMax = 20;
 
     /*
     Globals representing the current game state.
@@ -30,29 +28,21 @@ class ProblemHandler extends Handler{
     private int problemAnswered;
     private int totalScore;
 
-    ProblemHandler(GuesserView view, User curr, int Size){
+
+    RandomHandler(GuesserView view, User curr){
         super(view, curr);
         guesserView = view;
         currUser = curr;
-        bankSize = Size;
-
-        //Loading user's saved game
-        givenProblem = curr.guesserData.currProblem;
-        correctAnswer = curr.guesserData.correctAns;
-        totalScore = curr.guesserData.guesserScore;
-        problemAnswered = curr.guesserData.numProblem;
     }
 
     /*
     Update view, display the problem saved in globals, if saved is empty, generate.
      */
     void handOutProblem(){
-        if (givenProblem == null || correctAnswer == null) {
-            generateProblem();
-        }
+        generateProblem();
         guesserView.clearProblemView();
         guesserView.updateProblemView("problem_" + (problemAnswered+1) + "_text", false);
-        guesserView.updateProblemView(givenProblem, false);
+        guesserView.updateProblemView(givenProblem, true);
         guesserView.swapGameState();
     }
 
@@ -60,18 +50,21 @@ class ProblemHandler extends Handler{
         problemAnswered += 1;
         super.processAnswer();
     }
-
     /*
     Generate a problem by assigning globals.
      */
     private void generateProblem() {
-        int i = (int) (Math.random() * bankSize) + 1;
-        String name = "problem_" + i;
-        String answer_name = name + "_ans";
-
-        givenProblem = name;
-        correctAnswer = guesserView.fetchFromRes(answer_name);
+        int first = getRandomNumber();
+        int second = getRandomNumber();
+        givenProblem = first + "*" + second;
+        correctAnswer = Integer.toString(first*second);
     }
+
+    private static int getRandomNumber() {
+        Random r = new Random();
+        return r.nextInt(multiplicationMax+1);
+    }
+
     /*
 Save the current game state.
 */

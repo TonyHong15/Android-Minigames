@@ -24,7 +24,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     /*
     Problem handler for the guesser.
      */
-    ProblemHandler handler;
+    Handler handler;
     /*
     Components in the layout.
      */
@@ -33,21 +33,41 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     private Button submit;
     private Button next;
     private Button ret;
+    private Button choose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alien_guesser);
 
-        TypedArray problems = getResources().obtainTypedArray(R.array.problem_bank);
-        int bankSize = problems.length();
-        problems.recycle();
+        setUpInterface();
 
         Intent intent = getIntent();
         user = (User)intent.getSerializableExtra(PASS_USER);
-        handler = new ProblemHandler(this, user, bankSize);
+    }
 
-        setUpInterface();
+    private void setUpHandler() {
+        String chosenMode = answer.getText().toString();
+        if (chosenMode.equals("1")) {
+
+            TypedArray problems = getResources().obtainTypedArray(R.array.problem_bank);
+            int bankSize = problems.length();
+            problems.recycle();
+
+            handler = new ProblemHandler(this, user, bankSize);
+            clearProblemView();
+            updateProblemView("guesser_welcome", false);
+
+        }else if (chosenMode.equals("2")){
+            handler = new RandomHandler(this, user);
+            clearProblemView();
+            updateProblemView("random_welcome", false);
+        }else{
+            return;
+        }
+        choose.setVisibility(View.GONE);
+        next.setVisibility(View.VISIBLE);
+
     }
 
     /*
@@ -60,6 +80,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         ret = findViewById(R.id.returnButton);
         problem = findViewById(R.id.problemView);
         answer = findViewById(R.id.answerText);
+        choose = findViewById(R.id.chooseButton);
 
         //Handling clicking event for submit button.
         submit.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +107,12 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
             }
         });
 
+        choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setUpHandler();
+            }
+        });
         //handling clicking event for take break button.
         findViewById(R.id.takeBreak).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,10 +145,14 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
     }
 
     @Override
-    public void updateProblemView(String message){
-        int id = getResources().getIdentifier(message, "string", pack);
-        String toView = problem.getText() + "\n" + getString(id);
-        problem.setText(toView);
+    public void updateProblemView(String message, boolean direct){
+        if (direct) {
+            problem.setText(message);
+        }else {
+            int id = getResources().getIdentifier(message, "string", pack);
+            String toView = problem.getText() + "\n" + getString(id);
+            problem.setText(toView);
+        }
     }
 
     @Override
