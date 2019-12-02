@@ -11,7 +11,7 @@ public interface GuesserView {
     /*
     Write to the main window.
      */
-    void updateProblemView(String message);
+    void updateProblemView(String message, boolean direct);
     /*
     Write to the main window, to be used for writing scores only.
      */

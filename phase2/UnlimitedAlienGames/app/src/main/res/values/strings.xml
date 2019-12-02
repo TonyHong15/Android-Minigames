@@ -141,4 +141,7 @@
     <string name="alien_statistics_points_earned">Total Points Earned:</string>
     <string name="alien_statistics_time_played">Total Time Played:</string>
     <string name="alien_statistics_save_button">Save Statistics</string>
+    <string name="choose_button_text">Choose</string>
+    <string name="choose_mode">Please chose mode</string>
+    <string name="random_welcome">random</string>
 </resources>
