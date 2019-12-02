@@ -25,7 +25,7 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
     /**
      * The number of bonus points the player gets
      */
-    private static final int BONUSPOINTS = 1000;
+    private static final int BONUSPOINTS = 100;
 
     /**
      * Used to record the total amount of time played in seconds
@@ -86,6 +86,7 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
         this.mContext = mContext;
         this.initialBoard = recordInitialBoard();
         this.gamesPlayed = 1;
+        this.points = 100;
         this.totalTime = 0;
     }
 
@@ -222,7 +223,7 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
 
         this.initialBoard = recordInitialBoard();
         this.updateNumMoves(0);
-        this.setPoints(0);
+        this.setPoints(100);
     }
 
     /**
@@ -337,10 +338,12 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
      */
     @Override
     public void calculatePoints() {
-        int pointsToAdd = 0;
-        if ((20 - numMoves) >= 0)
-            pointsToAdd = timeLeft/5 * (20 - numMoves);
-        this.points += pointsToAdd;
+        int pointsToSubtract = 1;
+        pointsToSubtract = numMoves;
+        if (this.points - pointsToSubtract >= 0)
+            this.points -= pointsToSubtract;
+        else
+            this.points = 0;
     }
 
     /**
