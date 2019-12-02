@@ -5,7 +5,7 @@ import com.example.unlimitedaliengames.userdata.*;
 /*
 The controls for guesser game.
  */
-class ProblemHandler extends Handler{
+class ProblemHandler {
     /*
     The interface.
      */
@@ -30,17 +30,70 @@ class ProblemHandler extends Handler{
     private int problemAnswered;
     private int totalScore;
 
+
     ProblemHandler(GuesserView view, User curr, int Size){
-        super(view, curr);
-        guesserView = view;
-        currUser = curr;
         bankSize = Size;
+        currUser = curr;
+        guesserView = view;
 
         //Loading user's saved game
         givenProblem = curr.guesserData.currProblem;
         correctAnswer = curr.guesserData.correctAns;
         totalScore = curr.guesserData.guesserScore;
         problemAnswered = curr.guesserData.numProblem;
+    }
+
+    void onDestroy(){
+        guesserView = null;
+    }
+
+    /*
+    Get the answer from the View.
+     */
+    void takeInAnswer(String answer){
+        userAnswer = answer;
+        processAnswer();
+    }
+
+    /*
+    Process answer and display message.
+     */
+    private void processAnswer(){
+        problemAnswered += 1;
+        guesserView.clearProblemView();
+
+        if(checkAnswer()){
+            guesserView.updateProblemView("correct_guess_message");
+            totalScore += correctScore;
+        }else{
+            guesserView.updateProblemView("wrong_guess_message");
+            totalScore += incorrectScore;
+        }
+
+        guesserView.updateScoreView("Score: " + totalScore);
+
+        if(problemAnswered < 10){
+            guesserView.updateProblemView("next_problem_message");
+            guesserView.swapGameState();
+        }else{
+            guesserView.updateProblemView("game_finish_message");
+            problemAnswered = 0;
+            guesserView.finishGuess();
+        }
+        //So that the user will be getting different problem when saved after submit.
+        givenProblem = null;
+        correctAnswer = null;
+    }
+
+    /*
+    Check if the answer is correct.
+     */
+    private boolean checkAnswer(){
+        if(correctAnswer != null && userAnswer != null){
+            return correctAnswer.equals(userAnswer);
+        }else{
+            return false;
+        }
     }
 
     /*
@@ -51,15 +104,11 @@ class ProblemHandler extends Handler{
             generateProblem();
         }
         guesserView.clearProblemView();
-        guesserView.updateProblemView("problem_" + (problemAnswered+1) + "_text", false);
-        guesserView.updateProblemView(givenProblem, false);
+        guesserView.updateProblemView("problem_" + (problemAnswered+1) + "_text");
+        guesserView.updateProblemView(givenProblem);
         guesserView.swapGameState();
     }
 
-    void processAnswer(){
-        problemAnswered += 1;
-        super.processAnswer();
-    }
 
     /*
     Generate a problem by assigning globals.
@@ -72,9 +121,10 @@ class ProblemHandler extends Handler{
         givenProblem = name;
         correctAnswer = guesserView.fetchFromRes(answer_name);
     }
+
     /*
-Save the current game state.
-*/
+    Save the current game state.
+     */
     void saveGame(){
         currUser.guesserData.currProblem = givenProblem;
         currUser.guesserData.correctAns = correctAnswer;
@@ -82,6 +132,13 @@ Save the current game state.
         currUser.guesserData.numProblem = problemAnswered;
         currUser.updateGamesPlayed(1);
         currUser.updateTotalPoints(totalScore);
+
     }
 
+    /*
+    Return the current user using this object.
+     */
+    User getCurrUser(){
+        return currUser;
+    }
 }
