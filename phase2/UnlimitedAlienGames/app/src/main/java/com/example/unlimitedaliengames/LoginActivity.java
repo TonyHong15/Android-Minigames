@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
             display.setText(getString(R.string.register_ok));
 
             userManager.writeToFile(getApplicationContext()); //save the new user
-            userManager.readFromFile(getApplicationContext()); //get past users' data from file
+            // userManager.readFromFile(getApplicationContext()); //get past users' data from file
         }else{
             display.setText(getString(R.string.register_fail));
         }

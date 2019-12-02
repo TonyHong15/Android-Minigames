@@ -59,7 +59,7 @@ public class User implements Serializable {
         userManagerInterface.writeToFile(context);
     }
 
-    public void readFromFile(Context context){
+    public void readFromFile(Context context){    // might not need it
         userManagerInterface.readFromFile(context);
     }
 
