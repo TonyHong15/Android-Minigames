@@ -39,6 +39,10 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
     private List<ImageView> bullets;
     private boolean clickable = false;
 
+    /**
+     * This method is automatically called when the User scores more then 5 points.
+     * @param savedInstanceState the instanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,10 +96,17 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     }
 
+    /**
+     * set the text for button
+     * @param text the string text
+     */
     public void setShoot(String text) {
         shoot.setText(text);
     }
 
+    /**
+     * end button listener that finishes the Bonus Game
+     */
     private void EndButtonListener() {
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +121,9 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         });
     }
 
+    /**
+     * shoots the bullets when the shoot button is clicked
+     */
     private void ShootListener() {
         shoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +137,10 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         });
     }
 
+    /**
+     * shoot the bullet by setting it's x and y value
+     * @param bulletLeft the number of bullets left
+     */
     public void shoot(int bulletLeft) {
         float xValue = canon.getX();
         float yValue = canon.getY();
@@ -131,6 +149,9 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     }
 
+    /**
+     * Move ufo sideways so that it takes 1 second
+     */
     private void ufoMotion() {
         leftToRightAnimation(ufo, 500);
         new Handler().postDelayed(new Runnable() {
@@ -142,6 +163,9 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         }, 1000);
     }
 
+    /**
+     * Move the canon sideways so that it takes 2 second
+     */
     private void canonMotion() {
         leftToRightAnimation(canon, 1000);
         new Handler().postDelayed(new Runnable() {
@@ -153,6 +177,11 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         }, 2000);
     }
 
+    /**
+     * Animation that moves the view left to right and right to left
+     * @param v the view that moves
+     * @param t the number of bullets left
+     */
     private void leftToRightAnimation(View v, int t) {
         ObjectAnimator canonMoveLeft = ObjectAnimator.ofFloat(v, "translationX", 0f);
         canonMoveLeft.setDuration(t);
@@ -163,6 +192,12 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         moveCanon.start();
     }
 
+    /**
+     * shooting Animation that sends bullet upward
+     * @param v the view of the object moving
+     * @param x the X coordinate
+     * @param y the y coordinate
+     */
     private void shootingMotion(final View v, final float x, final float y) {
         setBulletLocation(v, x, y);
         ObjectAnimator animation = ObjectAnimator.ofFloat(v, "translationY", -300f);
@@ -176,11 +211,21 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         }, 1300);
     }
 
+    /**
+     * Sets the bullet X and Y value
+     * @param v the view of the object moving
+     * @param x the X coordinate
+     * @param y the y coordinate
+     */
     private void setBulletLocation(View v, float x, float y) {
         v.setX(x);
         v.setY(y);
     }
 
+    /**
+     * check if the bullet is conflicted with ufo
+     * @param v the view that is conflicted with the ufo
+     */
     private void checkOnHit(View v) {
         float bulletX = v.getX();
         float bulletY = v.getY();
@@ -194,11 +239,18 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         }
     }
 
+    /**
+     * update user's total point
+     * @param point the view that is conflicted with the ufo
+     */
     public void updatePointText(int point) {
         String textPoint = "points: " + point;
         text.setText(textPoint);
     }
 
+    /**
+     * Describes how you did in Bonus game
+     */
     public void endingDescription() {
         String endDescription = "Congratulation! you earned an extra " + presenter.getPoints()
                 + " point(s) and have increased your total from " + points + " points to " +
@@ -206,11 +258,17 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         endMessage.setText(endDescription);
     }
 
+    /**
+     * set the exit button to be visible
+     */
     public void setExitButton() {
         clickable = true;
         endButton.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * create intent to pass on the information to GameOverActivity
+     */
     private Intent createIntent() {
         Intent intent = new Intent(this, GameOverActivity.class);
         intent.putExtra(POINTS, presenter.getPoints() + points);
