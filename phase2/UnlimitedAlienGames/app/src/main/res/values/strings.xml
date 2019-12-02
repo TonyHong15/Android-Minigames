@@ -129,4 +129,9 @@
     <string name="alien_painter_instructions_chinese">外星人决定要挑战你的智慧！点击一个按钮时会改变它和它周围按钮的颜色。你的目标是把所有按钮的颜色变成黑色。你有30秒时间限制，并且会根据步数和剩余时间获得分数。</string>
     <string name="alien_painter_replay">Replay</string>
     <string name="alien_painter_replay_chinese">回放</string>
+    <string name="score_Board_points">Points</string>
+    <string name="score_Board_time">Time Played</string>
+    <string name="score_Board_game">Board Game</string>
+    <string name="Exit_to_Menu">Back to Menu</string>
+    <string name="score_board">Score Board</string>
 </resources>
