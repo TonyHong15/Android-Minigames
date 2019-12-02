@@ -40,6 +40,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     /**
      * This method is automatically called when the User scores more then 5 points.
+     *
      * @param savedInstanceState the instanceState
      */
     @Override
@@ -98,6 +99,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     /**
      * set the text for button
+     *
      * @param text the string text
      */
     public void setShoot(String text) {
@@ -139,6 +141,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     /**
      * shoot the bullet by setting it's x and y value
+     *
      * @param bulletLeft the number of bullets left
      */
     public void shoot(int bulletLeft) {
@@ -179,6 +182,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     /**
      * Animation that moves the view left to right and right to left
+     *
      * @param v the view that moves
      * @param t the number of bullets left
      */
@@ -194,6 +198,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     /**
      * shooting Animation that sends bullet upward
+     *
      * @param v the view of the object moving
      * @param x the X coordinate
      * @param y the y coordinate
@@ -213,6 +218,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     /**
      * Sets the bullet X and Y value
+     *
      * @param v the view of the object moving
      * @param x the X coordinate
      * @param y the y coordinate
@@ -224,6 +230,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     /**
      * check if the bullet is conflicted with ufo
+     *
      * @param v the view that is conflicted with the ufo
      */
     private void checkOnHit(View v) {
@@ -241,6 +248,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
     /**
      * update user's total point
+     *
      * @param point the view that is conflicted with the ufo
      */
     public void updatePointText(int point) {
@@ -266,7 +274,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         endButton.setVisibility(View.VISIBLE);
     }
 
-    public void changeDescriptionInvisibility(){
+    public void changeDescriptionInvisibility() {
         endMessage.setVisibility(View.VISIBLE);
     }
 

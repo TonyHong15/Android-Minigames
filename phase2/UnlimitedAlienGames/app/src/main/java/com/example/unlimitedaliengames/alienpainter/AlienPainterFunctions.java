@@ -218,11 +218,11 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
         }
 
         //clean the replayList
-        while(!replayList.isEmpty())
+        while (!replayList.isEmpty())
             replayList.remove(0);
 
         this.initialBoard = recordInitialBoard();
-        this.updateNumMoves(0);
+        this.resetNumMoves();
         this.setPoints(100);
     }
 
@@ -255,13 +255,10 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
     }
 
     /**
-     * Updates the number of moves the user has made, an overloaded version with an int
-     * parameter given
-     *
-     * @param num the number to update numMoves with
+     * Resets the number of moves the user has made
      */
-    private void updateNumMoves(int num) {
-        this.numMoves = num;
+    private void resetNumMoves() {
+        this.numMoves = 0;
     }
 
     /**
@@ -304,6 +301,7 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
 
     /**
      * Set the number of games played
+     *
      * @param gamesPlayed the number of games played
      */
     @Override
@@ -338,7 +336,7 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
      */
     @Override
     public void calculatePoints() {
-        int pointsToSubtract = 1;
+        int pointsToSubtract;
         pointsToSubtract = numMoves;
         if (this.points - pointsToSubtract >= 0)
             this.points -= pointsToSubtract;
@@ -356,7 +354,6 @@ class AlienPainterFunctions implements AlienPainterFunctionable {
             this.points += BONUSPOINTS;
         }
     }
-
 
 
     /**

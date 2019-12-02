@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.unlimitedaliengames.LoginActivity;
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.userdata.User;
@@ -338,9 +337,11 @@ public class AlienPainterActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void updateTimer(int time) {
         if (isEnglish) {
-            painterTextViewTime.setText(TIME_LEFT + time);
+            String temp = TIME_LEFT + time;
+            painterTextViewTime.setText(temp);
         } else {
-            painterTextViewTime.setText(TIME_LEFT_CHINESE + time);
+            String temp = TIME_LEFT_CHINESE + time;
+            painterTextViewTime.setText(temp);
         }
     }
 
@@ -391,13 +392,19 @@ public class AlienPainterActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void updateStats() {
         if (isEnglish) {
-            painterTextViewMoves.setText(NUM_MOVES + presenter.getNumMoves());
-            painterTextViewTime.setText(TIME_LEFT + presenter.getTimeLeft());
-            painterTextViewPoints.setText(POINTS + presenter.getPoints());
+            String moves = NUM_MOVES + presenter.getNumMoves();
+            String time = TIME_LEFT + presenter.getTimeLeft();
+            String points = POINTS + presenter.getPoints();
+            painterTextViewMoves.setText(moves);
+            painterTextViewTime.setText(time);
+            painterTextViewPoints.setText(points);
         } else {
-            painterTextViewTime.setText(TIME_LEFT_CHINESE + presenter.getTimeLeft());
-            painterTextViewMoves.setText(NUM_MOVES_CHINESE + presenter.getNumMoves());
-            painterTextViewPoints.setText(POINTS_CHINESE + presenter.getPoints());
+            String moves = NUM_MOVES_CHINESE + presenter.getNumMoves();
+            String time = TIME_LEFT_CHINESE + presenter.getTimeLeft();
+            String points = POINTS_CHINESE + presenter.getPoints();
+            painterTextViewTime.setText(time);
+            painterTextViewMoves.setText(moves);
+            painterTextViewPoints.setText(points);
         }
     }
 

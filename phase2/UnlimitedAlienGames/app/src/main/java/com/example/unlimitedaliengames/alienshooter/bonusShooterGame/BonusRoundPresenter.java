@@ -9,6 +9,7 @@ public class BonusRoundPresenter {
 
     /**
      * initialize BonusRoundPresenter
+     *
      * @param view the instance of BonusRoundView
      */
     BonusRoundPresenter(BonusRoundView view) {
@@ -19,19 +20,20 @@ public class BonusRoundPresenter {
 
     /**
      * return true when the bullet hit the ufo and false otherwise
+     *
      * @param bulletX the x coordinate for bullet
      * @param bulletY the y coordinate for bullet
-     * @param ufoX the x coordinate for ufo
-     * @param ufoY the y coordinate for ufo
+     * @param ufoX    the x coordinate for ufo
+     * @param ufoY    the y coordinate for ufo
      */
-    public boolean checkOnHit(float bulletX, float bulletY, float ufoX, float ufoY) {
+    boolean checkOnHit(float bulletX, float bulletY, float ufoX, float ufoY) {
         return rules.checkIfHit(bulletX, bulletY, ufoX, ufoY);
     }
 
     /**
      * number of bullet remaining after decreasing it by one
      */
-    public int getBullet() {
+    int getBullet() {
         rules.decreaseNumBullets();
         return rules.getNumBullets();
     }
@@ -64,21 +66,21 @@ public class BonusRoundPresenter {
     /**
      * return true when the number of bullets is greater than 0 and false otherwise
      */
-    public boolean canShoot() {
+    boolean canShoot() {
         return rules.getNumBullets() > 0;
     }
 
     /**
      * increase points by one
      */
-    public void increasePoint() {
+    void increasePoint() {
         rules.increasePoints();
     }
 
     /**
      * update points
      */
-    public void updatePoints() {
+    void updatePoints() {
         view.updatePointText(rules.getPoints());
     }
 

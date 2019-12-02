@@ -41,10 +41,11 @@ class BonusRoundManager {
 
     /**
      * check if the bullet hit the ufo
+     *
      * @param bulletX the x coordinate for bullet
      * @param bulletY the y coordinate for bullet
-     * @param ufoX the x coordinate for ufo
-     * @param ufoY the y coordinate for ufo
+     * @param ufoX    the x coordinate for ufo
+     * @param ufoY    the y coordinate for ufo
      */
     boolean checkIfHit(float bulletX, float bulletY, float ufoX, float ufoY) {
         return (bulletX - 200 < ufoX && ufoX < bulletX + 200 &&

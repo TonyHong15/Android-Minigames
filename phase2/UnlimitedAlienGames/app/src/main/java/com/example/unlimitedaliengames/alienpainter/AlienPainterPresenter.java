@@ -171,13 +171,6 @@ class AlienPainterPresenter {
     }
 
     /**
-     * Updates the number of moves the user has made
-     */
-    void updateNumMoves() {
-        buttonFunctions.updateNumMoves();
-    }
-
-    /**
      * Returns the number of moves the user has made
      *
      * @return the number of moves the user has made

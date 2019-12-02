@@ -1,14 +1,8 @@
 package com.example.unlimitedaliengames.alienpainter;
 
-import android.content.Context;
 
 import com.example.unlimitedaliengames.userdata.User;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 /**
  * A class containing methods that handle recording of statistics for the current user
