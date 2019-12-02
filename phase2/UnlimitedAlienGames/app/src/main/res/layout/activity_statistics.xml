@@ -58,9 +58,10 @@
         app:layout_constraintTop_toBottomOf="@+id/Time" />
 
     <TextView
-        android:id="@+id/Score Board"
+        android:id="@+id/ScoreBoard"
         android:layout_width="341dp"
         android:layout_height="102dp"
+        android:contentDescription="@string/score_board"
         android:text="@string/score_board"
         android:textAlignment="center"
         android:textSize="50sp"
