@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/stats_background"
     tools:context=".alienpainter.AlienPainterActivity">
 
 
@@ -22,6 +23,7 @@
         android:layout_height="26dp"
         android:text="@string/alien_painter_moves"
         android:textAlignment="center"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -34,6 +36,7 @@
         android:layout_height="24dp"
         android:text="@string/alien_painter_timer"
         android:textAlignment="center"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -203,6 +206,7 @@
         android:layout_marginTop="6dp"
         android:text="@string/alien_painter_points"
         android:textAlignment="center"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -218,6 +222,7 @@
         android:layout_marginEnd="16dp"
         android:textAlignment="center"
         android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -41,7 +41,7 @@ public class UserManager implements Serializable, UserManagerInterface {
         for (int i = 0; i < users.size(); i++) {
             User currUser = users.get(i);
 
-            if (currUser.name.equals(name)) {
+            if (currUser.getName().equals(name)) {
                 return false;
             }
         }
@@ -63,7 +63,7 @@ public class UserManager implements Serializable, UserManagerInterface {
         for (int i = 0; i < users.size(); i++) {
             User currUser = users.get(i);
 
-            if (currUser.name.equals(name) && currUser.getPassword().equals(pass)) {
+            if (currUser.getName().equals(name) && currUser.getPassword().equals(pass)) {
                 toExtract = i;
                 return true;
             }
@@ -94,7 +94,7 @@ public class UserManager implements Serializable, UserManagerInterface {
             for (int i = 0; i < users.size(); i++) {
                 User currUser = users.get(i);
                 JsonObject json1 = new JsonObject();
-                json1.addProperty("userId", currUser.name);
+                json1.addProperty("userId", currUser.getName());
                 json1.addProperty("password", currUser.getPassword());
                 json1.addProperty("timePlayed", currUser.getTimePlayed());
                 json1.addProperty("gamesPlayed", currUser.getGamesPlayed());

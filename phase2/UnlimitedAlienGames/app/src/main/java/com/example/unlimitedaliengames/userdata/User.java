@@ -3,8 +3,6 @@ package com.example.unlimitedaliengames.userdata;
 import android.content.Context;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /*
 An User object.
@@ -15,16 +13,17 @@ public class User implements Serializable {
     /*
     User's information.
      */
-    public String name;
+    private String name;
     private String password;
 
     //3 common stats for user regardless of game/level
     private long timePlayed;
     private int gamesPlayed;
     private int totalPoints;
+
     /*
-    Stats for the guesser game.
-     */
+        Stats for the guesser game.
+         */
     public GuesserData guesserData;
 
     /*
@@ -38,15 +37,10 @@ public class User implements Serializable {
         this.timePlayed = 0;
         this.totalPoints = 0;
         this.gamesPlayed = 0;
-
     }
 
     public void writeToFile(Context context) {
         userManagerInterface.writeToFile(context);
-    }
-
-    public void readFromFile(Context context) {
-        //   userManagerInterface.readFromFile(context);
     }
 
     /*
@@ -61,14 +55,6 @@ public class User implements Serializable {
      */
     String getPassword() {
         return password;
-    }
-
-    public List<Integer> getStatistics() {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        return list;
     }
 
     public long getTimePlayed() {

@@ -178,6 +178,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         finish();
     }
 
+
     @Override
     public String fetchFromRes(String name){
         int id = getResources().getIdentifier(name, "string", pack);
