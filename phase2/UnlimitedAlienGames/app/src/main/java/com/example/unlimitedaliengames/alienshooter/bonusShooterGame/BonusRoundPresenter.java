@@ -56,6 +56,7 @@ public class BonusRoundPresenter {
             public void run() {
                 view.endingDescription();
                 view.setExitButton();
+                view.changeDescriptionInvisibility();
             }
         }, 1500);
     }

@@ -77,6 +77,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
 
         text = findViewById(R.id.Points);
         endMessage = findViewById(R.id.BonusResult);
+        endMessage.setVisibility(View.INVISIBLE);
 
         ufo = findViewById(R.id.Ufo);
         presenter = new BonusRoundPresenter(this);
@@ -263,6 +264,10 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
     public void setExitButton() {
         clickable = true;
         endButton.setVisibility(View.VISIBLE);
+    }
+
+    public void changeDescriptionInvisibility(){
+        endMessage.setVisibility(View.VISIBLE);
     }
 
     /**

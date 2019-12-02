@@ -10,4 +10,6 @@ public interface BonusRoundView {
     void endingDescription();
 
     void setExitButton();
+
+    void changeDescriptionInvisibility();
 }
