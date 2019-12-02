@@ -11,12 +11,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
 User database class, stores an array of users.
  */
-public class UserManager implements UserManagerInterface{
+public class UserManager implements Serializable, UserManagerInterface{
 
     /*
     ArrayList of users.
@@ -57,7 +58,7 @@ public class UserManager implements UserManagerInterface{
     Add the user to the database.
      */
     private void addUser(String name, String pass){
-        users.add(new User(name, pass));
+        users.add(new User(name, pass, this));
         slot += 1;
     }
 
@@ -142,7 +143,7 @@ public class UserManager implements UserManagerInterface{
 
                 String userId = jsonUser.get("userId").getAsString();
                 String password = jsonUser.get("password").getAsString();
-                User currUser = new User(userId, password);
+                User currUser = new User(userId, password, this);
                 currUser.setTimePlayed(Long.valueOf(jsonUser.get("timePlayed").getAsString()));
                 currUser.setGamesPlayed(Integer.valueOf(jsonUser.get("gamesPlayed").getAsString()));
                 currUser.setTotalPoints(Integer.valueOf(jsonUser.get("totalPoints").getAsString()));

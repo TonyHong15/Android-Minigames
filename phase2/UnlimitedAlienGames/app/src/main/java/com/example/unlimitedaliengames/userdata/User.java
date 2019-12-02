@@ -32,35 +32,27 @@ public class User implements Serializable {
      */
     private PainterData painterData;
 
-    /**
-     * The default constructor for User
-     */
-    User() {/*
-        this.name = "";
-        this.password = "";*/
-        this("","");
-    }
-
     /*
     Initialize a user with not game info.
      */
-    User(String name, String password){
+    User(String name, String password, UserManager manager){
         this.name = name;
         this.password = password;
         this.guesserData = new GuesserData();
         this.painterData = new PainterData();
-
+        this.userManagerInterface = manager;
         this.timePlayed = 0;
         this.totalPoints = 0;
         this.gamesPlayed = 0;
+
     }
 
     public void writeToFile(Context context){
-        userManagerInterface.writeToFile(context);
+         userManagerInterface.writeToFile(context);
     }
 
-    public void readFromFile(Context context){    // might not need it
-        userManagerInterface.readFromFile(context);
+    public void readFromFile(Context context){
+     //   userManagerInterface.readFromFile(context);
     }
 
     /*
