@@ -22,9 +22,9 @@ public class User implements Serializable {
     private int totalPoints;
 
     /*
-        Stats for the guesser game.
-         */
-    public GuesserData guesserData;
+    Stats for the guesser game.
+    */
+    private GuesserData guesserData;
 
     /*
     Initialize a user with not game info.
@@ -37,6 +37,10 @@ public class User implements Serializable {
         this.timePlayed = 0;
         this.totalPoints = 0;
         this.gamesPlayed = 0;
+    }
+
+    public GuesserData getGuesserData() {
+        return guesserData;
     }
 
     public void writeToFile(Context context) {

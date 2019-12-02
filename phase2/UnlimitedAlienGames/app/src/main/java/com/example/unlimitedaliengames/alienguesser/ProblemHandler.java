@@ -31,25 +31,25 @@ class ProblemHandler {
     private int totalScore;
 
 
-    ProblemHandler(GuesserView view, User curr, int Size){
+    ProblemHandler(GuesserView view, User curr, int Size) {
         bankSize = Size;
         currUser = curr;
         guesserView = view;
 
         //Loading user's saved game
-        givenProblem = curr.guesserData.currProblem;
-        correctAnswer = curr.guesserData.correctAns;
-        problemAnswered = curr.guesserData.numProblem;
+        givenProblem = curr.getGuesserData().currProblem;
+        correctAnswer = curr.getGuesserData().correctAns;
+        problemAnswered = curr.getGuesserData().numProblem;
     }
 
-    void onDestroy(){
+    void onDestroy() {
         guesserView = null;
     }
 
     /*
     Get the answer from the View.
      */
-    void takeInAnswer(String answer){
+    void takeInAnswer(String answer) {
         userAnswer = answer;
         processAnswer();
     }
@@ -57,24 +57,24 @@ class ProblemHandler {
     /*
     Process answer and display message.
      */
-    private void processAnswer(){
+    private void processAnswer() {
         problemAnswered += 1;
         guesserView.clearProblemView();
 
-        if(checkAnswer()){
+        if (checkAnswer()) {
             guesserView.updateProblemView("correct_guess_message");
             totalScore += correctScore;
-        }else{
+        } else {
             guesserView.updateProblemView("wrong_guess_message");
             totalScore += incorrectScore;
         }
 
         guesserView.updateScoreView("Score: " + totalScore);
 
-        if(problemAnswered < 10){
+        if (problemAnswered < 10) {
             guesserView.updateProblemView("next_problem_message");
             guesserView.swapGameState();
-        }else{
+        } else {
             guesserView.updateProblemView("game_finish_message");
             problemAnswered = 0;
             guesserView.finishGuess();
@@ -87,10 +87,10 @@ class ProblemHandler {
     /*
     Check if the answer is correct.
      */
-    private boolean checkAnswer(){
-        if(correctAnswer != null && userAnswer != null){
+    private boolean checkAnswer() {
+        if (correctAnswer != null && userAnswer != null) {
             return correctAnswer.equals(userAnswer);
-        }else{
+        } else {
             return false;
         }
     }
@@ -98,12 +98,12 @@ class ProblemHandler {
     /*
     Update view, display the problem saved in globals, if saved is empty, generate.
      */
-    void handOutProblem(){
+    void handOutProblem() {
         if (givenProblem == null || correctAnswer == null) {
             generateProblem();
         }
         guesserView.clearProblemView();
-        guesserView.updateProblemView("problem_" + (problemAnswered+1) + "_text");
+        guesserView.updateProblemView("problem_" + (problemAnswered + 1) + "_text");
         guesserView.updateProblemView(givenProblem);
         guesserView.swapGameState();
     }
@@ -124,11 +124,11 @@ class ProblemHandler {
     /*
     Save the current game state.
      */
-    void saveGame(){
-        currUser.guesserData.currProblem = givenProblem;
-        currUser.guesserData.correctAns = correctAnswer;
-        currUser.guesserData.guesserScore = totalScore;
-        currUser.guesserData.numProblem = problemAnswered;
+    void saveGame() {
+        currUser.getGuesserData().currProblem = givenProblem;
+        currUser.getGuesserData().correctAns = correctAnswer;
+        currUser.getGuesserData().guesserScore = totalScore;
+        currUser.getGuesserData().numProblem = problemAnswered;
         currUser.updateGamesPlayed(1);
         currUser.updateTotalPoints(totalScore);
 
@@ -137,7 +137,7 @@ class ProblemHandler {
     /*
     Return the current user using this object.
      */
-    User getCurrUser(){
+    User getCurrUser() {
         return currUser;
     }
 }

@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="882e9ade-cb09-4a30-ae62-9a6c7f07d856" name="Default Changelist" comment="Created README.txt and implemented data saving in alien shooter">
-      <change afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienguesser/AlienGuesser.java" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienguesser/AlienGuesser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienguesser/ProblemHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienguesser/ProblemHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/bonusShooterGame/BonusRound.java" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/bonusShooterGame/BonusRound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/instructionPages/BonusInstructionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/instructionPages/BonusInstructionActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/instructionPages/CustomizeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/instructionPages/CustomizeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/instructionPages/GameOverActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/instructionPages/GameOverActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/instructionPages/ShooterInstructionsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/instructionPages/ShooterInstructionsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/mainShooterGame/AlienShooter.java" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/alienshooter/mainShooterGame/AlienShooter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/userdata/GuesserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/userdata/GuesserData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/userdata/ShooterData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/userdata/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/UnlimitedAlienGames/app/src/main/java/com/example/unlimitedaliengames/userdata/User.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,7 +54,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
@@ -78,7 +65,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -86,11 +72,17 @@
               <item name="phase2" type="b2602c69:ProjectViewProjectNode" />
               <item name="phase2" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="phase2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phase2" type="462c0819:PsiDirectoryNode" />
+              <item name="UnlimitedAlienGames" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -126,8 +118,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
+      <window_info id="simpleUML" />
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32980832" />
       <window_info id="Structure" order="2" side_tool="true" />
