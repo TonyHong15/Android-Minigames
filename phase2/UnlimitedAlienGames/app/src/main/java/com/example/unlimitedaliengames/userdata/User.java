@@ -55,11 +55,11 @@ public class User implements Serializable {
         this.gamesPlayed = 0;
     }
 
-    void writeToFile(Context context){
+    public void writeToFile(Context context){
         userManagerInterface.writeToFile(context);
     }
 
-    void readFromFile(Context context){
+    public void readFromFile(Context context){
         userManagerInterface.readFromFile(context);
     }
 

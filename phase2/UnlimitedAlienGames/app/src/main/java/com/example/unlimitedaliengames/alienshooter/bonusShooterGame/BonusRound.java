@@ -45,7 +45,7 @@ public class BonusRound extends AppCompatActivity implements BonusRoundView {
         setContentView(R.layout.activity_bonus_round);
 
         Intent intent = getIntent();
-        user = (User) intent.getSerializableExtra(BonusInstructionActivity.PASS_USER);
+        user = (User) intent.getSerializableExtra(PASS_USER);
         time = intent.getStringExtra(BonusInstructionActivity.TIME);
         friendly = intent.getStringExtra(BonusInstructionActivity.FRIENDLY);
         evil = intent.getStringExtra(BonusInstructionActivity.EVIL);

@@ -45,7 +45,7 @@ public class AlienGuesser extends AppCompatActivity implements GuesserView{
         problems.recycle();
 
         Intent intent = getIntent();
-        user = (User)intent.getSerializableExtra("user");
+        user = (User)intent.getSerializableExtra(PASS_USER);
         handler = new ProblemHandler(this, user, bankSize);
 
         setUpInterface();

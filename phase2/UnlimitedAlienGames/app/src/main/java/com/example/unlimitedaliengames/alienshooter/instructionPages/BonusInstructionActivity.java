@@ -33,7 +33,7 @@ public class BonusInstructionActivity extends AppCompatActivity {
         setBonusStartListener();
 
         Intent intent = getIntent();
-        user = (User) intent.getSerializableExtra("user");
+        user = (User) intent.getSerializableExtra(PASS_USER);
         time = intent.getStringExtra(AlienShooter.TIME);
         friendly = intent.getStringExtra(AlienShooter.FRIENDLY);
         evil = intent.getStringExtra(AlienShooter.EVIL);
@@ -58,7 +58,6 @@ public class BonusInstructionActivity extends AppCompatActivity {
         intent.putExtra(CORRECT, correct);
         intent.putExtra(INCORRECT, incorrect);
         intent.putExtra(TIME, time);
-        intent.putExtra(PASS_USER, user);
         intent.putExtra(EVIL, evil);
         intent.putExtra(PASS_USER, user);
         intent.putExtra(FRIENDLY, friendly);

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlienShooter extends AppCompatActivity implements AlienShooterView {
+    public static final String PASS_USER = "passUser";
     private User user;
     private AlienShooterPresenter presenter;
     private static final int numOfAliens = 9;
@@ -53,7 +54,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         time = intent.getStringExtra(CustomizeActivity.PASS_TIME);
         friendly = intent.getStringExtra(CustomizeActivity.PASS_FRIENDLY);
         evil = intent.getStringExtra(CustomizeActivity.PASS_EVIL);
-        user = (User) intent.getSerializableExtra("user");
+        user = (User) intent.getSerializableExtra(PASS_USER);
 
         aliens = new ArrayList<>();
         generateAliens();
@@ -308,6 +309,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         intent.putExtra(INCORRECT, presenter.getIncorrect());
         intent.putExtra(TIME, time);
         intent.putExtra(EVIL, evil);
+        intent.putExtra(PASS_USER, user);
         intent.putExtra(FRIENDLY, friendly);
         return intent;
     }
@@ -325,6 +327,7 @@ public class AlienShooter extends AppCompatActivity implements AlienShooterView 
         intent.putExtra(INCORRECT, presenter.getIncorrect());
         intent.putExtra(TIME, time);
         intent.putExtra(EVIL, evil);
+        intent.putExtra(PASS_USER, user);
         intent.putExtra(FRIENDLY, friendly);
         intent.putExtra("from", "notBonus");
         return intent;

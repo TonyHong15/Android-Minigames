@@ -25,7 +25,7 @@ public class ShooterInstructionsActivity extends AppCompatActivity {
         setReturnListener();
         customize = findViewById(R.id.customize);
         setCustomizeListener();
-        user = (User) intent.getSerializableExtra("user");
+        user = (User) intent.getSerializableExtra(PASS_USER);
     }
 
     /**

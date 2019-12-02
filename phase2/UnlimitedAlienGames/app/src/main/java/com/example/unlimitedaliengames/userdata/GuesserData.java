@@ -13,7 +13,7 @@ public class GuesserData implements Serializable {
     public String correctAns;
 
 
-    public GuesserData(){
+    GuesserData(){
         this.numProblem = 0;
         this.guesserScore = 0;
         this.currProblem = null;

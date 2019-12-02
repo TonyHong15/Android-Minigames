@@ -12,6 +12,8 @@ import com.example.unlimitedaliengames.alienshooter.mainShooterGame.AlienShooter
 import com.example.unlimitedaliengames.userdata.User;
 
 public class CustomizeActivity extends AppCompatActivity {
+    public static final String PASS_USER = "passUser";
+    private User user;
     public final static String PASS_TIME = "pass time";
     public final static String PASS_FRIENDLY = "pass friendly";
     public final static String PASS_EVIL = "pass evil";
@@ -41,7 +43,7 @@ public class CustomizeActivity extends AppCompatActivity {
         choseFriendly = false;
         choseTime = false;
         Intent intent = getIntent();
-
+        user = (User) intent.getSerializableExtra(PASS_USER);
     }
 
     /**
@@ -65,6 +67,7 @@ public class CustomizeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AlienShooter.class);
         intent.putExtra(PASS_TIME, time);
         intent.putExtra(PASS_FRIENDLY, friendly);
+        intent.putExtra(PASS_USER, user);
         intent.putExtra(PASS_EVIL, evil);
         startActivity(intent);
         finish();
