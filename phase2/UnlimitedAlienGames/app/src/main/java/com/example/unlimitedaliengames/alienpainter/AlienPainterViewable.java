@@ -1,6 +1,6 @@
 package com.example.unlimitedaliengames.alienpainter;
 
-interface AlienPainterView {
+interface AlienPainterViewable {
 
     void updateTimer(int time);
 

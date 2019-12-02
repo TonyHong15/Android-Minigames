@@ -2,7 +2,6 @@ package com.example.unlimitedaliengames.alienpainter;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.example.unlimitedaliengames.R;
 import com.example.unlimitedaliengames.userdata.User;
@@ -14,14 +13,9 @@ import com.example.unlimitedaliengames.userdata.User;
 class AlienPainterPresenter {
 
     /**
-     * The Constant that holds the String name of the user data xml file
-     */
-    private static final String DATA_FILE_NAME = "painter_user_data";
-
-    /**
      * Holds the view of the user
      */
-    private AlienPainterView view;
+    private AlienPainterViewable view;
 
     /**
      * Holds the timer
@@ -29,19 +23,14 @@ class AlienPainterPresenter {
     private AlienPainterTimer painterTimer;
 
     /**
-     * Holds the grid of imageButtons in the view
-     */
-    private ImageButton[][] grid;
-
-    /**
      * Holds the game rules
      */
-    private AlienPainterFunctions buttonFunctions;
+    private AlienPainterFunctionable buttonFunctions;
 
     /**
-     * Holds the information of the user
+     * Holds an instance of the AlienPainterDataHandler
      */
-    private User currUser;
+    private AlienPainterDataHandler dataHandler;
 
     /**
      * Used to check whether the user has won or not
@@ -53,24 +42,28 @@ class AlienPainterPresenter {
      */
     private boolean gameEnded;
 
+    /**
+     * Holds the current user of this game
+     */
+    private User currUser;
+
     private Context mContext;
 
     /**
      * Creates an AlienPainterPresenter
+     * Starts the timer for the game
      *
      * @param view            The view
-     * @param grid            The 2D Array of imageButtons
      * @param buttonFunctions The object referencing the class containing the rules
      * @param mContext        The Context
      */
-    AlienPainterPresenter(AlienPainterView view,
-                          ImageButton[][] grid, AlienPainterFunctions buttonFunctions,
-                          Context mContext, User currUser) {
+    AlienPainterPresenter(AlienPainterViewable view, AlienPainterFunctionable buttonFunctions,
+                          Context mContext, AlienPainterDataHandler dataHandler, User currUser) {
         this.view = view;
         this.painterTimer = new AlienPainterTimer(this);
-        this.grid = grid;
         this.mContext = mContext;
         this.buttonFunctions = buttonFunctions;
+        this.dataHandler = dataHandler;
         this.currUser = currUser;
 
         startTimer();
@@ -123,7 +116,6 @@ class AlienPainterPresenter {
             }
         }
     }
-
 
 
     /**
@@ -204,6 +196,7 @@ class AlienPainterPresenter {
 
     /**
      * Set the amount of points the user has earned
+     *
      * @param points the amount of points to set to
      */
     void setPoints(int points) {
@@ -212,7 +205,7 @@ class AlienPainterPresenter {
 
     /**
      * Calls the getPoints method in AlienPainterFunctions to set
-     *  the amount of points the user has earned
+     * the amount of points the user has earned
      *
      * @return the amount of points the user has earned
      */
@@ -243,6 +236,7 @@ class AlienPainterPresenter {
      */
     void resetGame() {
         buttonFunctions.resetGame();
+        buttonFunctions.setGamesPlayed(buttonFunctions.getGamesPlayed() + 1);
         gameEnded = false;
         isVictorious = false;
     }
@@ -258,17 +252,22 @@ class AlienPainterPresenter {
         painterTimer.cancel();
         buttonFunctions.checkBonus();
         view.updateStats();
-        /*currUser.setPainterData(getNumMoves(), getTimeLeft());
-        AlienPainterDataHandler.readFile(currUser);*/
     }
 
     /**
      * Calls the instantReplay function in AlienPainterFunctions to provide an instant replay of
-     *  the game for the player.
+     * the game for the player.
      */
     void instantReplay() {
         buttonFunctions.instantReplay();
     }
 
+    /**
+     * records the statistics of currUser
+     */
+    void recordStats() {
+        dataHandler.recordStats(buttonFunctions.getGamesPlayed(), buttonFunctions.getTimeLeft()
+                , buttonFunctions.getPoints(), currUser);
+    }
 }
 

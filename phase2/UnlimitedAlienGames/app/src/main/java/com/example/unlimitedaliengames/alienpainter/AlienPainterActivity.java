@@ -18,7 +18,10 @@ import com.example.unlimitedaliengames.userdata.User;
 /**
  * The top-level class for the alien painter game.
  */
-public class AlienPainterActivity extends AppCompatActivity implements View.OnClickListener, AlienPainterView {
+public class AlienPainterActivity extends AppCompatActivity implements View.OnClickListener, AlienPainterViewable {
+
+    //Used to pass current user
+    public static final String PASS_USER = "passUser";
 
     /**
      * The English Constants used by the TextViews to display on the screen
@@ -131,9 +134,11 @@ public class AlienPainterActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_alien_painter);
 
         Intent intent = getIntent();
-        currUser = (User) intent.getSerializableExtra(LoginActivity.PASS_USER);
+        currUser = (User) intent.getSerializableExtra(PASS_USER);
 
         isEnglish = true;
+
+        AlienPainterDataHandler dataHandler = new AlienPainterDataHandler();
 
         //Setup the TextViews
         setupTextView();
@@ -152,8 +157,8 @@ public class AlienPainterActivity extends AppCompatActivity implements View.OnCl
         }
 
         //Initialize the Presenter
-        presenter = new AlienPainterPresenter(this, grid,
-                new AlienPainterFunctions(this, grid, this), this, currUser);
+        presenter = new AlienPainterPresenter(this,
+                new AlienPainterFunctions(grid, this), this, dataHandler, currUser);
     }
 
     /**
@@ -194,8 +199,12 @@ public class AlienPainterActivity extends AppCompatActivity implements View.OnCl
              */
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), MainActivity.class));
+
                 presenter.terminateTimer();
+                presenter.recordStats();
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                intent.putExtra(PASS_USER, currUser);
+                startActivity(intent);
                 finish();
             }
 
@@ -252,6 +261,7 @@ public class AlienPainterActivity extends AppCompatActivity implements View.OnCl
                 if (presenter.getGameEnded()) {
                     //calls the scoreboard method
                     presenter.terminateTimer();
+                    presenter.recordStats();
                     scoreboard();
                 }
             }
@@ -403,6 +413,7 @@ public class AlienPainterActivity extends AppCompatActivity implements View.OnCl
         intent.putExtra(NUM_MOVES, presenter.getNumMoves());
         intent.putExtra(TIME_LEFT, presenter.getTimeLeft());
         intent.putExtra(LANGUAGE, isEnglish);
+        intent.putExtra(PASS_USER, currUser);
         startActivity(intent);
         finish();
     }

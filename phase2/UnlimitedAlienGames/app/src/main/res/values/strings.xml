@@ -125,8 +125,8 @@
     <string name="alien_painter_scoreboard_button">Scoreboard</string>
     <string name="alien_painter_scoreboard_button_chinese">分数统计</string>
     <string name="alien_painter_points">Points:</string>
-    <string name="alien_painter_instructions">Clicking a button changes its and all nearby buttons\' colours. Your objective is to change all the buttons\' colours to black. You have 30 seconds to do so, and you accumulate points base on how many moves you have made, and how much time you have left.</string>
-    <string name="alien_painter_instructions_chinese">点击一个按钮时会改变它和它周围按钮的颜色。你的目标是把所有按钮的颜色变成黑色。你有30秒时间限制，并且会根据步数和剩余时间获得分数。</string>
+    <string name="alien_painter_instructions">The Alien challenges you to a battle of wits! Clicking a button changes its and all nearby buttons\' colours. Your objective is to change all the buttons\' colours to black. You have 30 seconds to do so, and you accumulate points base on how many moves you have made, and how much time you have left.</string>
+    <string name="alien_painter_instructions_chinese">外星人决定要挑战你的智慧！点击一个按钮时会改变它和它周围按钮的颜色。你的目标是把所有按钮的颜色变成黑色。你有30秒时间限制，并且会根据步数和剩余时间获得分数。</string>
     <string name="alien_painter_replay">Replay</string>
     <string name="alien_painter_replay_chinese">回放</string>
 </resources>

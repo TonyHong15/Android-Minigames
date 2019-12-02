@@ -14,7 +14,7 @@ import java.util.List;
  * recording number of moves made, and amount of time left.
  * This class is used by AlienPainterPresenter
  */
-class AlienPainterFunctions {
+class AlienPainterFunctions implements AlienPainterFunctionable {
 
     /**
      * The number of moves the player must make less than or equal to, in order to get
@@ -25,7 +25,7 @@ class AlienPainterFunctions {
     /**
      * The number of bonus points the player gets
      */
-    private static final int BONUSPOINTS = 50000;
+    private static final int BONUSPOINTS = 1000;
 
     /**
      * Used to record the amount of time left when the player has won
@@ -41,11 +41,6 @@ class AlienPainterFunctions {
      * Used to record the amount of points the user has earned
      */
     private int points;
-
-    /**
-     * Holds the view of the user
-     */
-    private AlienPainterView view;
 
     /**
      * Holds the grid of ImageButtons in the view
@@ -68,21 +63,24 @@ class AlienPainterFunctions {
      */
     private Handler replayHandler = new Handler();
 
+    /**
+     * Tracks number of games played
+     */
+    private int gamesPlayed;
+
     private Context mContext;
 
     /**
      * Default constructor for AlienPainterFunctions
      *
-     * @param view     the view
      * @param grid     the 2D array of ImageButtons
      * @param mContext the context
      */
-    AlienPainterFunctions(AlienPainterView view, ImageButton[][] grid, Context mContext) {
-        this.view = view;
+    AlienPainterFunctions(ImageButton[][] grid, Context mContext) {
         this.grid = grid;
         this.mContext = mContext;
         this.initialBoard = recordInitialBoard();
-
+        this.gamesPlayed = 1;
     }
 
     /**
@@ -112,7 +110,8 @@ class AlienPainterFunctions {
      *
      * @return Whether the player has won or not
      */
-    boolean checkWinCondition() {
+    @Override
+    public boolean checkWinCondition() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (!grid[i][j].getContentDescription().equals("black")) {
@@ -127,7 +126,8 @@ class AlienPainterFunctions {
      * Flips the imageButtons around the imageButton the user clicked,
      * including the one the user clicked.
      */
-    void flipButton() {
+    @Override
+    public void flipButton() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (grid[i][j].getContentDescription().equals(mContext.getString
@@ -195,7 +195,8 @@ class AlienPainterFunctions {
     /**
      * Resets the 2D imageButton array, numMoves and points
      */
-    void resetGame() {
+    @Override
+    public void resetGame() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 double x = Math.random() * 2;
@@ -223,7 +224,8 @@ class AlienPainterFunctions {
      *
      * @param timeLeft the amount of time left until the end of the game
      */
-    void setTimeLeft(int timeLeft) {
+    @Override
+    public void setTimeLeft(int timeLeft) {
         this.timeLeft = timeLeft;
     }
 
@@ -232,14 +234,16 @@ class AlienPainterFunctions {
      *
      * @return timeLeft the amount of time left
      */
-    int getTimeLeft() {
+    @Override
+    public int getTimeLeft() {
         return this.timeLeft;
     }
 
     /**
      * Updates the number of moves the user has made
      */
-    void updateNumMoves() {
+    @Override
+    public void updateNumMoves() {
         this.numMoves++;
     }
 
@@ -258,14 +262,16 @@ class AlienPainterFunctions {
      *
      * @return the number of moves the user has made
      */
-    int getNumMoves() {
+    @Override
+    public int getNumMoves() {
         return this.numMoves;
     }
 
     /**
      * @return the amount of points the user has earned
      */
-    int getPoints() {
+    @Override
+    public int getPoints() {
         return this.points;
     }
 
@@ -274,8 +280,28 @@ class AlienPainterFunctions {
      *
      * @param points the amount of points to set this.points to
      */
-    void setPoints(int points) {
+    @Override
+    public void setPoints(int points) {
         this.points = points;
+    }
+
+    /**
+     * Returns the number of games played
+     *
+     * @return returns the variable gamesPlayed
+     */
+    @Override
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    /**
+     * Set the number of games played
+     * @param gamesPlayed the number of games played
+     */
+    @Override
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
     }
 
     /**
@@ -283,19 +309,21 @@ class AlienPainterFunctions {
      * This method is called after every move the player has made
      * The points earned is the product of 50-numMoves and timeLeft.
      */
-    void calculatePoints() {
-        int pointsToAdd;
-        pointsToAdd = timeLeft * (50 - numMoves);
-        if (pointsToAdd >= 0)
-            this.points += pointsToAdd;
+    @Override
+    public void calculatePoints() {
+        int pointsToAdd = 0;
+        if ((20 - numMoves) >= 0)
+            pointsToAdd = timeLeft/5 * (20 - numMoves);
+        this.points += pointsToAdd;
     }
 
     /**
      * Checks if the user finished the game with 10 or less move. If yes,
      * give the player additional points.
      */
-    void checkBonus() {
-        if (numMoves < BONUSMOVES) {
+    @Override
+    public void checkBonus() {
+        if (numMoves <= BONUSMOVES) {
             this.points += BONUSPOINTS;
         }
     }
@@ -306,7 +334,8 @@ class AlienPainterFunctions {
      * Iterate through the 2D array of buttons and record the row and col values of the
      * button that the player has pressed for the purpose of instant replay.
      */
-    void recordButtonPress() {
+    @Override
+    public void recordButtonPress() {
         //Create a local array of length 2 that will be sent to the replayList
         Integer[] replayArray = new Integer[2];
         for (int i = 0; i < 3; i++) {
@@ -330,7 +359,8 @@ class AlienPainterFunctions {
      * This is done by first restoring the board back to the original state.
      * Then iterating through replayList
      */
-    void instantReplay() {
+    @Override
+    public void instantReplay() {
         //Restore the board to the initial state using initialBoard
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {

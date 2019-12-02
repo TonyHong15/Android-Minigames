@@ -11,22 +11,16 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 /**
- * A class containing methods that read and write User objects
- * UNFINISHED
+ * A class containing methods that handle recording of statistics for the current user
  */
 class AlienPainterDataHandler {
 
-    static void readFile(User currUser) {
-        try {
-            FileOutputStream fos = new FileOutputStream(new File("Alien_Users.txt"));
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(currUser);
-            oos.close();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    /**
+     * records the statistics of currUser
+     */
+    void recordStats(int gamesPlayed, long timeLeft, int points, User currUser) {
+        currUser.updateGamesPlayed(gamesPlayed);
+        currUser.updateTimePlayed(30 - timeLeft);
+        currUser.updateTotalPoints(points);
     }
 }

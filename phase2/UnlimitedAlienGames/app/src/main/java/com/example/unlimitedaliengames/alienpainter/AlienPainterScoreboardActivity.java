@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.unlimitedaliengames.MainActivity;
 import com.example.unlimitedaliengames.R;
+import com.example.unlimitedaliengames.userdata.User;
 
 /**
  * The Scoreboard Screen for alien painter. Displays the player's points, number of moves,
@@ -17,6 +18,10 @@ import com.example.unlimitedaliengames.R;
  * The displayed statistics retain the language choice the player has made.
  */
 public class AlienPainterScoreboardActivity extends AppCompatActivity {
+
+
+    //Used to pass current user
+    public static final String PASS_USER = "passUser";
 
     /**
      * The constants used to receive the intents from AlienPainterActivity
@@ -26,6 +31,8 @@ public class AlienPainterScoreboardActivity extends AppCompatActivity {
     static final String TIME_LEFT = "Time Remaining: ";
     static final String POINTS = "Points: ";
     static final String SCOREBOARD_STATUS = "You Have ";
+    static final String STORY = "The Alien bows before your galactic intellect. " +
+            "He has decided to withdraw his troops from Earth.";
     static final String WIN = "Won!";
     static final String LOSS = "Lost!";
 
@@ -33,6 +40,7 @@ public class AlienPainterScoreboardActivity extends AppCompatActivity {
      * The Chinese Constants used by the TextViews for what to display on the screen
      */
     static final String SCOREBOARD_STATUS_CHINESE = "你";
+    static final String STORY_CHINESE = "外星人屈服于你强大的智力。他已命令他的部队撤离了。";
     static final String NUM_MOVES_CHINESE = "步数: ";
     static final String TIME_LEFT_CHINESE = "剩余时间: ";
     static final String POINTS_CHINESE = "分数:";
@@ -44,17 +52,26 @@ public class AlienPainterScoreboardActivity extends AppCompatActivity {
      */
     static final String LANGUAGE = "LANGUAGE";
 
+    /**
+     * Boolean variables holding whether the player won, and if the language chosen is in english
+     * respectively
+     */
     private boolean isVictorious, isEnglish;
 
+    /**
+     * Integer variables holding number of moves, amount of time left,
+     * and points earned respectively
+     */
     private int numMoves, timeLeft, points;
 
+    /**
+     * TextViews assigned to each of the TextView objects on the screen
+     */
     private TextView pointsTextView;
-
     private TextView numMovesTextView;
-
     private TextView timeLeftTextView;
-
     private TextView gameOverStatus;
+    private TextView storyTextView;
 
     /**
      * The button used to hold the scoreboardExitButton in the view
@@ -62,7 +79,13 @@ public class AlienPainterScoreboardActivity extends AppCompatActivity {
     private Button exitButton;
 
     /**
+     * Holds the current User
+     */
+    private User currUser;
+
+    /**
      * This method is automatically called when the view switches to AlienPainterScoreboardActivity
+     *
      * @param savedInstanceState the instanceState
      */
     @Override
@@ -77,6 +100,7 @@ public class AlienPainterScoreboardActivity extends AppCompatActivity {
         timeLeft = intent.getIntExtra(TIME_LEFT, 0);
         points = intent.getIntExtra(POINTS, 0);
         isEnglish = intent.getBooleanExtra(LANGUAGE, true);
+        currUser = (User) intent.getSerializableExtra(PASS_USER);
 
         //Setup the TextViews
         setupTextView();
@@ -97,6 +121,7 @@ public class AlienPainterScoreboardActivity extends AppCompatActivity {
         numMovesTextView = findViewById(R.id.numMovesTextView);
         timeLeftTextView = findViewById(R.id.timeLeftTextView);
         pointsTextView = findViewById(R.id.pointsTextView);
+        storyTextView = findViewById(R.id.storyTextView);
     }
 
     /**
@@ -114,6 +139,7 @@ public class AlienPainterScoreboardActivity extends AppCompatActivity {
             numMovesTextView.setText(NUM_MOVES + numMoves);
             timeLeftTextView.setText(TIME_LEFT + timeLeft);
             pointsTextView.setText(POINTS + points);
+            storyTextView.setText(STORY);
         } else {
             if (isVictorious) {
                 gameOverStatus.setText(SCOREBOARD_STATUS_CHINESE + WIN_CHINESE);
@@ -123,6 +149,7 @@ public class AlienPainterScoreboardActivity extends AppCompatActivity {
             numMovesTextView.setText(NUM_MOVES_CHINESE + numMoves);
             timeLeftTextView.setText(TIME_LEFT_CHINESE + timeLeft);
             pointsTextView.setText(POINTS_CHINESE + points);
+            storyTextView.setText(STORY_CHINESE);
         }
     }
 
@@ -140,7 +167,9 @@ public class AlienPainterScoreboardActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), MainActivity.class));
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                intent.putExtra(PASS_USER, currUser);
+                startActivity(intent);
                 finish();
             }
         });
